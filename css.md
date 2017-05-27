@@ -78,3 +78,28 @@ if("clipPath" in $0.style){
 
 [滚动条样式](http://blog.csdn.net/hanshileiai/article/details/40398177)
 [具体实例](http://www.xuanfengge.com/demo/201311/scroll/css3-scroll.html)
+
+
+
+## 四、不太熟悉的几种css用法
+### 1、text-indent
+
+### 2、Flex 
+[Flex 布局教程：语法篇](http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html)
+#### 1.概念
+ * Flex是Flexible Box的缩写，意为"弹性布局"，用来为盒状模型提供最大的灵活性。注意，设为Flex布局以后，子元素的float、clear和vertical-align属性将失效。
+ * 采用Flex布局的元素，称为Flex容器（flex container），简称"容器"。它的所有子元素自动成为容器成员，称为Flex项目（flex item），简称"项目"。
+#### 2. 容器属性
+* flex-direction
+* flex-wrap
+* flex-flow
+* justify-content
+* align-items
+* align-content
+#### 2. 项目属性
+* order
+* flex-grow
+* flex-shrink
+* flex-basis
+* flex
+* align-self
