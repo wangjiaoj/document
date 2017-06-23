@@ -33,6 +33,24 @@
 * 取代setTimeout 和 setInterval hack
 * 和pageVisibility的冲突
 
+### 5、回流(reflow)与重绘(repaint)
+* 1.回流reflow:浏览器发现某个部分发生了变化影响了布局，就需要去重新渲染；
+* 2.重绘repaint：如果只改变了某个元素的颜色等视觉效果的时候，就会引发重绘，如opacity,background-color,visibility等；
+* 3.引发回流的操作例子：
+    + 页面渲染初始化；
+    + dom结构改变，比如删除节点
+    + render树变化，比如减少padding,字体大小改变
+    + 窗口resize;
+    + 获取某些属性的值：1)offsetTop,offsetLft,offsetHeight,offsetWidth
+                        2)scrollTop/Left/Width/Height
+                        3)width,height
+                        5)调用了getComputerStyle() 或者IE 的currentStyle
+dispaly:none会引发回流+重绘
+回流一定会伴随着重绘，重绘可以自己单独发生
+
+["参考文章：浏览器加载、解析、渲染的过程"](http://blog.csdn.net/xiaozhuxmen/article/details/52014901 "浏览器加载、解析、渲染的过程")
+
+
 ## 三、CSS揭秘
 
 ### 总结
