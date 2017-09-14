@@ -108,12 +108,13 @@ if("clipPath" in $0.style){
  * Flex是Flexible Box的缩写，意为"弹性布局"，用来为盒状模型提供最大的灵活性。注意，设为Flex布局以后，子元素的float、clear和vertical-align属性将失效。
  * 采用Flex布局的元素，称为Flex容器（flex container），简称"容器"。它的所有子元素自动成为容器成员，称为Flex项目（flex item），简称"项目"。
 #### 2. 容器属性
-* flex-direction
-* flex-wrap
-* flex-flow
-* justify-content
-* align-items
-* align-content
+主轴：横轴   交叉轴：纵轴
+* flex-direction       :属性决定主轴的方向（即项目的排列方向）        从左到右 从右到左 从上到下 从下到上
+* flex-wrap            :属性定义，如果一条轴线排不下，如何换行        换行 不换行：第一行在上方   不换行：第一行在下方
+* flex-flow            :flex-direction属性和flex-wrap属性的简写形式
+* justify-content      :属性定义了项目在主轴上的对齐方式。            左对齐 右对齐 居中 两端对齐
+* align-items          ：属性定义项目在交叉轴上如何对齐。
+* align-content        ：属性定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用。
 #### 2. 项目属性
 * order
 * flex-grow
