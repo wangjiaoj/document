@@ -102,7 +102,7 @@ if("clipPath" in $0.style){
 ## 四、不太熟悉的几种css用法
 ### 1、text-indent
 
-### 2、Flex 
+### 2、Flex (css3)
 [Flex 布局教程：语法篇](http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html)
 #### 1.概念
  * Flex是Flexible Box的缩写，意为"弹性布局"，用来为盒状模型提供最大的灵活性。注意，设为Flex布局以后，子元素的float、clear和vertical-align属性将失效。
