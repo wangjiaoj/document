@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset=utf-8 />
+    <title>自适应椭圆</title>
+    <style>
+        .box {
+            width: 200px;
+            height: 150px;
+            margin: 20px;
+            background: grey;
+        }
+        
+        .tuoyuan {
+            border-radius: 50%;
+        }
+        
+        .banyuan {
+            border-radius: 50%/100% 100% 0 0;
+        }
+        
+        .banyuan02 {
+            border-radius: 100% 0 0 0;
+        }
+    </style>
+
+</head>
+
+<body>
+
+
+    <div class="box tuoyuan">
+        自适应椭圆
+    </div>
+    <p>注意radius分为垂直半径和水平半径，二者用/分隔，且值可以不同</p>
+
+    <div class="box banyuan">
+        半圆
+    </div>
+
+
+
+    <div class="box banyuan02">
+        1/4半圆
+    </div>
+</body>
+
+</html>

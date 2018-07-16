@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>transform</title>
+    <style>
+        .box {
+            width: 100px;
+            height: 100px;
+            background: orange;
+            border-radius: 5px;
+        }
+        
+        .box:hover {
+            border-radius: 50px;
+        }
+        
+        .transform {
+            transform: border 2s ease 500;
+        }
+    </style>
+</head>
+
+<body>
+    <h3>transform</h3>
+    <pre>transform: none|transform-functions;</pre> transform-functions有下面几种：
+    <ul>
+        <li> 旋转rotate(angle) 在参数中规定角度</li>
+        <li> 扭曲skew()</li>
+        <li> 缩放scale()</li>
+        <li> 位移translate()</li>
+        <li> 矩阵matrix()</li>
+    </ul>
+
+    <div class="box transition">
+
+    </div>
+</body>
+
+</html>

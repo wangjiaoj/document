@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset=utf-8 />
+    <title>利用linear-gradient实现切角</title>
+    <style>
+        .box {
+            width: 300px;
+            height: 150px;
+            margin: 20px;
+            background: #58a;
+        }
+        
+        .one {
+            background: linear-gradient(45deg, transparent 15px, #58a 15px);
+        }
+        
+        .arrow {
+            background: linear-gradient(-135deg, transparent 55px, #58a 55px) top, linear-gradient(-45deg, transparent 55px, #58a 55px) bottom;
+            background-size: 100% 50%;
+            background-repeat: no-repeat;
+        }
+        
+        .cricle {
+            background: radial-gradient(circle at top left, transparent 55px, #58a 55px) top left, radial-gradient(circle at top right, transparent 55px, #58a 55px) top right, radial-gradient(circle at bottom left, transparent 55px, #58a 55px) bottom left, radial-gradient(circle at bottom right, transparent 55px, #58a 55px) bottom right;
+            background-size: 50% 50%;
+            background-repeat: no-repeat;
+        }
+    </style>
+
+</head>
+
+<body>
+
+
+    <div class="box one"></div>
+    <div class="box arrow"></div>
+    <div class="box cricle"></div>
+</body>
+
+</html>

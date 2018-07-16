@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset=utf-8 />
+    <title>渐变demo</title>
+    <style>
+        * {
+            font-size: 15px;
+            font-family: Microsoft YaHei;
+        }
+        
+        .box {
+            width: 200px;
+            height: 150px;
+            margin: 20px;
+        }
+        
+        .stander-radial-gardient {
+            background: -webkit-radial-gradient( green, yellow);
+            background: -webkit-radial-gradient( green, yellow);
+            background: -moz-radial-gradient( green, yellow);
+            background: radial-gradient( green, yellow);
+        }
+        
+        .shape01-radial-gardient {
+            background: radial-gradient(circle, green, yellow);
+        }
+        
+        .shape02-radial-gardient {
+            background: radial-gradient(ellipse, green, yellow);
+        }
+        
+        .percent01-radial-gardient {
+            background: radial-gradient( green 10%, yellow 40%, red 60%);
+        }
+        
+        .size01-radial-gardient {
+            background: radial-gradient( closest-side, red, yellow);
+        }
+        
+        .size02-radial-gardient {
+            background: radial-gradient(farthest-side, red, yellow);
+        }
+        
+        .size03-radial-gardient {
+            background: radial-gradient(closest-corner, red, yellow);
+        }
+        
+        .size04-radial-gardient {
+            background: radial-gradient(farthest-corner, red, yellow);
+        }
+        
+        .repeat02-repeating-radial-gardient {
+            background: repeating-radial-gradient(green 10%, yellow 15%, red 20%);
+        }
+        
+        .repeat03-repeating-radial-gardient {
+            background: repeating-radial-gradient(green, yellow 15%, red 20%);
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <h3>径向渐变</h3>
+    <p>background: radial-gradient(shape size at position, start-color, ..., last-color);</p>
+    <p>
+        size :
+        <ul>
+            <li> farthest-corner (默认) : 指定径向渐变的半径长度为从圆心到离圆心最远的角 </li>
+            <li>closest-side ：指定径向渐变的半径长度为从圆心到离圆心最近的边</li>
+            <li> closest-corner ： 指定径向渐变的半径长度为从圆心到离圆心最近的角</li>
+            <li>farthest-side ：指定径向渐变的半径长度为从圆心到离圆心最远的边</li>
+        </ul>
+        position定义渐变的位置。可能值:
+        <ul>
+            <li> center（默认）： 设置中间为径向渐变圆心的纵坐标值。</li>
+            <li> top： 设置顶部为径向渐变圆心的纵坐标值。</li>
+            <li> bottom： 设置底部为径向渐变圆心的纵坐标值。</li>
+        </ul>
+
+    </p>
+    <div class="box stander-radial-gardient"> </div>
+    <p>1、shape： circle/ellipse 默认椭圆 </p>
+    <div class="box shape01-radial-gardient"> </div>
+    <div class="box shape02-radial-gardient"> </div>
+    <p>2、不同size </p>
+    <div class="box size01-radial-gardient"> radial-gradient(closest-side, red, yellow);</div>
+    <div class="box size02-radial-gardient"> radial-gradient(farthest-side, red, yellow); </div>
+    <div class="box size03-radial-gardient"> radial-gradient(closest-corner, red, yellow); </div>
+    <div class="box size04-radial-gardient"> radial-gradient(farthest-corner, red, yellow); </div>
+    <p>3、start-color径向不同百分比</p>
+    <div class="box percent01-radial-gardient "> </div>
+    <p>4、使用重复的径向渐变</p>
+    <div class="box repeat01-repeating-radial-gardient"> </div>
+    <div class="box repeat02-repeating-radial-gardient"> </div>
+    <div class="box repeat03-repeating-radial-gardient"> </div>
+</body>
+
+</html>

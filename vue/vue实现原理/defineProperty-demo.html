@@ -1,0 +1,32 @@
+<html>
+
+<head>
+    <meta charset='UTF-8'>
+    <title>通过defineProperty劫持各个属性的setter,getter，在数据变动时发布给订阅者，触发响应的监听回调</title>
+</head>
+
+<body>
+    <input type="text" id="a" />
+    <span id="b"></span>
+
+    <script>
+        var obj = {}
+        Object.defineProperty(obj, 'hello', {
+            get: function() {
+                console.log('get method');
+            },
+            set: function(newval) {
+                console.log('set method');
+                document.getElementById('a').value = newval;
+                document.getElementById('b').innerHTML = newval;
+            }
+        });
+        document.addEventListener('keyup', function(e) {
+            obj.hello = e.target.value;
+        })
+
+        obj.hello = 'abc';
+    </script>
+</body>
+
+</html>

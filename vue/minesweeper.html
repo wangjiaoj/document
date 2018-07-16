@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0px;
+            padding: 0px;
+        }
+        
+        .main {
+            width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .container {
+            margin: 0 auto;
+            padding-top: 20px;
+        }
+        
+        table {
+            margin: 0 auto;
+        }
+        
+        td {
+            cursor: pointer;
+        }
+        
+        td span {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: rgb(239, 236, 236);
+        }
+        
+        td span.show {
+            background: #ccc;
+            text-align: center;
+            padding: 10px;
+        }
+        
+        .boom {
+            color: red;
+            font-weight: 900;
+        }
+        
+        .gameOver {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            color: red;
+            background: #ccc;
+            opacity: 0.8;
+            text-align: center;
+            font-size: 30px;
+            padding-top: 150px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<div class="main">
+    <div class="container" id="app">
+        <table>
+            <tbody>
+                <tr v-for='(row,rowInd) in tableArray'>
+                    <td v-for='(item,ind) in row' @click="tdClick(rowInd,ind)">
+                        <span v-if="item.show==0"></span>
+                        <span v-if="item.show==1 && item.val==-1" class="show boom">×</span>
+                        <span v-if="item.show==1 && item.val>0" class="show">{{item.val}}</span>
+                        <span v-if="item.show==1 && item.val==0" class="show"></span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div v-if="over==true" class="gameOver">game over!</div>
+    </div>
+</div>
+
+<body>
+
+    <script src='http://cdn.jsdelivr.net/vue/2.0.0/vue.min.js'></script>
+    <script type="text/javascript">
+        //扫雷游戏 10行 10列 100个格子
+        var randomArray = random(10);
+        var tableArray = table(randomArray);
+        /*点到雷结束游戏
+         *点到空白则向周围扩展-扩展过程中重复改过程
+         *点到数字则展示数字
+         */
+        var vueObj = new Vue({
+            el: '#app',
+            data: {
+                tableArray: tableArray,
+                over: false
+            },
+            methods: {
+                tdClick: function(rowInd, ind) {
+                    if (this.tableArray[rowInd][ind].show == 0) {
+                        this.check(rowInd, ind);
+                    }
+                },
+                check: function(rowInd, ind) {
+                    if (this.tableArray[rowInd][ind].val == -1) {
+                        this.over = true;
+                        this.end();
+                    } else if (this.tableArray[rowInd][ind].val == 0) {
+                        this.expand(rowInd, ind);
+                    } else {
+                        this.tableArray[rowInd][ind].show = 1;
+                    }
+                },
+                expand: function(x, y) {
+                    x = parseInt(x);
+                    y = parseInt(y);
+                    var xMin = (x - 1 >= 0) ? x - 1 : x;
+                    var xMax = (x + 1 < 9) ? x + 1 : x;
+                    var yMin = (y - 1 >= 0) ? y - 1 : y;
+                    var yMax = (y + 1 < 9) ? y + 1 : y;
+                    console.log("x:" + x + " y:" + y + " xMin:" + xMin + " xMax:" + xMax + " yMin:" + yMin + " yMax:" + yMax);
+                    this.tableArray[x][y].show = 1;
+                    for (var i = xMin; i <= xMax; i++) {
+                        for (var j = yMin; j <= yMax; j++) {
+                            var item = this.tableArray[i][j];
+                            if (item.show == 0 && item.val >= 0) {
+                                this.expand(i, j);
+                            }
+                        }
+                    }
+                },
+                end: function() {
+                    for (var i = 0; i < 10; i++) {
+                        for (var j = 0; j < 10; j++) {
+                            if (this.tableArray[i][j].show == 0) {
+                                this.tableArray[i][j].show = 1;
+                            }
+                        }
+                    }
+                }
+            },
+
+
+        });
+
+        //1-100生成10个随机数 - 10个雷
+        function random(num) {
+            var randomArray = [];
+            var item;
+            for (var i = 0; i < num; i++) {
+                item = Math.random();
+                item = parseInt(item * 100);
+                randomArray.push(item);
+            }
+            return randomArray;
+        }
+        //生成1-100各个格子的雷数量统计
+        function table(randomArray) {
+            //先生成100个有雷的数组
+            var tableArray = new Array();
+            for (var i = 0; i < 10; i++) {
+                tableArray[i] = new Array();
+                for (var j = 0; j < 10; j++) {
+                    tableArray[i][j] = {
+                        show: 0,
+                        val: 0
+                    };
+                    var item = i * 10 + j + 1;
+                    for (var k = 0; k < 10; k++) {
+                        if (item == randomArray[k]) {
+                            tableArray[i][j].val = -1;
+                            break;
+                        }
+                    }
+
+                }
+            }
+
+            for (var i = 0; i < 10; i++) {
+                for (var j = 0; j < 10; j++) {
+                    if (tableArray[i][j].val != -1) {
+                        tableArray[i][j].val = 0;
+                        if (i >= 1 && j >= 1 && tableArray[i - 1][j - 1].val == -1) {
+                            tableArray[i][j].val++;
+                        }
+                        if (i >= 1 && tableArray[i - 1][j].val == -1) {
+                            tableArray[i][j].val++;
+                        }
+                        if (i >= 1 && j <= 8 && tableArray[i - 1][j + 1].val == -1) {
+                            tableArray[i][j].val++;
+                        }
+                        if (j <= 8 && tableArray[i][j + 1].val == -1) {
+                            tableArray[i][j].val++;
+                        }
+                        if (j <= 8 && tableArray[i][j + 1].val == -1) {
+                            tableArray[i][j].val++;
+                        }
+                        if (i <= 8 && j >= 1 && tableArray[i + 1][j - 1].val == -1) {
+                            tableArray[i][j].val++;
+                        }
+                        if (i <= 8 && tableArray[i + 1][j].val == -1) {
+                            tableArray[i][j].val++;
+                        }
+                        if (i <= 8 && j <= 8 && tableArray[i + 1][j + 1].val == -1) {
+                            tableArray[i][j].val++;
+                        }
+                    } else {
+                        console.log(tableArray[i][j].val + " i:" + i + " j:" + j)
+                    }
+                }
+            }
+            return tableArray;
+        }
+    </script>
+</body>
+
+</html>

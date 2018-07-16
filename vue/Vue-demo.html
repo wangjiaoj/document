@@ -1,0 +1,205 @@
+<html>
+
+<head>
+    <meta charset='UTF-8'>
+    <title>my vue</title>
+</head>
+
+<body>
+
+    <p>----------demo-01----------------------</p>
+    <div id="app">
+        <table>
+            <thead>
+                <th>
+                    <td>序号</td>
+                    <td>作者</td>
+                    <td>书名</td>
+                    <td>价格</td>
+                </th>
+            </thead>
+            <tbody>
+                <tr v-for='book in books'>
+                    <td>{{book.id}}</td>
+                    <td>{{book.author}}</td>
+                    <td>{{book.name}}</td>
+                    <td>{{book.price}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+    <p>----------demo-02----------------------</p>
+    <div id="inp">
+        <input type="text" v-model="text"> {{text}}
+    </div>
+    <div id="my-example01">
+        <my-component></my-component>
+    </div>
+    <div id="my-example02">
+        <my-components></my-components>
+    </div>
+
+    <p>----------demo-03----------------------</p>
+    <div id="dynamic">
+        <button id="home" @click="toogleTabs('home')">Home</button>
+        <button id="posts">Posts</button>
+        <button id="archive">Archive</button>
+        <br>
+        <component v-bind:is="currentView"></component>
+    </div>
+
+    <p>----------demo-04----------------------</p>
+    <ul id="your-example">
+        <li is="your-component"></li>
+    </ul>
+
+    <p>----------父子组件间的通信 props emit----------------------</p>
+    <p>输入框回车 添加选项进入列表 - 点击删除，移除选项</p>
+    <div id="apparent">
+        <input type="text" v-model="texts" @keyup.enter="add" />
+        <ul>
+            <li v-for="(data,index) in message" style="list-style: none" is="my-component" v-bind:title="data" @remove=remove(index)>
+                <!--v-bind:title="data" 在组件注册时通过 props:['title']可以出去title的值 
+                @remove=remove(index) 父组件自定义事件，在子组件中通过$emit进行触发-->
+            </li>
+        </ul>
+    </div>
+
+    <script src='http://cdn.jsdelivr.net/vue/2.0.0/vue.min.js'></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                book: {
+                    id: 0,
+                    author: '',
+                    name: '',
+                    price: ''
+                },
+                books: [{
+                    id: 1,
+                    author: '曹雪芹',
+                    name: '红楼梦',
+                    price: 32.0
+                }, {
+                    id: 2,
+                    author: '施耐庵',
+                    name: '水浒传',
+                    price: 30.0
+                }, {
+                    id: '3',
+                    author: '罗贯中',
+                    name: '三国演义',
+                    price: 24.0
+                }, {
+                    id: 4,
+                    author: '吴承恩',
+                    name: '西游记',
+                    price: 20.0
+                }]
+            }
+        });
+
+        var inp = new Vue({
+            el: '#inp',
+            data: {
+                text: 'hello!'
+            }
+        });
+
+        /*----------------组件的注册使用----------------------------------*/
+
+        //组件使用01
+        // 定义
+        var MyComponent = Vue.extend({
+            template: '<div>A custom component!</div>'
+        });
+        // 注册
+        Vue.component('my-component', MyComponent);
+        // 创建根实例
+        new Vue({
+            el: '#my-example01'
+        });
+
+        //组件使用02
+        Vue.component('my-components', {
+            template: '<div>A  components!</div>'
+        });
+        // 创建根实例
+        new Vue({
+            el: '#my-example02'
+        })
+
+
+        /*----------------动态组件使用----------------------------------*/
+        var vueapp = new Vue({
+            el: "#dynamic",
+            data: {
+                currentView: "home"
+            },
+            components: {
+                home: {
+                    template: "<div>Home</div>"
+                },
+                posts: {
+                    template: "<div>Posts</div>"
+                },
+                archive: {
+                    template: "<div>Archive</div>"
+                }
+            },
+            methods: {
+                toogleTabs: function(val) {
+                    this.currentView = val;
+                }
+            }
+        });
+
+        document.getElementById("posts").onclick = function() {
+            vueapp.currentView = "posts";
+        };
+        document.getElementById("archive").onclick = function() {
+            vueapp.currentView = "archive";
+        };
+
+        /*----------------is 组件----------------------------------*/
+
+        Vue.component('your-component', {
+            template: '<li><a>your-component</a><li>'
+        })
+        new Vue({
+            el: '#your-example'
+        });
+
+        /*----------父子组件间的通信 props emit----------------------*/
+
+        Vue.component('my-component', { //组件定义的标签名在上面 is中使用该组件
+            template: '<li>{{title}}<button v-on:click="liclick">点击删除</button></li>',
+            methods: {
+                liclick: function() {
+                    this.$emit('remove');
+                }
+            },
+            props: ['title']
+        });
+
+        var app = new Vue({
+            el: '#apparent',
+            data: {
+                texts: '',
+                message: ['foo', 'bar', 'aaa']
+            },
+            methods: {
+                add: function() {
+                    this.message.push(this.texts);
+                },
+                remove: function(idx) {
+                    this.message.splice(idx, 1);
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

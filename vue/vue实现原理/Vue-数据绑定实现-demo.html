@@ -1,0 +1,145 @@
+<html>
+
+<head>
+    <meta charset='UTF-8'>
+    <title>my vue</title>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-model="text"> {{text}}
+    </div>
+    <div id="dsp">
+        <input type="text" v-model="info"> {{info}}
+    </div>
+    <script>
+        function Watcher(vm, node, name) {
+            Dep.target = this; //与dep关联的唯一桥梁
+            this.name = name;
+            this.node = node;
+            this.vm = vm;
+            this.update();
+            Dep.target = null;
+            /*
+            初始化逻辑：
+             1.在调用update之前将watcher对象赋值给Dep.target
+             2.调用的update的时候触发数据劫持的get，在get中将当前wacther对象加入到dep的订阅队列subs中
+             3.update调用结束后，将Dep.target赋值为null,保证在其他触发数据劫持的get方法时不会加入到dep的订阅队列subs中
+            */
+        }
+        Watcher.prototype = {
+            update: function() {
+                this.get();
+                this.node.nodeValue = this.value;
+            },
+            get: function() {
+                this.value = this.vm[this.name];
+            }
+        }
+
+        function Dep() {
+            //订阅队列
+            this.subs = [];
+        }
+        Dep.prototype = {
+            addSub: function(sub) {
+                //将sub添加到订阅队列中
+                this.subs.push(sub);
+            },
+            notify: function() {
+                //调用订阅队列对象的update方法
+                this.subs.forEach(function(sub) {
+                    sub.update();
+                })
+            }
+        }
+
+        function defineReactive(obj, key, val) {
+            var dep = new Dep();
+            Object.defineProperty(obj, key, {
+                get: function() {
+                    if (Dep.target) dep.addSub(Dep.target);
+                    return val
+                },
+                set: function(newVal) {
+                    if (val == newVal) return
+                    val = newVal;
+                    console.log(val);
+                    dep.notify();
+                }
+
+            })
+        }
+
+        function observe(obj, vm) {
+            Object.keys(obj).forEach(function(key) {
+                defineReactive(vm, key, obj[key]);
+            })
+        }
+
+        function compile(node, vm) {
+            var reg = /\{\{(.*)\}\}/;
+            if (node.nodeType == 1) {
+                var attr = node.attributes;
+                for (var i = 0; i < attr.length; i++) {
+                    if (attr[i].nodeName == 'v-model') {
+                        var name = attr[i].nodeValue; //获取属性名
+                        node.addEventListener('input', function(e) {
+                            vm[name] = e.target.value; // 使用劫持后的赋值方法将输入值的值赋值给Vue实例
+                        });
+                        node.value = vm[name] // 将data的值赋值给该node
+                        node.removeAttribute('v-model');
+                    }
+                }
+            }
+            if (node.nodeType == 3) {
+                if (reg.test(node.nodeValue)) {
+                    var name = RegExp.$1;
+                    /*
+                    RegExp.$1是RegExp的一个属性,指的是与正则表达式匹配的第一个 子匹配(以括号为标志)字符串，
+                    以此类推，RegExp.$2，RegExp.$3，..RegExp.$99总共可以有99个匹配
+                    */
+                    name = name.trim();
+                    // node.nodeValue = vm[name];  
+                    new Watcher(vm, node, name);
+                }
+
+            }
+        }
+
+        function nodeToFragment(node, vm) {
+            var flag = document.createDocumentFragment();
+            var child;
+            while (child = node.firstChild) {
+                //赋值语句也是有返回值的，这里就是用 =
+                compile(child, vm);
+                flag.appendChild(child);
+                //append 的同时 原来的元素会被移除 所以 使用firstchild可以循环下去到最后一个子元素
+            }
+            return flag;
+        }
+
+        function Vue(options) {
+            this.data = options.data;
+            var data = this.data;
+            observe(data, this);
+            var id = options.el;
+            var dom = nodeToFragment(document.getElementById(id), this);
+            document.getElementById(id).appendChild(dom);
+        }
+        var app = new Vue({
+            el: 'app',
+            data: {
+                text: 'world!'
+            }
+        })
+        var dsp = new Vue({
+            el: 'dsp',
+            data: {
+                info: 'hello!'
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>扩大按钮可点击区域和修改选项框样式</title>
+    <style>
+        .area {
+            margin: 40px;
+            font-family: 微软雅黑;
+        }
+        
+        input[type="checkbox"] {
+            margin: 0;
+        }
+        
+        .button {
+            width: 50px;
+            height: 35px;
+            border-radius: 25px;
+            background: grey;
+            padding-top: 15px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .button::before {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            left: -5px;
+            bottom: -5px;
+            cursor: pointer;
+            content: "";
+        }
+        
+        .checkbox input[type="checkbox"] {
+            position: absolute;
+            clip: rect(0, 0, 0, 0);
+        }
+        
+        .checkbox input[type="checkbox"]+label::before {
+            content: '\a0';
+            display: inline-block;
+            vertical-align: .2em;
+            width: .8em;
+            height: .8em;
+            margin-right: .2em;
+            border-radius: .2em;
+            background: silver;
+            text-indent: .15em;
+            line-height: .65;
+        }
+        
+        .checkbox input[type="checkbox"]:checked+label::before {
+            content: '\2713';
+            background: yellowgreen;
+        }
+        
+        .checkbox input[type="checkbox"]:focus+label::before {
+            box-shadow: 0 0 .1em #58a;
+        }
+        
+        .checkbox input[type="checkbox"]:disabled+label::before {
+            background: grey;
+        }
+        
+        .kaiguan input[type="checkbox"]+label {
+            display: inline-block;
+            padding: .5em;
+            border-radius: .3em;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            background: #ccc;
+            text-align: center;
+            background-image: linear-gradient(#ddd, #bbb);
+        }
+        
+        .kaiguan input[type="checkbox"]:checked+label,
+        .kaiguan input[type="checkbox"]:active+label {
+            box-shadow: .05em .1em .2em rgba(0, 0, 0, 0.6) inset;
+            background: #bbb;
+        }
+        
+        .kaiguan input[type="checkbox"] {
+            position: absolute;
+            clip: rect(0, 0, 0, 0);
+            cursor: pointer
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div class="area">
+        <p>使用为元素来扩大可点击区域</p>
+        <div class="button">
+            click
+        </div>
+    </div>
+    <p>注意checkbox的单选框后面的label的for属性一定要添加上，否则会导致点击失效</p>
+    <div class="area checkbox">
+        <input type="checkbox" value="" id="check01">
+        <label for="check01">awsome</label>
+    </div>
+    <div class="area checkbox">
+        <input type="checkbox" value="" disabled="true" id="check02">
+        <label for="check02">awsome</label>
+    </div>
+
+    <div class="area kaiguan">
+        <input type="checkbox" value="" id="check03">
+        <label for="check03">awsome</label>
+    </div>
+    <script>
+        var event = {
+            addHandler: function(selector, type, handler) {
+                var ele = document.getElementById(selector);
+                if (ele.addEventListenter) {
+                    ele.addEventListenter(type, handler, false);
+                } else if (ele.attachEvent) {
+                    ele.attachEvent(" on" + type, handler);
+                } else {
+                    ele["on" + type] = handler;
+                }
+                return this;
+            },
+            removeHandler: function(selector, type, handler) {
+                var ele = document.getElementById(selector);
+                if (ele.addEventListenter) {
+                    ele.removeEventListenter(type, handler);
+                } else if (ele.attachEvent) {
+                    ele.detachEvent("on" + type, handler);
+                } else {
+                    ele["on" + type] = null;
+                }
+                return this;
+            }
+        }
+        event.addHandler("check03", "change", function(e) {
+            console.log("check: " + e.target.checked);
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset=utf-8 />
+    <title>利用伪元素等实现平行四边形</title>
+    <style>
+        .box {
+            width: 200px;
+            height: 150px;
+            margin: 20px;
+        }
+        
+        .skew {
+            position: relative;
+        }
+        
+        .skew::before {
+            content: '';
+            position: absolute;
+            right: 0;
+            left: 0;
+            bottom: 0;
+            top: 0;
+            transform: skew(45deg);
+            background: grey;
+            z-index: -1;
+        }
+        
+        .radius {
+            position: relative;
+        }
+        
+        .radius::before {
+            content: '';
+            position: absolute;
+            right: 0;
+            left: 0;
+            bottom: 0;
+            top: 0;
+            border-radius: 5px;
+            background: grey;
+            z-index: -1;
+        }
+    </style>
+
+</head>
+
+<body>
+
+
+    <div class="box skew">
+        利用伪元素变形
+    </div>
+    <p>因为skew()会使得内部的文字也发生变形，如果只想让背景变形，字体不变，那么可以使用为元素，将为元素作为背景进行相应的变形的来实现这样的效果</p>
+
+    <div class="box radius">
+        利用伪元素实现边框圆角
+    </div>
+</body>
+
+</html>

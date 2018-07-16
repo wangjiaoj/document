@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset=utf-8 />
+    <title>条纹背景</title>
+    <style>
+        .box {
+            width: 200px;
+            height: 150px;
+            margin: 20px;
+        }
+        
+        .linear-gradient {
+            background: linear-gradient(#fb3 30%, #58a 60%)
+        }
+        
+        .linear-gradient02 {
+            background: linear-gradient(#fb3 50%, #58a 50%);
+        }
+        
+        .tiaowen {
+            background: linear-gradient(#fb3 50%, #58a 50%);
+            background-size: 100% 30px;
+        }
+        
+        .zhengxiangxiangtiaowen {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(45deg, #fb3 25%, #58a 0, #58a 50%, #fb3 0, #fb3 75%, #58a 0);
+        }
+        
+        .xiexiangtiaowen {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(45deg, #fb3 25%, #58a 0, #58a 50%, #fb3 0, #fb3 75%, #58a 0);
+            background-size: 30px 30px;
+        }
+        
+        .repeating-linear-gradient {
+            background: repeating-linear-gradient(#fb3 30%, #58a 60%)
+        }
+        
+        .repeating-linear-gradient02 {
+            background: repeating-linear-gradient(#fb3 50%, #58a 50%)
+        }
+        
+        .xiexiang {
+            background: repeating-linear-gradient(45deg, #fb3, #fb3 15px, #58a 0, #58a 30px)
+        }
+        
+        .toumingxietiaowen {
+            background-color: #58a;
+            background-image: repeating-linear-gradient(45deg, hsla(0, 0%, 100%, 0.1), #79b 15px, transparent 0, transparent 30px);
+        }
+        
+        .biankuang {
+            font-size: 15px;
+            padding: 1em;
+            border: 1em solid transparent;
+            background: linear-gradient(white, white) padding-box, repeating-linear-gradient(-45deg, red 0, red 12.5%, transparent 0, transparent 25%, #58a 0, #58a 37.5%, transparent 0, transparent 50%) 0/5em 5em;
+            /*backgroun-clip:padding-box 背景被裁剪到内边距框 */
+        }
+        
+        .animation {
+            font-size: 15px;
+            padding: 1em;
+            border: 1px solid transparent;
+            background: linear-gradient(white, white) padding-box, repeating-linear-gradient(-45deg, white 0, white 25%, black 0, black 50%) 0/.6em .6em;
+            /*  */
+            animation: ant 12s linear infinite;
+        }
+        
+        @keyframes ant {
+            to {
+                background-size: 100%
+            }
+        }
+        
+        ;
+    </style>
+
+</head>
+
+<body>
+
+
+    <div class="box linear-gradient">
+
+    </div>
+
+    <div class="box linear-gradient02">
+
+    </div>
+
+    <div class=" box  tiaowen ">
+
+    </div>
+    <p>45deg的linear-gradient 无缝贴片</p>
+    <div class="box  zhengxiangxiangtiaowen">
+
+    </div>
+
+    <p>使用45deg的linear-gradient 无缝贴片</p>
+    <div class="box  xiexiangtiaowen">
+
+    </div>
+
+    <p>使用repeating-linear-gradient</p>
+    <div class="box repeating-linear-gradient">
+
+    </div>
+
+    <div class="box repeating-linear-gradient02">
+
+    </div>
+    <div class="box xiexiang">
+
+    </div>
+    <p>使用透明背景来制造斜条纹</p>
+
+    <div class="box toumingxietiaowen">
+
+    </div>
+
+    <div class="box biankuang">
+        what is i look like backgroun-clip:padding-box背景被裁剪到内边距框
+    </div>
+
+
+    <div class="box animation">
+        animation
+    </div>
+</body>
+
+</html>

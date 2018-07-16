@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="" content="" charset="utf-8">
+    <title>resize</title>
+    <style>
+        div.box {
+            width: 100px;
+            min-height: 100px;
+            margin: 20px;
+            overflow: auto;
+            background: grey;
+            -webkit-resize: horizontal;
+            -moz-resize: horizontal;
+            -o-resize: horizontal;
+            -ms-resize: horizontal;
+            resize: horizontal;
+        }
+        
+        textarea {
+            -webkit-resize: vertical;
+            -moz-resize: vertical;
+            -o-resize: vertical;
+            -ms-resize: vertical;
+            resize: vertical;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h3>resize</h3>
+    <p>esize 属性规定是否可由用户调整元素的尺寸。 注释：如果希望此属性生效，需要设置元素的 overflow 属性，值可以是 auto、hidden 或 scroll。</p>
+    <ul>
+        <li>none 用户无法调整元素的尺寸。</li>
+        <li>both 用户可调整元素的高度和宽度。</li>
+        <li>horizontal 用户可调整元素的宽度。</li>
+        <li>vertical 用户可调整元素的高度。</li>
+    </ul>
+    <div class="box">
+
+    </div>
+    <textarea rows="" cols=""></textarea>
+</body>
+
+</html>

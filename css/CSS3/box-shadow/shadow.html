@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset=utf-8 />
+    <title>shadow</title>
+    <style>
+        * {
+            font-size: 15px;
+            font-family: Microsoft YaHei;
+        }
+        
+        .box h3 {
+            text-align: center;
+            position: relative;
+            top: 80px;
+        }
+        
+        .box {
+            width: 200px;
+            height: 200px;
+            background: #FFF;
+            margin: 40px;
+            float: left;
+            border: 1px solid red;
+        }
+        
+        .effect {
+            position: relative;
+            -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+            -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+        }
+        
+        .effect::before,
+        .effect::after {
+            content: "";
+            position: absolute;
+            z-index: -1;
+            -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+            -moz-box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+            top: 50%;
+            bottom: 0;
+            left: 10px;
+            right: 10px;
+            -moz-border-radius: 100px / 10px;
+            border-radius: 100px / 10px;
+        }
+        
+        .shadow01 {
+            box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.3);
+        }
+        
+        .shadow02 {
+            box-shadow: -5px -5px 0px rgba(0, 0, 0, 0.3), 0 0, 0 0, 0 0;
+        }
+        
+        .shadowInset01 {
+            box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.3) inset;
+        }
+        
+        .shadowblur01 {
+            box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+        }
+        
+        .shadowspread01 {
+            box-shadow: 5px 5px 0px 5px rgba(0, 0, 0, 0.3);
+        }
+        
+        .shadowspread02 {
+            box-shadow: 10px 10px 0px rgba(0, 0, 0, 0.3);
+        }
+        
+        .shadoweffect01 {
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .shadoweffect02 {
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.1) inset;
+        }
+    </style>
+</head>
+
+<body>
+    <h3> shadow</h3>
+    <pre>
+        语法：box-shadow: h-shadow v-shadow blur spread color inset;
+    </pre>
+
+    <ul>
+        <li>h-shadow:x轴偏移量 +在右边 -在左边</li>
+        <li>v-shadow:y轴偏移量 +在下边 -在上边</li>
+        <li>blur : 阴影模糊半径：此参数可选，其值只能是为正值，如果其值为0时，表示阴影不具有模糊效果，其值越大阴影的边缘就越模糊；</li>
+        <li>spread :阴影扩展半径：此参数可选，其值可以是正负值，如果值为正，则整个阴影都延展扩大，反之值为负值时，则缩小；</li>
+    </ul>
+    <p>设置多个shadow直接用逗号分隔，重复使用该语法即可</p>
+    <p>注意与box-radius margin等使用方法的区别，shadow设置是针对整个box生效的，h-shadow v-shadow相当于描述box在原有位置的偏移量,多个shadow的设置相当于叠加生效</p>
+    <p> 设置1px border 帮助观察</p>
+    <div class="box effect">
+        <h3>Shadow Effect </h3>
+    </div>
+    <div class="box shadow01">
+        <h3>Shadow +</h3>
+    </div>
+    <div class="box shadow02">
+        <h3>Shadow -</h3>
+    </div>
+    <div class="box shadowInset01">
+        <h3>Shadow inset</h3>
+        box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.3) inset;
+    </div>
+    <div class="box shadowblur01">
+        <h3>Shadow blur</h3>
+        box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
+    </div>
+
+    <div style="clear: both;">
+        <p>spread 和 h v的数值翻倍 效果对比</p>
+        <div class="box shadowspread01"></div>
+        <div class="box shadowspread02"></div>
+
+    </div>
+    <div class="box shadoweffect01"></div>
+    <div class="box shadoweffect02"></div>
+</body>
+
+</html>
