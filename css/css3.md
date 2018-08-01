@@ -36,6 +36,7 @@
 ### 5、回流(reflow)与重绘(repaint)
 * 1.回流reflow:浏览器发现某个部分发生了变化影响了布局，就需要去重新渲染；
 * 2.重绘repaint：如果只改变了某个元素的颜色等视觉效果的时候，就会引发重绘，如opacity,background-color,visibility等；
+Reflow要比Repaint更花费时间，也就更影响性能。所以在写代码的时候，要尽量避免过多的Reflow
 * 3.引发回流的操作例子：
     + 页面渲染初始化；
     + dom结构改变，比如删除节点
@@ -49,57 +50,9 @@ dispaly:none会引发回流+重绘
 回流一定会伴随着重绘，重绘可以自己单独发生
 
 ["参考文章：浏览器加载、解析、渲染的过程"](http://blog.csdn.net/xiaozhuxmen/article/details/52014901 "浏览器加载、解析、渲染的过程")
-
-
-## 三、CSS揭秘
-
-### 总结
-1. 要多多利用伪类，对减少html嵌套复杂度，实现一些背景效果等作用不错
-
-### 1、浏览器支持及回退机制
-
-1. 浏览器前缀，利用层叠机制，把标准语法排在最后
-2. @supports
-3. 使用javascript给根元素添加一些辅助类，然后可以针对支持或不支持某些特性的浏览器来分别编写样式 
-* e.g
-
-```javascript
-if("clipPath" in $0.style){
-    //但是判断为true并不意味着浏览器就一定真的支持这个css特性
-}
-```
-
-
-### 2、背景与边框
-
-#### 2.1 多重边框
-
-1. 考虑使用box-shadow或outline来作为边框，但outline并不紧贴box-radius,box-shadow会紧贴边框
-2. linear-gradient做斜条纹时要注意根据角度计算无缝贴片，但使用repeating-linear-gradient就不用担心这个问题
-
-
-### 3、形状
-
-#### 3.1 平行四边想
-
-* 因为skew()会使得内部的文字也发生变形，如果只想让背景变形，字体不变，那么可以使用为元素，将为元素作为背景进行相应的变形的来实现这样的效果
  
 
-### 4、投影
-
-
-#### 4.1 box-shadow
-* 背景根据两个偏移参数进行偏移，然后根据模糊半径进行模糊，后面模糊后的背景和原背景重合的部分会被剪切掉,中间还有一个参数：扩张半径 可扩大或缩小投影的尺寸
-
-### 5、用户体验
-
-
-[滚动条样式](http://blog.csdn.net/hanshileiai/article/details/40398177)
-[具体实例](http://www.xuanfengge.com/demo/201311/scroll/css3-scroll.html)
-
-
-
-## 四、不太熟悉的几种css用法
+## 三、不太熟悉的几种css用法
 ### 1、text-indent
 
 ### 2、Flex (css3)
