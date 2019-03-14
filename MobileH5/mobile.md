@@ -20,9 +20,11 @@ CSS像素是一个抽像的单位，主要使用在浏览器上，用来精确�
 + 在css中，可以通过 -webkit-device-pixel-ratio，-webkit-min-device-pixel-ratio和 -webkit-max-device-pixel-ratio进行媒体查询，对不同dpr的设备，做一些样式适配。
 
 
-* rem:root em,根元素的font-size.即<html>的font-size. 
+* rem:css3支持的一个相对长度单位，元素的font-size.即<html>的font-size. 
 
     rem = document.documentElement.clientWidth * dpr / 10
+
+* vw:css3支持的一个相对航渡单位，1vw表示相对于屏幕宽度的1%;
 
 ## rem方案的使用
    在具体使用过程中可以利用
