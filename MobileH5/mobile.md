@@ -2,8 +2,14 @@
 移动端常见的布局方案目前主要有两种，一种是rem方案，一种是vw方案，本质上来讲，都是按照移动端设备的宽度比例来做配适的。
 
 ## 二、基本概念
+
+### 2.1、基本概念
+* rem:css3支持的一个相对长度单位，元素的font-size.即<html>的font-size. 
+
+* vw:css3支持的一个相对长度单位，1vw表示相对于屏幕宽度的1%;
+
 * 物理像素(physical pixel)
-物理像素又被称为设备像素，它是显示设备中一个最微小的物理部件。每个像素可以根据操作系统设置自己的颜色和亮度。正是这些设备像素的微小距离欺骗了我们肉眼看到的图像效果。
+物理像素又被称为设备像素，它是显示设备中一个最微小的物理部件。每个像素可以根据操作系统设置自己的颜色和亮度。
 
 * 设备独立像素(density-independent pixel)
 设备独立像素也称为密度无关像素，可以认为是计算机坐标系统中的一个点，这个点代表一个可以由程序使用的虚拟像素(比如说CSS像素)，然后由相关系统转换为物理像素。
@@ -19,17 +25,36 @@ CSS像素是一个抽像的单位，主要使用在浏览器上，用来精确�
 + 在Javascript中，可以通过 window.devicePixelRatio 获取到当前设备的dpr。
 + 在css中，可以通过 -webkit-device-pixel-ratio，-webkit-min-device-pixel-ratio和 -webkit-max-device-pixel-ratio进行媒体查询，对不同dpr的设备，做一些样式适配。
 
+### 2.2、viewport
+    
+* 浏览器默认的viewport叫做 layout viewport。它的宽度是大于浏览器可视区域的宽度的。
+这个layout viewport的宽度可以通过 document.documentElement.clientWidth 来获取。
 
-* rem:css3支持的一个相对长度单位，元素的font-size.即<html>的font-size. 
+* visual viewport表示浏览器可视区域的大小的宽度，可以通过window.innerWidth 来获取。
+  移动设备默认的viewport是layout viewport，也就是那个比屏幕要宽的viewport，但在进行移动设备网站的开发时，我们需要的是ideal viewport。那么怎么才能得到ideal viewport呢？这就该轮到meta标签出场了。
 
-    rem = document.documentElement.clientWidth * dpr / 10
+head中的meta viewport 标签：
+```javascript
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+```
+该meta标签的作用是让当前viewport的宽度等于设备的宽度，同时不允许用户手动缩放。也许允不允许用户缩放不同的网站有不同的要求，但让viewport的宽度等于设备的宽度，这个应该是大家都想要的效果，如果你不这样的设定的话，那就会使用那个比屏幕宽的默认viewport，也就是说会出现横向滚动条。
 
-* vw:css3支持的一个相对航渡单位，1vw表示相对于屏幕宽度的1%;
+在苹果的规范中，meta viewport 有6个属性(暂且把content中的那些东西称为一个个属性和值)，如下：
 
+width	设置layout viewport  的宽度，为一个正整数，或字符串"width-device"
+initial-scale	设置页面的初始缩放值，为一个数字，可以带小数
+minimum-scale	允许用户的最小缩放值，为一个数字，可以带小数
+maximum-scale	允许用户的最大缩放值，为一个数字，可以带小数
+height	设置layout viewport  的高度，这个属性对我们并不重要，很少使用
+user-scalable	是否允许用户进行缩放，值为"no"或"yes", no 代表不允许，yes代表允许
+这些属性可以同时使用，也可以单独使用或混合使用，多个属性同时使用时用逗号隔开就行了。
+
+ 
+ 
 ## rem方案的使用
    在具体使用过程中可以利用
    1、计算scale
-   2、计算
+   2、计算rem = document.documentElement.clientWidth * dpr / 10
 
 ```javascript
         var dpr, rem, scale;
@@ -40,7 +65,6 @@ CSS像素是一个抽像的单位，主要使用在浏览器上，用来精确�
         dpr = window.devicePixelRatio || 1;
         rem = docEl.clientWidth * dpr / 10;
         scale = 1 / dpr;
-
 
         // 设置viewport，进行缩放，达到高清效果
         metaEl.setAttribute('content', 'width=' + dpr * docEl.clientWidth + ',initial-scale=' + scale + ',maximum-scale=' + scale + ', minimum-scale=' + scale + ',user-scalable=no');
