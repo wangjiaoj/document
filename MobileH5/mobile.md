@@ -4,7 +4,7 @@
 ## 二、基本概念
 
 ### 2.1、基本概念
-* rem:css3支持的一个相对长度单位，元素的font-size.即<html>的font-size. 
+* rem:css3支持的一个相对长度单位，元素的font-size.即html标签的font-size. 
 
 * vw:是Viewport's width的简写，是css3支持的一个相对长度单位，1vw表示相对于屏幕宽度（window.innerWidth）的1%;
 
@@ -31,7 +31,7 @@ CSS像素是一个抽像的单位，主要使用在浏览器上，用来精确�
                    ------在后续的rem方案里我们会首先把屏幕宽度的这个问题利用dpr修正回来 ，另外会通过禁止缩放来解决缩放给px带来的变化
 ### 2.2、viewport
     
-ppk认为，移动设备上有三个viewport。
+1、ppk认为，移动设备上有三个viewport。
 
 * 浏览器默认的viewport叫做 layout viewport。它的宽度是大于浏览器可视区域的宽度的。
 这个layout viewport的宽度可以通过 document.documentElement.clientWidth 来获取。
@@ -43,29 +43,30 @@ ppk认为，移动设备上有三个viewport。
 
 移动设备默认的viewport是layout viewport，也就是那个比屏幕要宽的viewport，但在进行移动设备网站的开发时，我们需要的是ideal viewport。那么怎么才能得到ideal viewport呢？这就该轮到meta标签出场了。
 
-head中的meta viewport 标签：
+2、head中的meta viewport 标签：
 ```javascript
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 ```
 该meta标签的作用是让当前viewport的宽度等于设备的宽度，同时不允许用户手动缩放。也许允不允许用户缩放不同的网站有不同的要求，但让viewport的宽度等于设备的宽度。
 
 在苹果的规范中，meta viewport 有6个属性(暂且把content中的那些东西称为一个个属性和值)，如下：
-
-width	设置layout viewport  的宽度，为一个正整数，或字符串"width-device"
-initial-scale	设置页面的初始缩放值，为一个数字，可以带小数
-minimum-scale	允许用户的最小缩放值，为一个数字，可以带小数
-maximum-scale	允许用户的最大缩放值，为一个数字，可以带小数
-height	设置layout viewport  的高度，这个属性对我们并不重要，很少使用
-user-scalable	是否允许用户进行缩放，值为"no"或"yes", no 代表不允许，yes代表允许
+属性| 值
+-|-
+width | 设置layout viewport  的宽度，为一个正整数，或字符串"width-device"|
+initial-scale|	设置页面的初始缩放值，为一个数字，可以带小数|
+minimum-scale| 允许用户的最小缩放值，为一个数字，可以带小数|
+maximum-scale|	允许用户的最大缩放值，为一个数字，可以带小数|
+height|	设置layout viewport  的高度，这个属性对我们并不重要，很少使用|
+user-scalable|	是否允许用户进行缩放，值为"no"或"yes", no 代表不允许，yes代表允许|
 这些属性可以同时使用，也可以单独使用或混合使用，多个属性同时使用时用逗号隔开就行了。
 
 问题：如果width 和 initial-scale=1同时出现，并且还出现了冲突呢？
 width=400表示把当前viewport的宽度设为400px，initial-scale=1则表示把当前viewport的宽度设为ideal viewport的宽度，那么浏览器到底该服从哪个命令呢？是书写顺序在后面的那个吗？不是。当遇到这种情况时，浏览器会取它们两个中较大的那个值。例如，当width=400，ideal viewport的宽度为320时，取的是400；当width=400， ideal viewport的宽度为480时，取的是ideal viewport的宽度。 
 
 
-1、关于缩放以及initial-scale的默认值
+3、关于缩放以及initial-scale的默认值
 
-    首先我们先来讨论一下缩放的问题，前面已经提到过，缩放是相对于ideal viewport来缩放的，缩放值越大，当前viewport的宽度就会越小，反之亦然。例如在iphone中，ideal viewport的宽度是320px，如果我们设置 initial-scale=2 ，此时viewport的宽度会变为只有160px了，这也好理解，放大了一倍嘛，就是原来1px的东西变成2px了，但是1px变为2px并不是把原来的320px变为640px了，而是在实际宽度不变的情况下，1px变得跟原来的2px的长度一样了，所以放大2倍后原来需要320px才能填满的宽度现在只需要160px就做到了。因此，我们可以得出一个公式：
+首先我们先来讨论一下缩放的问题，前面已经提到过，缩放是相对于ideal viewport来缩放的，缩放值越大，当前viewport的宽度就会越小，反之亦然。例如在iphone中，ideal viewport的宽度是320px，如果我们设置 initial-scale=2 ，此时viewport的宽度会变为只有160px了，这也好理解，放大了一倍嘛，就是原来1px的东西变成2px了，但是1px变为2px并不是把原来的320px变为640px了，而是在实际宽度不变的情况下，1px变得跟原来的2px的长度一样了，所以放大2倍后原来需要320px才能填满的宽度现在只需要160px就做到了。因此，我们可以得出一个公式：
 
     visual viewport宽度 = ideal viewport宽度  / 当前缩放值
 
@@ -74,9 +75,13 @@ width=400表示把当前viewport的宽度设为400px，initial-scale=1则表示�
     参考文章(https://www.cnblogs.com/2050/p/3877280.html)
 
 ## rem方案的使用
-   在具体使用过程中可以利用
-   1、计算scale
-   2、计算rem = document.documentElement.clientWidth * dpr / 10
+
+在具体使用过程中可以利用
+ *  1、设置meta viewport标签 计算width和scale
+ *  2、计算rem 
+   公式：
+   rem = document.documentElement.clientWidth * dpr / 10
+注意：meta 和 rem 
 
 ```javascript
         var dpr, rem, scale;
@@ -101,11 +106,49 @@ width=400表示把当前viewport的宽度设为400px，initial-scale=1则表示�
         window.dpr = dpr;
         window.rem = rem;
 ```
+3、编写样式
 
+在开发过程中一般会提供750的UI设计稿（基于iphone6），在样式编写过程中需要使用rem作为单位来设置元素的宽高
+  sass工具
+
+```javascript
+/* 移动端页面设计稿宽度 */
+$designwidth: 750;
+
+/* 基准值 */
+$blocks：10；
+ 
+/* 单位px转化为rem */
+@function px($px) {
+    @return $px/$designwidth*$blocks+rem;
+}
+html,body{
+    width:100%;
+}
+.block{
+  width:px(750);
+  height:px(100);
+}
+```
+
+转化为css
+
+ ```javascript
+html,body{
+    width:100%;
+}
+ 
+.block{
+    width:10rem;
+    height:1.3333rem
+}
+```
+
+
+参考文章：
     https://www.w3cplus.com/css/vw-for-layout.html
     https://www.w3cplus.com/css/viewports.html
     https://www.w3cplus.com/css/flex-item-calculate.html
     https://www.cnblogs.com/imwtr/p/9648233.html#s4-1
 
-    ### vw方案的使用
-    可以考虑比较新的VW布局，无需使用JS，虽说在移动端 iOS 8 以上以及 Android 4.4 以上才获得支持，不过还是值得一用的。如果需要兼容，可以尝试 viewport-units-buggyfill
+ 
