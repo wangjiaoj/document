@@ -7,13 +7,19 @@
     <meta name="description" content="首页描述" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="Cache-Control" content="no-cache" />
-    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=2.0" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0,  maximum-scale=1.0, user-scalable=0" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <link rel="apple-touch-icon-precomposed" sizes="48×48" href="/images/48×48.png" />
     <link rel="apple-touch-icon-precomposed" sizes="72×72" href="/images/72×72.png" />
     <link rel="apple-touch-icon-precomposed" sizes="114×114" href="/images/114×114.png" />
-    <link rel="stylesheet" href="common.css">
+    <link rel="stylesheet" href="./common.css">
     <style>
+        html,
+        body {
+            margin: 0px;
+            padding: 0px;
+        }
+        
         html,
         body,
         .content {
@@ -23,34 +29,31 @@
         li {
             font-size: 16px;
         }
-/*        
+        
         .blcok {
             width: 5rem;
             margin: 10px auto;
-            height: 1rem;
+            height: 100px;
             background-color: red;
-        }*/
+        }
+        
+        #width {
+            font-size: 32px;
+        }
     </style>
 </head>
 
 <body>
     <div class="content">
-
-        <!--<div class="blcok"></div>-->
-        <ul>
-            <li>首页关键字</li>
-            <li>首页关键字</li>
-            <li>首页关键字</li>
-            <li>首页关键字</li>
-            <li>首页关键字</li>
-        </ul>
+        <h2>rem demo</h2>
         <div id="width"></div>
+        <div class="blcok"></div>
     </div>
-    <script type="text/javascript" src="../common.js">
+    <script type="text/javascript" src="./common.js">
     </script>
     <script type="text/javascript">
         var clientWidth = document.documentElement.clientWidth;
-        document.getElementById('width').append("clientWidth:" + clientWidth + ";innerWidth:" + window.innerWidth)
+        document.getElementById('width').append("clientWidth:" + clientWidth + ";innerWidth:" + window.innerWidth + ";dpr:" + window.devicePixelRatio)
     </script>
 </body>
 

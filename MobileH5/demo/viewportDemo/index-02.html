@@ -7,7 +7,7 @@
     <meta name="description" content="首页描述" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="Cache-Control" content="no-cache" />
-    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=2.0" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0,  maximum-scale=1.0, user-scalable=0" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
 
     <style>
@@ -37,21 +37,15 @@
 
 <body>
     <div class="content">
-        <h2>viewport设置为设备宽度</h2>
-        <div class="blcok"></div>
-        <ul>
-            <li>首页关键字</li>
-            <li>首页关键字</li>
-            <li>首页关键字</li>
-            <li>首页关键字</li>
-            <li>首页关键字</li>
-        </ul>
+        <h2>viewport设置width=device-width</h2>
+
         <div id="width"></div>
+        <div class="blcok"></div>
     </div>
 
     <script type="text/javascript">
         var clientWidth = document.documentElement.clientWidth;
-        document.getElementById('width').append("clientWidth:" + clientWidth + ";innerWidth:" + window.innerWidth)
+        document.getElementById('width').append("clientWidth:" + clientWidth + ";innerWidth:" + window.innerWidth + ";dpr:" + window.devicePixelRatio)
     </script>
 </body>
 
