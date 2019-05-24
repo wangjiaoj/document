@@ -4,6 +4,8 @@
 ## 二、基本概念
 
 ### 2.1、基本概念
+* em:em是相对于父元素的font-size大小计算的，所以也可以用来配适移动端布局，但是因为布局嵌套等，还是建议使用rem布局
+
 * rem:css3支持的一个相对长度单位，元素的font-size.即html标签的font-size. 
 
 * vw:是Viewport's width的简写，是css3支持的一个相对长度单位，1vw表示相对于屏幕宽度（window.innerWidth）的1%;
@@ -347,3 +349,22 @@ $max-device-width: 540px;
  iPhone在keyup事件上支持有问题，最后使用的change input keyup 三者相互结合解决的问题
  2、关于font-size的选择问题
    rem方案中直接使用rem作为font-size单位和css media查询根据dpr设置font-size的优劣和选择
+
+
+### 六、调试
+
+移动端js调试工具：eruda
+
+```html
+<script src="https://cdn.bootcss.com/eruda/1.3.1/eruda.js"></script>
+<script>eruda.init();</script>
+```
+或者使用javascript引用
+
+```javascript
+(function () {
+    var src = 'https://cdn.bootcss.com/eruda/1.3.1/eruda.js';
+    if (!/eruda=true/.test(window.location.search)) return;
+    document.write('<scr' + 'ipt src="' + src + '"></scr' + 'ipt><script>eruda.init();</script>');
+})();
+```
