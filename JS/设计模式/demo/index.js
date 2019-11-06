@@ -6,14 +6,17 @@ var Singleton = function(name) {
     this.instance = null;
 }
 Singleton.prototype.getName = function() {
-    console.log(name);
+    console.log(this.name);
 }
-Singleton.prototype.getInstance = function(name) {
+Singleton.getInstance = function(name) {
     if (!this.instance) {
         this.instance = new Singleton(name);
     }
     return this.instance;
 }
+
 var a = Singleton.getInstance('alice');
 var b = Singleton.getInstance('Liza');
-alert(a === b)
+a.getName();
+b.getName()
+console.log(a === b);
