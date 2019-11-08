@@ -1,2 +1,6 @@
 <!--weather.wxml-->
-<text>weather.wxml</text>
+<view class="container city-list">
+  <block wx:for="{{citys}}" wx:for-item="city">
+    <text class="city-item">{{index + 1}}. {{city}}</text>
+  </block>
+</view>

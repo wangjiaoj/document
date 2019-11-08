@@ -13,7 +13,7 @@ Page({
   bindViewTap: function() {
     console.log('bindViewTap');
     wx.navigateTo({
-      url: 'pages/logs/logs'
+      url: '../logs/logs'
     })
   },
   onLoad: function () {
