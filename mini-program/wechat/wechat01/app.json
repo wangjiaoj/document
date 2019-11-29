@@ -19,10 +19,12 @@
       {
         "pagePath": "pages/logs/logs",
         "text": "日志"
-      },{
+      },
+      {
         "pagePath": "pages/weather/weather",
         "text": "天气"
       }
     ]
-  }
+  },
+  "sitemapLocation": "sitemap.json"
 }
