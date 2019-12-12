@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+
+<body>
+    <canvas id="canvas-test"></canvas>
+    <script src="../js/canvas.js"></script>
+    <script src="./canvas.data.js"></script>
+    <script>
+        var canvas = c2D.init("canvas-test", 1500, 1500);
+        //七巧板绘制
+        for (var i = 0; i < qiqiaobanLineData.length; i++) {
+            canvas = canvas.fillStyleColor(qiqiaobanLineData[i].color)
+                .line(qiqiaobanLineData[i].p)
+                .draw();
+        }
+        //  钟表绘制  
+        canvas.fillStyleColor().lineArc(500, 500, 100, 0, 2 * Math.PI, false).draw()
+            .lineArc(500, 500, 105, 0, 2 * Math.PI, false).draw()
+            .line([{
+                x: 500,
+                y: 500
+            }, {
+                x: 500,
+                y: 420
+            }]).draw()
+            .line([{
+                x: 500,
+                y: 500
+            }, {
+                x: 440,
+                y: 500
+            }]).draw();
+        canvas.fillText({
+            style: {
+                font: "14px Aril black",
+                textAlign: "center",
+                baseline: "middle"
+            },
+            text: {
+                string: "12",
+                x: 500,
+                y: 415
+            }
+        }).fillText({
+            style: {
+                font: "14px Aril",
+                textAlign: "center",
+                baseline: "middle"
+            },
+            text: {
+                string: "3",
+                x: 585,
+                y: 500
+            }
+        }).fillText({
+            style: {
+                font: "14px Aril",
+                textAlign: "center",
+                baseline: "middle"
+            },
+            text: {
+                string: "9",
+                x: 415,
+                y: 500
+            }
+        }).fillText({
+            style: {
+                font: "14px Aril",
+                textAlign: "center",
+                baseline: "middle"
+            },
+            text: {
+                string: "6",
+                x: 500,
+                y: 585
+            }
+        });
+    </script>
+</body>
+
+</html>

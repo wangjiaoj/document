@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+
+<body>
+    <canvas id="canvas-test"></canvas>
+
+    <script>
+        var ctx = init("canvas-test", 1600, 1600);
+        context.lineWidth = 1;
+        context.strokeStyle = "black";
+        context.beginPath();
+
+        var arc01 = getArcToParam({
+            x: 90, //起点x坐标
+            y: 90, //起点y坐标
+            radius: 60 //半径
+        });
+        var arc02 = getArcToParam({
+            x: 90, //起点x坐标
+            y: 120, //起点y坐标
+            radius: 30 //半径
+        });
+
+        var half01 = getArcParam({
+            x: arc01.start[0],
+            y: arc01.start[1],
+            radius: 15
+        }, true);
+
+        //ctx.moveTo(arc02.start[0], arc02.start[1]);
+        //ctx.lineTo(arc01.start[0], arc01.start[1]);
+        ctx.arc(half01.arc[0], half01.arc[1], half01.radius, 0.5 * Math.PI, 1.5 * Math.PI, false);
+        context.stroke();
+        ctx.arcTo(arc01.qie[0], arc01.qie[1], arc01.end[0], arc01.end[1], arc01.radius);
+        context.stroke();
+        var half02 = getArcParam({
+            x: arc02.end[0],
+            y: arc02.end[1],
+            radius: 15
+        });
+        //  ctx.lineTo(arc02.end[0], arc02.end[1]);
+        ctx.arc(half02.arc[0], half02.arc[1], half02.radius, 0 * Math.PI, 1 * Math.PI, false);
+        ctx.arcTo(arc02.qie[0], arc02.qie[1], arc02.start[0], arc02.start[1], arc02.radius);
+        context.stroke(); //画线
+        context.fill(); //画线
+
+
+        function init(id, width, height) {
+            window.canvas = document.getElementById(id);
+            canvas.width = width ? width : 1024;
+            canvas.height = height ? height : 768;
+            window.context = this.canvas.getContext('2d');
+            return window.context;
+        };
+        /****
+         * 获取弧线参数
+         * 输入弧线起点和半径
+         * 返回绘制1/4圆的弧线的起点\终点\切线点\半径
+         **/
+        function getArcToParam(startPoint) {
+            return {
+                start: [startPoint.x, startPoint.y],
+                end: [startPoint.x + startPoint.radius, startPoint.y + startPoint.radius],
+                qie: [startPoint.x + startPoint.radius, startPoint.y],
+                radius: startPoint.radius
+            };
+        }
+        /****
+         * 获取半圆参数
+         * 输入半圆绘制起点(相对终点坐标值比较小的那个)和半径,水平还是竖直绘制
+         * 返回绘制半圆的起点\圆心\半径
+         **/
+        function getArcParam(startPoint, vertical) {
+            if (vertical) {
+                return {
+                    start: [startPoint.x, startPoint.y],
+                    arc: [startPoint.x, startPoint.y + startPoint.radius],
+                    radius: startPoint.radius
+                };
+            } else {
+                return {
+                    start: [startPoint.x, startPoint.y],
+                    arc: [startPoint.x + startPoint.radius, startPoint.y],
+                    radius: startPoint.radius
+                };
+            }
+        }
+    </script>
+</body>
+
+</html>

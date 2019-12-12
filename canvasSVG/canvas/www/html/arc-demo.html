@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+    <canvas id="myCanvas" width="300" height="350" style="border:1px solid #d3d3d3;">
+        Your browser does not support the HTML5 canvas tag.
+    </canvas>
+
+    <script>
+        var c = document.getElementById("myCanvas");
+        var ctx = c.getContext("2d");
+
+        var center = [90, 90];
+        var minArc = 30;
+        var maxArc = 60;
+        //大圆
+        ctx.lineWidth = 30;
+        ctx.lineCap = "round";
+        var offset = 10;
+        //控制台什么都不输出 
+        var frameCount = 0;
+        //2160ms/4=540ms ;  540/60ms=9;
+        var singleArcCount = 9;
+        var maxFrame = 4 * singleArcCount;
+        var timer;
+        animationFrame()
+
+        function animationFrame() {
+            timer = requestAnimationFrame(function() {
+                frameCount++;
+                console.log(frameCount);
+                if (frameCount > maxFrame) {
+                    console.log('cancel');
+                    cancelAnimationFrame(timer);
+                } else {
+                    ctx.beginPath();
+                    if (frameCount <= singleArcCount) {
+                        ctx.strokeStyle = "#3196fa";
+                        ctx.arc(center[0] - offset, center[1] - offset, maxArc, 1.5 * Math.PI, (1.5 - 0.5 / singleArcCount * frameCount) * Math.PI, true);
+                    } else if (frameCount <= 2 * singleArcCount) {
+                        let per = frameCount - singleArcCount;
+                        ctx.strokeStyle = "#ef4864";
+                        ctx.arc(center[0] - offset, center[1] + offset, maxArc, 1 * Math.PI, (1 - 0.5 / singleArcCount * per) * Math.PI, true);
+                    } else if (frameCount <= 3 * singleArcCount) {
+                        let per = frameCount - 2 * singleArcCount;
+                        ctx.strokeStyle = "#facc14";
+                        ctx.arc(center[0] + offset, center[1] + offset, maxArc, 0.5 * Math.PI, (0.5 - 0.5 / singleArcCount * per) * Math.PI, true);
+                    } else {
+                        let per = frameCount - 3 * singleArcCount;
+                        ctx.strokeStyle = "#2fc25b";
+                        ctx.arc(center[0] + 10, center[1] - offset, maxArc, 0 * Math.PI, 0 - 0.5 / singleArcCount * per * Math.PI, true);
+                    }
+                    ctx.stroke();
+                    ctx.closePath();
+                    animationFrame();
+                }
+            });
+        }
+    </script>
+
+</body>
+
+</html>
