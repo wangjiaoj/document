@@ -13,7 +13,15 @@
 
     </canvas>
     <script>
-        function canvas(id, starscolor, starsamount, starsradius, movrange, speed, trailing) {
+        function canvas(options) {
+
+            var id = options.id,
+                starscolor = options.starscolor,
+                starsamount = options.starsamount,
+                starsradius = options.starsradius,
+                movrange = options.movrange,
+                speed = options.speed,
+                trailing = options.trailing;
             //宇宙特效
             "use strict";
             var canvas = document.getElementById(id);
@@ -25,20 +33,23 @@
                 stars = [],
                 count = 0,
                 maxStars = starsamount; //星星数量
+            //绘制星星模板canvas2---开始-----
             var canvas2 = document.createElement('canvas'),
                 ctx2 = canvas2.getContext('2d');
             canvas2.width = 100;
             canvas2.height = 100;
-            var half = canvas2.width / 2,
-                gradient2 = ctx2.createRadialGradient(half, half, 0, half, half, half);
+            var half = canvas2.width / 2;
+            var gradient2 = ctx2.createRadialGradient(half, half, 0, half, half, half);
             gradient2.addColorStop(0.025, '#CCC');
             gradient2.addColorStop(0.1, 'hsl(' + hue + ', 61%, 33%)');
             gradient2.addColorStop(0.25, 'hsl(' + hue + ', 64%, 6%)');
             gradient2.addColorStop(1, 'transparent');
             ctx2.fillStyle = gradient2;
             ctx2.beginPath();
+            //星星实际上是一个半径50的渐变色圆形
             ctx2.arc(half, half, half, 0, Math.PI * 2);
             ctx2.fill();
+            //绘制星星模板canvas2---结束-----
             // End cache
             function random(min, max) {
                 if (arguments.length < 2) {
@@ -82,6 +93,7 @@
                     this.alpha += 0.05;
                 }
                 ctx.globalAlpha = this.alpha;
+                //把星星模板绘制出来,后两个参数表示星星绘制的坐标位置,最后两个参数表示要使用的图像的宽度（伸展或缩小图像）。
                 ctx.drawImage(canvas2, x - this.radius / 2, y - this.radius / 2, this.radius, this.radius);
                 this.timePassed += this.speed;
             }
@@ -103,8 +115,15 @@
             animation();
         }
         //$(function() {});
-        //canvas的id名，星星颜色(hsla的hue色调)，星星数量，星星半径比，星星移动范围(值越大范围越小)，星星移动速度(值越大速度越慢),星星拖尾效果(0~1值越小拖尾越明显)
-        canvas("starts", 230, 1000, 60, 2, 50000, 0.5);
+        canvas({
+            id: "starts", //canvas的id名
+            starscolor: 230, //星星颜色(hsla的hue色调)
+            starsamount: 10, //星星数量
+            starsradius: 60, //星星半径比
+            movrange: 2, //星星移动范围(值越大范围越小)
+            speed: 50000, //星星移动速度(值越大速度越慢)
+            trailing: 0.5 //星星拖尾效果(0~1值越小拖尾越明显)
+        });
     </script>
 </body>
 
