@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+
+<body>
+    <div>
+        <div>
+            <input id="data" type="text" name="" value="">
+            <button id="button" type="button">点击</button>
+        </div>
+    </div>
+    <script>
+        document.getElementById('button').addEventListener('click', function() {
+            send();
+        }, false);
+        window.addEventListener('message', function(messageEvent) {
+            var data = messageEvent.data;
+            console.info('b listen message:', data);
+        }, false);
+
+        function send() {
+            var data = document.querySelector('#data').value;
+            // window.postMessage(data, '/'); 
+            window.parent.postMessage(data, 'http://a.com:9000/'); // 触发同域子页面的message事件
+        }
+    </script>
+</body>
+
+</html>
