@@ -54,10 +54,33 @@ setTimeout(test,5000,a);
 创建几种使用场景:
 固定长度,超过长度显示...(需要设置white-space:nowarp,保证不换行);
 使用连续的英文字符或数字时,超过设定的宽度:(设置word-break:break-all或者word-warp:break-word;区别在于允许一个单词换行和将一个完整单词放在下一行)
- 
 
+### 七、特殊时间格式转换问题:
+RFC 3339格式
 
- 
+常规时间格式转换为RFC 3339格式：toISOString
+
+```javascript
+var date = new Date();
+date.toISOString();
+//RFC 3339 format
+//"2019-12-24T12:54:12.000Z"
+```
+
+RFC 3339格式转换为正常时间格式
+chrome支持直接new Date转换,但是ios不支持,会报错
+
+```javascript
+  function formate(date) {
+     var e = date.split("T")
+       , n = e[0].split("-")
+        , i = e[1].split(".000")[0].split(":");
+     return parseInt(n[0]) + "/" + parseInt(n[1]) + "/" + parseInt(n[2]) + " " + parseInt(i[0]) + ":" + parseInt(i[1]) + ":" + parseInt(i[2])
+ }
+```
+ar str = "2019-03-18T10:58:37+08:00";
+
+var date = new Date(str).toJSON();
 
 
 

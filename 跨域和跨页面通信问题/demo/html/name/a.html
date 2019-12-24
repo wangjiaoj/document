@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        iframe {
+            height: 300px;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="APP">
+
+        <iframe src="http://b.com:9000/html/name/b.html" id="iframe1"></iframe>
+    </div>
+    <script>
+        document.getElementById('iframe1').onload = function() {
+            var ifr = document.getElementById('iframe1');
+            console.log('跨域获取数据' + ifr.name);
+        };
+    </script>
+</body>
+
+</html>
