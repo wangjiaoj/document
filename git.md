@@ -1,5 +1,7 @@
 
-[git使用指南](http://www.cnblogs.com/ifishing/archive/2010/12/08/1900594.html "Title") 
+[git使用指南]("Title") 
+
+http://www.cnblogs.com/ifishing/archive/2010/12/08/1900594.html 
 
 $ git config --global user.name "John Doe"
 $ git config --global user.email johndoe@example.com
