@@ -1,9 +1,6 @@
 
 ## CSS
-## 一、兼容性查询
-https://caniuse.com/#home
-https://x5.tencent.com/tbs/guide/caniuse/index.html
- 
+
 ## 二、字体问题
  * chrome浏览器默认设置能显示的最小字体是12px,也就是说如果给css样式小于12px,那么还会显示12px.这需要手动设置才行.但浏览器用户一般都不会去设置这个.所以让字体不要小于12像素,否则chrome浏览器没法显示。
  * 加粗效果可能需要跟UI做协商

@@ -86,7 +86,7 @@ initial-scale=1则表示把当前viewport的宽度设为ideal viewport的宽度�
 [参考文章-翻译的ppk关于vieport的文章]( https://www.w3cplus.com/css/viewports.html)
 
 ## 三、rem方案的使用
-
+### 3.1 考虑dpr作为1px处理方案的REM方案
 根据上面的在具体使用过程中
  *  1、设置meta viewport标签 -- 判断页面上是否存在meta标签， 确保meta[name="viewport"]存在。
  ```javascript
@@ -225,6 +225,11 @@ $max-device-width: 540px;
     }
 }
 ```
+### 3.2、不考虑dpr的rem自适应方案
+dpr引入与移动端自适应布局的关系
+[移动端尺寸自适应与dpr无关](https://segmentfault.com/a/1190000015409435?utm_source=tag-newest)
+
+
 ## 四、vw方案的使用
 vw:是Viewport's width的简写，是css3支持的一个相对长度单位，1vw表示相对于屏幕宽度（window.innerWidth）的1%;
 1、设置head中的meta viewport 标签：
