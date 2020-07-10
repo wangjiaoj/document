@@ -33,3 +33,49 @@ https://www.kancloud.cn/wangfupeng/wangeditor3/335773
  base64图片在IE9(+)及非IE浏览器都能正常显示，IE8则要区分XP情况处理。
  [base64图片IE8浏览器兼容性处理]( https://www.cnblogs.com/murphyzhou/p/base64-image-compatible.html)
 
+### 三、下载问题
+
+````javascript
+//判断IE
+function IEVersion() {
+  var userAgent = navigator.userAgent; //userAgent
+  var isIE = userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1; //IE<11 
+  var isEdge = userAgent.indexOf("Edge") > -1 && !isIE; //Edge 
+  var isIE11 = userAgent.indexOf('Trident') > -1 && userAgent.indexOf("rv:11.0") > -1;
+  if (isIE) {
+    var reIE = new RegExp("MSIE (\\d+\\.\\d+);");
+    reIE.test(userAgent);
+    var fIEVersion = parseFloat(RegExp["$1"]);
+    if (fIEVersion == 7) {
+      return 7;
+    } else if (fIEVersion == 8) {
+      return 8;
+    } else if (fIEVersion == 9) {
+      return 9;
+    } else if (fIEVersion == 10) {
+      return 10;
+    } else {
+      return 6;//IE版本<=7
+    }
+  } else if (isEdge) {
+    return 'edge';//edge
+  } else if (isIE11) {
+    return 11; //IE11  
+  } else {
+    return -1;//不是ie
+  }
+}
+t="tenxun://";
+if (-1 !== IEVersion()) {
+    o = window.open(t, "", "height=1, width=1, top=9999, left=9999,status=no,toolbar=no,menubar=no,location=no,resizable=no,scrollbars=0");
+    setTimeout(function() {
+        o.close()
+    }, 3e3);
+} else {
+    var i;
+    (i = document.createElement("a")).href = t;
+    i.click();
+}
+
+````
+
