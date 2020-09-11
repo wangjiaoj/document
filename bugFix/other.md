@@ -33,7 +33,7 @@ https://www.kancloud.cn/wangfupeng/wangeditor3/335773
  base64图片在IE9(+)及非IE浏览器都能正常显示，IE8则要区分XP情况处理。
  [base64图片IE8浏览器兼容性处理]( https://www.cnblogs.com/murphyzhou/p/base64-image-compatible.html)
 
-### 三、下载问题
+### 三、浏览器版本判断
 
 ````javascript
 //判断IE
@@ -78,4 +78,8 @@ if (-1 !== IEVersion()) {
 }
 
 ````
+
+### 四、JSONP的缺点：
+https://cloud.tencent.com/developer/article/1333640
+ JSONP不提供错误处理。如果动态插入的代码正常运行，你可以得到返回，但是如果失败了，那么什么都不会发生。
 
