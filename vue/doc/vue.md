@@ -17,3 +17,9 @@
 * 比如在beforeEach中给请求添加query参数,添加完成后，继续调用next()并传参当前页面路由path,会死循环,这类处理应该只能用来处理某些条件下强制跳转到到某个默认页面。
 
 ### VUE生命周期中的$mount挂载过程
+
+
+
+### vue watch变量之后，修改参数，但根据这个参数重新computer的参数未变化
+
+1. watch tableList 修改表格渲染后高度   conputer的是否展示滚动条参数未变化

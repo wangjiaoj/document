@@ -48,6 +48,7 @@
 
 WePY是一个“类Vue”的框架，而mpvue是“基于Vue”的框架.因为WePY是在代码开发风格上借鉴了Vue，本身和Vue没有什么关系；而这个mpvue是从整个Vue的核心代码上经过二次开发而形成的一个框架，相当于是给Vue本身赋能，增加了开发微信小程序的能力。
 * 5、uni-app
+vue
 * 6、kbone 
 ### 2.2 Taro使用
 taro需要根据
