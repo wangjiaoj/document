@@ -46,14 +46,21 @@ module.exports = ({ file }) => {
 ### 使用vw来做rem转换的简单方案
 目前的项目punch/trade
 
-不考虑dpr
-`html font-size： document.documentElement.clientWidth / blocks = 1rem;`
+该方案不考虑dpr
+1. html的font-size计算
+html的字体大小px-rem计算公式
+>`document.documentElement.clientWidth / blocks = 1rem;`
 
-* html使用vw设置的字号:13.88888889vw
-`blcok=7.2       html font-size：100vw/blcok`
 
-* 设计稿公式转换
-`designWidth/block=1rem; 1px = 1rem*block/designWidth`
+ html的字体大小vw-rem计算公式
+>`blocks=7.2;   100vw/blocks=1rem;`
+
+ 计算可得html使用vw设置的字号:13.88888889vw,页面最大宽度7.2rem
+
+>`html{ font-size：13.88888889vw}`
+
+2. 设计稿公式转换
+>`designWidth/blocks=1rem; 1px = 1rem*blocks/designWidth`
 
 vant-375px,UI设计稿刚好也是375px
 
@@ -71,7 +78,19 @@ html{
   }
 }
 ````
+2. 设计稿公式转换的另一种方法
 
+安装postcss-pxtorem,在项目根目录下添加.postcssrc.js文件
+```javascript
+module.exports = {
+  plugins: {
+    autoprefixer: {}, // 用来给不同的浏览器自动添加相应前缀，如-webkit-，-moz-等等
+    "postcss-pxtorem": {
+      rootValue: 375/7.2, // 根节点1rem对应px 公式：设计稿尺寸/block
+    }
+  }
+}
+ ````
 100vw
 
 75  
