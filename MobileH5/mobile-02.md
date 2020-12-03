@@ -7,11 +7,17 @@ vw，vh，vmax,vmin支持度：
 * ios:8      以及以上版本均致支持
 
 2. rem手机兼容度
-* rem可以比vw兼容更多的老手机,但实际上如果不是特殊要求其实目前已经可以选用vw方案了
+* rem可以比vw兼容更多的老手机,但实际上如果不是产品特殊要求或目标用户特殊,其实目前已经可以选用vw方案了
 
-3. 开发时如果使用第三方UI库,需要注意UI库的设计稿大小,比如vant设计稿大小是375
+3. 开发前要注意UI稿大小,如果使用第三方UI库,还需要注意第三方UI库的设计稿大小,注意两者统一问题。比如vant设计稿大小是375。
 
-4. 根据需要选择是否设置页面最大最小宽度,很多情况下并不需要设置页面最大宽度
+4. 根据需要选择是否设置页面最大宽度,很多情况下并不需要设置页面最大宽度,设置页面最大宽度可能出于一些大概兼容PC端需求(注意只是兼容)。但注意fixed布局可能给最大宽度带来的影响。可能需要fiexed布局组为遮罩或位置固定后，有效内容部分容器再进行布局居中?
+
+5. 关于vant
+* Vant 中的样式默认使用 px 作为单位,页面元素主要是固定大小(如按钮)和flex,fixed布局实现的。
+* Rem 布局适配
+Vant 中的样式默认使用 px 作为单位，如果需要使用 rem 单位，推荐使用：postcss-pxtorem 是一款 postcss 插件，用于将单位转化为 rem
+
 
 ## 一、rem方案的使用
 
@@ -69,8 +75,10 @@ vw，vh，vmax,vmin支持度：
 
 #### 3. 计算rem 
 
+   mata标签的scale调整之后 `document.documentElement.clientWidth`大小也会随之变化
+    
    公式：
-   `rem = document.documentElement.clientWidth * dpr / blocks;`
+   `rem = document.documentElement.clientWidth / blocks;`
 
    blocks的值一般设置为10即可，也可以自己设置成其他值；
    如果已经先设置了scale，那么这个时候直接取docElem.clientWidth/blocks即可;
@@ -95,10 +103,12 @@ vw，vh，vmax,vmin支持度：
   ```javascript 
   window.addEventListener(window.orientationchange ? 'orientationchange' : 'resize', setFontSize, false);
   ```
-
+ 
 #### 5. 编写css样式
 
 在开发过程中一般会提供750的UI设计稿（基于iphone6），在样式编写过程中需要使用rem作为单位来设置元素的宽高。两种解决思路，一种是使用sass/less编写转化公式,另一种是使用postcss-pxtorem插件直接进行转化。
+
+* 注意css mediaQuery中的大小是按照layout-viewport中尺寸大小来的
 
 开发时需要注意UI提供的稿子大小,偶尔也会被提供375的UI稿。下方方案按照750UI稿为例:
 
@@ -257,7 +267,7 @@ font-size计算把dpr=1即可,公式：
 结合1.1和1.2的思路，现在在前端组件库中提供rem组件完成rem初始化，需要结合sass/less公式或者postcss-pxtorem来编写css使用
 初始化：
 ```html
- <meta name="viewport" data-content-max  content="width=device-width,initial-scale=1,user-scalable=no">
+ <meta name="viewport" data-content-max  content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 ```
 `data-content-max`标识开启最大最小页面宽度限制
 
@@ -281,7 +291,7 @@ font-size计算把dpr=1即可,公式：
 
 1. 设置head中的meta viewport 标签：
 ```javascript
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 ```
 2. px转化为vw
 安装postcss-px-to-viewport

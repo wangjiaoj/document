@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <!-- <meta http-equiv="X-UA-Compatible" content="ie=edge"> -->
+    <title>测试scale-test支持度</title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        
+        html {
+            font-size: 75px;
+        }
+        
+        #block {
+            width: 2rem;
+            height: 2rem;
+            font-size: 0.25rem;
+            background: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="block">测试scale-1支持度</div>
+    <script src='https://cdn.bootcss.com/eruda/1.3.1/eruda.js'></script>
+    <script>
+        // 1、判定scale是否正常，判定不同scale情况下的比例，因为font-size基准是写死的75*1/scale，不同scale下效果应该一致的
+        // 2、判定clientWidth获取值是否正常
+        function initruneruda() {
+            var searchStr = window.location.search;
+            if (searchStr) {
+                if ((/eruda=1/).test(searchStr)) {
+                    if (eruda) {
+                        eruda.init();
+                    };
+                }
+                if ((/scale/).test(searchStr)) {
+                    var scale = getParamFromUrl('scale');
+                    printWidth();
+                    setScale(scale);
+                    setFontSize(scale);
+                    printWidth();
+                }
+            }
+        }
+
+        function printWidth() {
+            let docEl = document.documentElement;
+            let clientWidth = docEl.clientWidth;
+            console.log("clientWidth:" + clientWidth + ",screen-width:" + window.screen.width);
+        }
+
+        function setScale(scale) {
+            var metaEl = document.querySelector('meta[name="viewport"]');
+            // 设置viewport，进行缩放，达到高清效果 width=' + dpr * docEl.clientWidth + ',
+            metaEl.setAttribute('content', 'initial-scale=' + scale + ',maximum-scale=' + scale + ', minimum-scale=' + scale + ',user-scalable=no');
+            var block = document.querySelector('#block');
+            block.innerHTML = '测试scale-' + scale + '支持度';
+        };
+
+        function setFontSize(scale) {
+            let docEl = document.documentElement;
+            let fontEl = document.createElement('style');
+            // 动态写入样式
+            docEl.firstElementChild.appendChild(fontEl);
+            fontEl.innerHTML = 'html{font-size:' + 75 * 1 / scale + 'px!important;}';
+        };
+        //根据name参数获取url传递参数
+        function getParamFromUrl(name) {
+            var search = location.search;
+            search = search.substring(1, search.length);
+            var searchList = search.split('&');
+            var nameVal;
+            for (let i = 0; i < searchList.length; i++) {
+                var item = searchList[i];
+                if (item && item.indexOf("=") > 0) {
+                    if (name === item.split("=")[0]) {
+                        nameVal = item.split("=")[1];
+                        break;
+                    }
+                }
+            }
+            return nameVal;
+        }
+        initruneruda();
+    </script>
+</body>
+
+</html>
