@@ -106,11 +106,81 @@ function () {
  ````
 此处的效果是将之前的echarts图隐藏并生成base64位的图片代替之前的图片
 另外需要将echarts图的animation设置为false,否则可能偶尔会遇到图片生成不完全。
-## 三、pdf.js
-
-pdf.js是前端预览 PDF 文件 的插件
 
 
+## 三、aixos配合导出
+### 3.1 跟后端配合的导出实现
+1. axios 请求中添加`responseType: 'blob' 字段`
+```javascript
+exportSettled(params) {
+        const sendObj = {};
+        ({
+            shopCode: sendObj.shopCode,// 网点code
+        } = params);
+        return service({
+            url: requestInterfaceList.exportSettled,
+            method: 'get',
+            responseType: 'blob', // 这里添加响应类型 为blob
+            params: sendObj
+        });
+    }
+```
+2. 创建一个a标签进行下载
+```javascript
+createDownload(blob, name) {
+        let url = window.URL.createObjectURL(new Blob([blob]));
+        const $a = document.createElement('a');
+        $a.style.display = 'none';
+        $a.href = url;
+        $a.setAttribute('download', name);
+        $a.click();
+    }
+```
+3.为防止 后台返回错误的code无法拦截 所以需要将blob转换为json 解析
+```javascript
+blobToText(blob) {
+        return new Promise((resolve, reject) => {
+            const fileReader = new FileReader();
+            fileReader.readAsText(blob);
+            fileReader.onload = function () {
+                try{
+                    const result = JSON.parse(this.result);
+                    if(result && result['resultCode'] === 'fail'){
+                        resolve(result);
+                    } else {
+                        reject();
+                    }
+                }catch(e){
+                    //TODO handle the exception
+                    reject();
+                }
+            }
+        })
+    }
+        
+```
+4. 使用
+```javascript
+    IncomeRequest.exportBeforeSettleList({
+        ...this.currentSearchForm
+    }).then(res => {
+        Tools.blobToText(res).then((result)=>{
+            this.showDefaultToast({
+                showClose: true,
+                message: result['resultDesc'],
+                type: 'error',
+                duration: 0
+            });
+        }).catch(()=>{
+            this.showDefaultToast('数据导出成功');
+            Tools.createDownload(res, '文件.xlsx');
+        });
+    });
+```
+
+3.2
+ window.URL.createObjectURL
+ new FileReader();
 
 ## 四、前端excel导出方案
 [exceljs](https://github.com/exceljs/exceljs/blob/HEAD/README_zh.md)
