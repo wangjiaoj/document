@@ -16,28 +16,12 @@
 * SVG 可以与 Java 技术一起运行;SVG 是开放的标准;SVG 文件是纯粹的 XML.;
 
 ### 1. 2 SVG引入
+svg可以在浏览器中直接打开
+1. HTML页面中使用`<embed>` ,`<object>`,`<iframe>`,`<img>`等标签引用;
 
-1. HTML页面中的SVG
-* 使用`<embed>`标签:
+2. 作为CSS背景 ;
 
-```javascript
-   <embed src="rect.svg" width="300" height="100" type="image/svg+xml" pluginspage="http://www.adobe.com/svg/viewer/install/" /> 
-```
-
-* 使用`<object>`标签:
-
-```javascript
-   <object data="rect.svg" width="300" height="100" type="image/svg+xml" codebase="http://www.adobe.com/svg/viewer/install/" />
-```
-
-* 使用`<iframe>`标签:
-
-2. 打开方式
-
-* 在浏览器中直接打开;
-* 在HTML中使用<img>标签引用;
-* 直接在html中使用SVG标签
-* 作为CSS背景
+3. 直接在html中使用SVG标签
 
 ### 1. 3 SVG基本图形和属性
 
