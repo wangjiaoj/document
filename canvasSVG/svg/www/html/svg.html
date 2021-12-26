@@ -5,42 +5,31 @@
     <meta charset="UTF-8">
     <title></title>
     <style type="text/css">
-
+        .test {
+            width: 180px;
+            height: 180px;
+            background: url(./circle1.svg);
+        }
     </style>
 </head>
 
 <body>
-    <canvas id="canvas-test"></canvas>
+    <embed src="circle1.svg" width="300" height="100" type="image/svg+xml" pluginspage="http://www.adobe.com/svg/viewer/install/" />
+
+
+
+    <object data="circle1.svg" width="300" height="100" type="image/svg+xml" codebase="http://www.adobe.com/svg/viewer/install/"></object>
+
+
+
+    <iframe src="circle1.svg" width="300" height="100">
+    </iframe>
+
+
+    <img src="circle1.svg" width="300" height="100" type="image/svg+xml" pluginspage="http://www.adobe.com/svg/viewer/install/" />
+
+    <div class="test"></div>
     <script>
-        /*canvas绘制是基于状态的*/
-        window.onload = function() {
-            var canvas = document.getElementById("canvas-test");
-            canvas.width = 1024;
-            canvas.height = 768;
-            var context = canvas.getContext('2d');
-            context.beginPath();
-            context.moveTo(100, 100);
-            context.lineTo(700, 700);
-            context.lineTo(100, 700);
-            context.lineTo(100, 100);
-            context.fillStyle = "rgb(2,100,30)";
-            context.fill(); //填充色
-            context.closePath();
-            /*
-fffff
-              */
-
-            context.lineWidth = 5;
-            context.strokeStyle = "red"
-            context.stroke(); //画线
-
-            context.beginPath();
-            context.moveTo(200, 100);
-            context.lineTo(700, 600);
-            context.closePath();
-            context.strokeStyle = "blue"
-            context.stroke(); //画线
-        }
     </script>
 </body>
 
