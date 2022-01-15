@@ -22,3 +22,5 @@ module.exports = {
   }
 }
 ````
+## 三、其他配置
+1. 默认不对node_module编译，部分node_module包可能没有编译过，需要自己配置加入编译`transpileDependencies`
