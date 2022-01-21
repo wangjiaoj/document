@@ -1,19 +1,82 @@
-# 兼容低版本浏览器
+# babel
 
 ## 一、基础概念
+Babel通过各种插件语法转旧
+1. Babel是一个新语法转旧语法的平台，它只对语法(synax)进行转义，对于api需要使用其对应的插件进行转化。新的API，比如 Iterator、Generator、Set、Maps、Proxy、Reflect、Symbol、Promise 等全局对象，以及一些定义在全局对象上的方法（比如 Object.assign ）都不会转码。
+babel的插件包括prest(预设)和plugin,
+babel 中插件的应用顺序是：先 plugin 再 preset，plugin 从左到右，preset 从右到左.
+因此babel 的 plugin 比 prset 要先执行.
 
-1. Babel是一个新语法转旧语法的平台，它只对synax进行转义，对于api需要使用其对应的插件进行转化。新的API，比如 Iterator、Generator、Set、Maps、Proxy、Reflect、Symbol、Promise 等全局对象，以及一些定义在全局对象上的方法（比如 Object.assign ）都不会转码。
 
 2. 对于API的转换又分为两部分，一个是全局API例如Promise，Set，Map还有静态方法Object.assign，另一个是实例方法例如Array.prototype.includes。对于实例方法core-js@2是转换不了的，只有core-js@3才会转换。
-   
-3. `@babel/polyfill`和`@babel/plugin-transform-runtime`都可以实现api转换。但是前者会污染全局，后者不会。如果不是编写插件或库，可以使用@babel/polyfill，否则请使用`@babel/plugin-transform-runtime`。
 
-babel官方文档：[@babel/polyfill](https://www.babeljs.cn/docs/babel-polyfill)
-翻译文档参考[翻译文档参考](https://blog.windstone.cc/es6/babel/)
+
+
+3. corejs  
+corejs 就是 babel 7 所用的 polyfill，需要指定下版本，corejs 3 才支持实例方法（比如 Array.prototype.fill ）的 polyfill。
+useBuiltIns 就是使用 polyfill （corejs）的方式，是在入口处全部引入（entry），还是每个文件引入用到的（usage），或者不引入（false）。
+babel 7 废弃了 preset-20xx 和 preset-stage-x 的 preset 包，而换成了 preset-env，preset-env 默认会支持所有 es 标准的特性，如果没进入标准的，不再封装成 preset，需要手动指定 plugin-proposal-xxx。
+
+ 
+
+4.  几个插件概念
+ `babel/preset-env` 默认只会转换语法，也就是我们看到的箭头函数、const一类。如果进一步需要转换内置对象、实例方法，那就得用polyfill, 这就需要你做一点配置了,这里有一个至关重要的参数 “useBuiltIns”，他是控制 `@babel/preset-env` 使用何种方式帮我们导入 polyfill。
+
+[@babel/preset-env 与@babel/plugin-transform-runtime 使用及场景区别](https://blog.csdn.net/m0_37846579/article/details/103379084)
+
+`@babel/polyfill`和`@babel/plugin-transform-runtime`都可以实现api转换(都可以进行按需引入)。但是前者会污染全局，后者不会。如果不是编写插件或库，可以使用@babel/polyfill，否则请使用`@babel/plugin-transform-runtime`。
  `@babel/polyfill`和`@babel/plugin-transform-runtime`两种区别一个是会修改全局变量
+ `@babel/polyfill`在 Babel 7.4.0中,被deprecated掉,在`@babel/present-env`中可以配置自动按需引入
+ `@babel/polyfill`是一个简单的包，包含core-js和regenerator-runtime这两个包。当core-js升级到3.0的版本后，将放弃使用@babel/polyfill，因为它只包含core-js 2.0的版本。
  >As of Babel 7.4.0, this package has been deprecated in favor of directly including core-js/stable (to polyfill ECMAScript features) and regenerator-runtime/runtime (needed to use transpiled generator functions):
 
+5. preset概念
+es 的标准一年一个版本，也就意味着 babel 插件要实时的去跟进，一年实现一系列插件。
+新的语法和 api 进入 es 标准也是有个过程的，这个过程分为这几个阶段：
+* 阶段 0 - Strawman/稻草人: 只是一个想法，经过 TC39 成员提出即可,可能用 babel plugin 实现
+* 阶段 1 - Proposal/提案: 值得继续的建议
+* 阶段 2 - Draft/初稿: 完成初步规范(建立spec)
+* 阶段 3 - Candidate/候选: 完成规范 并且在浏览器实现
+* 阶段 4 - Finished/完成: 会加入到下一年度发布，es20xx spec
+
+有这么多特性要 babel 去转换，每个特性用一个 babel 插件来做。但是特性多啊，也就是说插件多，总不能让用户自己去配一个个插件吧，所以 babel 6 引入了 preset 的概念，就是 plugin 的集合。
+example：es6 语法就用 babel-preset-es2015，es7 就在引入 babel-preset-es2016
+低一级的 stage 会包含所有高级 stage 的内容，例如 stage-1 会包含 stage-2, stage-3 的所有内容。
+
+babel6的问题：
+* es 的标准每年都在变，现在的 stage-0 可能很快就 stage-2 了，那 preset 怎么维护，要不要跟着变，用户怎么知道这个 stage-x 都支持什么特性？
+* 只能转成 es5，那目标环境支持一些 es6 特性了，那这些转换和 polyfill 岂不是无用功？ 而且还增加了产物的体积。
+* polyfill 手动引入，比较麻烦，有没有更好的方式
+
+babel7怎么解决 babel 6 的问题的:
+ 
+* babel 7 废弃了`preset-20xx `和 `preset-stage-x` 的 preset 包，而换成了`preset-env`，`preset-env` 默认会支持所有 es 标准的特性，如果没进入标准的，不再封装成 preset，需要手动指定 `plugin-proposal-xxx`。
+* compat-data给出了每个特性在不同浏览器或者 node 环境中的最低支持版本，babel 基于这个自己维护了一份数据库，[@babel/compat-data](https://github.com/babel/babel/blob/main/packages/babel-compat-data/data/plugins.json)
+
+
+6。 其他概念
+ 
+es201x, latest
+这些是已经纳入到标准规范的语法。例如 es2015 包含 arrow-functions，es2017 包含 syntax-trailing-function-commas。但因为 env 的出现，使得 es2016 和 es2017 都已经废弃。所以我们经常可以看到 es2015 被单独列出来，但极少看到其他两个。
+latest 是 env 的雏形，它是一个每年更新的 preset，目的是包含所有 es201x。但也是因为更加灵活的 env 的出现，已经废弃。
+
+7. babel7使用方案
+
+ 两种使用方案
+方案一：preset-env + polyfill，在 usebuildins 设置
+方案二：preset-env + transform-runtime + runtime + runtime-corejs3
+
+ 如果既在preset-env设置了usebuildins，有使用transform-runtime，那么会发现也不会重复引入， 所以preset-env 得到了 @babel/runtime 使用帮助函数包装后的代码，而 useage 又是检测代码使用哪些新特性来判断的， 所以它拿到手的只是一堆 帮助函数， 自然没有效果了
+
+8. babel参考文档
+* babel官方文档：[@babel/polyfill](https://www.babeljs.cn/docs/babel-polyfill)
+* 翻译文档参考[翻译文档参考](https://blog.windstone.cc/es6/babel/)
+* [回顾 babel 6和7，来预测下 babel 8](https://juejin.cn/post/6956224866312060942)
+* [聊一聊 Babel?](https://juejin.cn/post/6844903849442934798)
+
+
 babel6到babel7的升级是具有破坏性的，主要总结下polyfill的用法和在babel6和babel7中的不同。
+
 
 
 
@@ -43,6 +106,9 @@ preset-env是ES语法插件的合集，官方已经不再推荐使用preset-201x
  
 可以观察出如果某个preset需要配置可以将字符串换成一个数组，第一项是preset的name，第二项就是options。plugin同preset。
 
+
+
+
 ### 1.2 babel7配套升级要求
 
 babel 7.0 要求 nodejs >= 6。
@@ -62,7 +128,7 @@ babel7升级之后需要升级配套loader等
 * gulp-babel v8: https://github.com/babel/gulp-babel/releases/tag/v8.0.0
 * rollup-plugin-babel v4: https://github.com/rollup/rollup-plugin-babel/tag/v4.0.3
 
-另外babel7.4.0也是一个分水岭，百度的估计都是7.4.0之前的配置方案(个别插件废弃 + 配置繁琐)，需要注意package.json的babel版本。 
+  
 
 ## 二、babel7
 参考文章：
@@ -440,7 +506,7 @@ UglifyJS本来就已经提供了对IE浏览器的支持，不需要额外引入e
 }
 ````
 
-## 八、小结
+## 八、 babel/env 和babel/plugin-transform-runtime混用问题
 [康一康谁说的对](https://zhuanlan.zhihu.com/p/147083132)
 作者告诉你useBuildInts 和babel/plugin-transform-runtime不能混用. 参看
 https://github.com/babel/babel/issues/10271#issuecomment-528379505
@@ -451,4 +517,7 @@ issue10008 说得很清楚了呀，而且@babel/plugin-transform-runtime主要�
 
 babel/plugin-transform-runtime是环境无关的
 
-如果@babel/plugin-transform-runtime配置了corejs:3，preset-env的useBuiltIns就不会生效，babel/plugin-transform-runtime会打包所有浏览器的polyfill
+如果@babel/plugin-transform-runtime配置了corejs:3，preset-env的useBuiltIns就不会生效，babel/plugin-transform-runtime会打包所有浏览器的polyfill，再加上先执行plugin后执行preset插件
+
+
+重新再整理一遍plugin-transform-runtime  cores polify
