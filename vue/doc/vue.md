@@ -30,8 +30,8 @@ createElement 到底会返回什么呢？其实不是一个实际的 DOM 元素�
 this.$createElement
 
 在一些特殊组件中允许的jsx写法
-[](https://segmentfault.com/q/1010000009550441)
-[babel-plugin-transform-vue-jsx解决问题](https://segmentfault.com/a/1190000008559147)
+* [使用vue的element-ui中出现return()写法的问题](https://segmentfault.com/q/1010000009550441)
+* [babel-plugin-transform-vue-jsx解决问题](https://segmentfault.com/a/1190000008559147)
 
 
 
