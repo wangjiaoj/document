@@ -1,9 +1,61 @@
-# vue+TS实践
-Vue2+TS 一般考虑使用`vue-class-component`或`vue-property-decorator`的库
-代码风格上相对有点混乱
+# VUE+TS实践(以VUE3和TS为主)
+1. TS上的类型声明尽量type都使用小写
 
-Vue3+Ts 
-## 一、TS使用中问题
+ 
+## 二、vue3+TS实践
+1. Vue3+TS
+ VSCODE注意禁用vetur(给vue2用的),安装Volar插件 
+ 实践上推荐`defineComponent`,无论是option-api还是component-api的编程方式都可以支持,并且在代码上也相对于更加易于阅读
+
+```javascript
+import { defineComponent, PropType } from 'vue'
+
+interface Student {
+  name: string
+  class: string
+  age: number
+}
+
+const Component = defineComponent({
+  props: {
+    success: { type: String },
+    callback: {
+      type: Function as PropType<() => void>
+    },
+    student: {
+      type: Object as PropType<Student>,
+      required: true
+    }
+  },
+  data() {
+     return {
+      	message: 'Vue3 code style'
+    }
+  },
+  computed: {
+    reversedMessage(): string {
+      return this.message.split(' ').reverse().join('')
+    }
+  }
+})
+
+```
+vue 对 props 进行复杂类型验证的时候，就直接用 PropType 进行强制转换， data 中返回的数据也能在不显式定义类型的时候推断出大多类型， computed 也只用返回类型的计算属性即可，代码清晰，逻辑简单，同时也保证了 vue 结构的完整性。
+
+2. defineComponent, PropType
+> import { defineComponent, PropType } from 'vue';
+古纳于
+ 
+
+3. 关于vue插件
+使用vue3之后,vetur给出类似如下报错(也可能是其他类似内容报错)
+>Module ‘“vue“‘ has no exported member ‘ref‘
+查找原因是vetur报的错，大概是vue3+ts检测,功能还没更新过来(上次更新在2019年,应该是适用vue2了)
+重新安装Volar插件`Vue Language Features (Volar)`(针对Vue3的插件)和`TypeScript Vue Plugin (Volar)`
+
+
+
+## 二、TS使用中问题
 
 ### 1.1. TS的第三方全局变量定义
 ```javascript
@@ -12,6 +64,8 @@ declare global {
 }
 window.MyNamespace = window.MyNamespace || {};
 ```
+ 
+
 ### 1.2. TS报错
 1. 直接引用js文件中的函数的时候,可能会报错文件没有类型 
 >Could not find a declaration file for module '/xx/xx.js' implicitly has an 'any' type
@@ -21,42 +75,13 @@ window.MyNamespace = window.MyNamespace || {};
  如果你不关心一用文件的type,可以在`.d.ts` 文件中配置如下：
 >declare module '*';
 [stackoverflow上的问答](https://stackoverflow.com/questions/41292559/could-not-find-a-declaration-file-for-module-module-name-path-to-module-nam)
+2. vue + typescript：Property 'xxx' does not exist on type 'Vue'
+> this.$parent.paymentType();
+修改为
+>(this as any).$parent.paymentType();
+类似像是inject之类的注入函数也可能报错类似问题,也可以用该方案解决
 
-## 二、vue3+TS实践
-1. 关于vue插件
-使用vue3之后,vetur给出类似如下报错(也可能是其他类似内容报错)
->Module ‘“vue“‘ has no exported member ‘ref‘
-查找原因是vetur报的错，大概是vue3+ts检测,功能还没更新过来(上次更新在2019年,应该是适用vue2了)
-重新安装Volar插件`Vue Language Features (Volar)`(针对Vue3的插件)和`TypeScript Vue Plugin (Volar)`
-
-
-## 三、vue2+TS
-
-
-1. 库
-目前 2.x 跟 TS 的整合，通常需要基于 `vue-class-component` 来用基于 class 的组件书写方式
-`vue-class-component`和`vue-property-decorator`
-
-`vue-class-component`是vue 的官方库，作用是以class的模式编写组件。这种编写方式使vue组件可以使用继承、混入等高级特性,更重要的是使 Vue 组件更好的跟TS结合使用。
-
-` vue-property-decorator `是社区出的,基于vue-class-component 拓展出了很多操作符 @Prop @Emit @Inject 等;可以说是 vue-class-component 的一个超集, 使代码更为简洁明了,options里面需要配置 decorator库不支持的属性, 比如components, filters, directives等。
- 
-
-`vue-class-component`
-```javascript
-  import { Options, Vue } from 'vue-class-component';
-
-  @Options({
-    props: {
-      msg: String
-    }
-  })
-  export default class HelloWorld extends Vue {
-    msg!: string;
-  }
-```
-
-vue-property-decorator 基于 vue-class-component 开发而成，所以安装时仅需安装 vue-property-decorator 即可。
+## 三、 HOOK
 
 [走近Ts，用了爽，用后一直爽（二)](https://segmentfault.com/a/1190000038540091)
 
@@ -65,6 +90,7 @@ vue-property-decorator 基于 vue-class-component 开发而成，所以安装时
 [优雅的在Vue3中使用Vuex「TypeScript版」](https://www.imsle.com/archives/105.html)
 
 
+[Vue Composition API 陷阱](https://mp.weixin.qq.com/s?__biz=Mzg4MTYwMzY1Mw==&mid=2247496480&idx=1&sn=eec778b7d6a6709dfc86bd525ea89a52&source=41#wechat_redirect)
 
 
 
