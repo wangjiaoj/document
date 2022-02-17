@@ -10,6 +10,7 @@
 
 ### 2.2. history/hash
 
+使用H5的新 History API
 ### 2.3. 关于同地址反复访问问题
 router-view是复用的，单纯的改变id号并不会刷新router-view
 1. 实现页面的局部刷新（`<router-view>`页面刷新）

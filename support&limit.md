@@ -5,11 +5,13 @@ vue-cli 4.5 需要 Node.js 10.12.0 以上版本；
 vue-cli 5.0（目前还是 beta 版）也需要 Node.js 12.0.0 以上版本。
 Webpack 4 需要 Node.js 6.11.5 以上版本，但推荐在 8.9.4 以上以获得最佳支持；
 Webpack 5 需要 Node.js 10.13.0 以上版本。
-element-plus 官方表示不支持 Vue 2.X，不清楚你要硬要用的话有啥坑，理论上来说 @vue/composition-api 自己有哪些兼容问题，它就有哪些问题，用了相关写法的模块你就没法用。
-
+create-react-app 5.0 需要node14
+create-reate-app 4.0.3 还是支持node12的,最低支持版本未知 可能是node10
+win10才能支持node14 
 ## 二、vue3
 vue-cli 4就已经支持vue3了
 vite如果使用的话可能需要补充一下生产环境打包方式
+UI框架里面 element-plus vant3.x等 是支持 Vue 3
 ### 2.1 vite:
 webpack是提前编译好，然后才打开页面，一旦打开页面，切换路由是很快的。
 vite是把前期的时间全部均摊到了加载vue组件上了。
@@ -33,6 +35,11 @@ vite的浏览器兼容性：
 请注意，默认情况下 Vite 只处理语法转译，且 默认不包含任何 polyfill。你可以前往 Polyfill.io 查看，这是一个基于用户浏览器 User-Agent 字符串自动生成 polyfill 包的服务。
 
 传统浏览器可以通过插件 @vitejs/plugin-legacy 来支持，它将自动生成传统版本的 chunk 及与其相对应 ES 语言特性方面的 polyfill。）
+
+## 创建工具
+create-react-app和vue-cli均在V5版本开始支持webpack5
+create-reate-app V5 移除了对node12的支持,会提示要求要求node14
+ 
 
 ## 三、关于版本
 RC=Release Candidate,含义是”发布候选版”，它不是最终的版本，而是最终版(RTM=Release To Manufacture)之前的最后一个版本。
