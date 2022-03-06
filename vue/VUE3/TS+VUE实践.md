@@ -6,7 +6,7 @@
 1. Vue3+TS
  VSCODE注意禁用vetur(给vue2用的),安装Volar插件 
  实践上推荐`defineComponent`,无论是option-api还是component-api的编程方式都可以支持,并且在代码上也相对于更加易于阅读
-
+ options-api代码示例:
 ```javascript
 import { defineComponent, PropType } from 'vue'
 
@@ -36,11 +36,41 @@ const Component = defineComponent({
     reversedMessage(): string {
       return this.message.split(' ').reverse().join('')
     }
+  },
+  methods:{
+
   }
 })
 
 ```
 vue 对 props 进行复杂类型验证的时候，就直接用 PropType 进行强制转换， data 中返回的数据也能在不显式定义类型的时候推断出大多类型， computed 也只用返回类型的计算属性即可，代码清晰，逻辑简单，同时也保证了 vue 结构的完整性。
+
+component-api代码示例：
+```javascript
+<template>
+<div>{{text}}</div>
+</template>
+import {ref, defineComponent, onMounted } from 'vue'
+import {useRouter, useRoute } from 'vue-router'
+const Component = defineComponent({
+  name:'',
+  components:{
+
+  },
+  setup(){
+    const router = useRouter()
+    const route = useRoute()
+    const text = ref()
+    onMounted(()=>{
+      //
+    })
+    return {
+      text
+    }
+  }
+})
+
+```
 
 2. defineComponent, PropType
 > import { defineComponent, PropType } from 'vue';

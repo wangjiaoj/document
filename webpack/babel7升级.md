@@ -13,3 +13,8 @@ https://juejin.cn/post/6844903869353295879
 深入浅出 Babel 上篇：架构和原理 + 实战
 https://juejin.cn/post/6844903956905197576
 
+升级命令：
+># 不安装到本地而是直接运行命令，npm 的新功能
+> npx babel-upgrade --write
+
+[babel升级7.x的心得](https://www.cnblogs.com/longlongdan/p/12169974.html)
