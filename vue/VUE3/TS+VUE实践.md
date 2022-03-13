@@ -50,7 +50,7 @@ component-api代码示例：
 <template>
 <div>{{text}}</div>
 </template>
-import {ref, defineComponent, onMounted } from 'vue'
+import {ref, defineComponent, onMounted ,watch,provide} from 'vue'
 import {useRouter, useRoute } from 'vue-router'
 const Component = defineComponent({
   name:'',
@@ -63,6 +63,9 @@ const Component = defineComponent({
     const text = ref()
     onMounted(()=>{
       //
+    })
+    watch(route,(from,to)=>{
+
     })
     return {
       text

@@ -8,29 +8,119 @@ create-react-app 是一个通过 npm 发布的安装包，
 你也可以使用 create-react-app 提供的 yarn run eject 命令将所有内建的配置暴露出来
 还有其他一些安装工具，比umi等
 
-## 二、react-router
- V6版本API变动较大,
-v6以前版本, 集中路由管理之前要依赖`react-router-config`,升级到V6之后，使用`useRoutes`即可实现集中路由管理
-[升react-router v6后，react-router-config不能用了？——react-router v6实现集中式路由](https://juejin.cn/post/7052933770260938783)
+2. 相关文档
+[react官方文档](https://zh-hans.reactjs.org/docs/hooks-state.html)
+[react-valid-hookpcall-waring](https://zh-hans.reactjs.org/warnings/invalid-hook-call-warning.html)
+[react的hook 10种hook](https://juejin.cn/post/6844903989696282631)
 
-此外也有一些不同的关于router的看法[React-Router v4之后为什么不用config来管理路由？使用react-router新特性做模块加载吧](https://juejin.cn/post/7054407734166290463)
-[Config Router：一个 React Router 路由守卫及集中配置管理工具](https://juejin.cn/post/7029980146115280910)
+关于waring
+注意,为避免困惑，在以下情况中调用 Hook 是不被支持的：
 
-### 2.1 v6之前版本
-1. react-router从 4.x 版本开始就开始采取 组件即路由 的理念。
+ * 不要在 class 组件中调用 Hook。
+ * 不要在 event handlers 中调用。
+ * 不要在 useMemo、useReducer 或 useEffect 的参数函数中调用。
 
-使用`react-router-config`实现集中路由管理的示例和文章：
+3. react的class写法和hook写法
 
->import { renderRoutes} from 'react-router-config';
-[`react-router-config`集中管理路由](https://juejin.cn/post/6959835598198669343)
+````javascript
+import React from 'react';
+import './App.css';
+//通常的class写法,改变状态
+class App extends React.Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      hook:'react hook 是真的好用啊'
+    }
+  }
+  changehook = () => {
+    this.setState({
+      hook:'我改变了react hook 的值'
+    })
+  }
+  render () {
+    const { hook } = this.state
+    return(
+         <header className="App-header">
+          {hook}
+          <button onClick={this.changehook}>
+            改变hook
+          </button>
+        </header>
+      )
+  }
+}
+export  {App}
 
-### 2.2. V6版本的
-[React-Router V6 使用详解(干货)](https://juejin.cn/post/7033313711947251743#heading-1)
+//函数式写法,改变状态
+function App() {
+//创建了一个叫hook的变量，sethook方法可以改变这个变量,初始值为‘react hook 是真的好用啊’
+ const [hook, sethook] = useState("react hook 是真的好用啊");
+  return ( 
+    <header className="App-header">
+      {hook}{/**这里的变量和方法也是可以直接使用的 */}
+      <button onClick={() => sethook("我改变了react hook 的值")}>
+        改变hook
+      </button>
+    </header>
+  );
+}
+export  {App}
+
+//箭头函数的函数写法,改变状态
+export const App = props => {
+  const [hook, sethook] = useState("react hook 是真的好用啊");
+  return (
+    <header className="App-header">
+      {hook}
+      <button onClick={() => sethook("我改变了react hook 的值")}>
+        改变hook
+      </button>
+    </header>
+  );
+};
 
 
+````
+
+## hook
+ 
+React目前提供的Hook
+
+hook
+用途
+
+1. useState
+设置和改变state，代替原来的state和setState
+
+2. useEffect
+代替原来的生命周期，componentDidMount，componentDidUpdate 和 componentWillUnmount 的合并版
+
+useLayoutEffect
+与 useEffect 作用相同，但它会同步调用 effect
 
 
+3. useMemo
+控制组件更新条件，可根据状态变化控制方法执行
 
+4. useCallback
+useCallback(fn, deps) 相当于 useMemo(() => fn, deps)。
+
+5. useRef
+跟以前的ref，一样，只是更简洁了
+
+6. useContext
+上下文爷孙及更深组件传值
+
+7. useReducer
+代替原来redux里的reducer,配合useContext一起使用
+
+8. useDebugValue
+在 React 开发者工具中显示自定义 hook 的标签，调试使用。
+
+9. useImperativeHandle
+可以让你在使用 ref 时自定义暴露给父组件的实例值。
+ 
 ## UI:antd
 
 > npm add antd

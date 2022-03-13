@@ -24,3 +24,13 @@ module.exports = {
 ````
 ## 三、其他配置
 1. 默认不对node_module编译，部分node_module包可能没有编译过，需要自己配置加入编译`transpileDependencies`
+2. 关于debugger配置，可以在chainWebpack配置中设置保留debugger
+vue-cli4示例：
+````javascript
+config.optimization.minimizer('terser').tap((args)=>{
+  //console.log
+  args[0].terseroptions.compress.drop_console = false;
+  //debugger
+    args[0].terseroptions.compress.drop_debugger = false;
+})
+````

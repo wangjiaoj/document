@@ -80,3 +80,4 @@ Vue.component('my-component', {
 1. vue watch变量之后，修改参数，但根据这个参数重新computer的参数未变化
 
 2. watch tableList 修改表格渲染后高度   computer的是否展示滚动条参数未变化
+

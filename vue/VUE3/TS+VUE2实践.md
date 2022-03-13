@@ -2,8 +2,19 @@
  一般考虑使用`vue-class-component`或`vue-property-decorator`的库, 但代码风格上相对有点凌乱
 
 
-## 二、vue2+TS
+## 二、vue2+composition-api
+直接安装@vue/composition-api
+在vue3中从vue中引入的ref,reactive等直接从`@vue/composition-api`中引入即可
+等到升级到vue3的时候，直接用vue替换掉`@vue/composition-api`即可
+如果配合使用TS，那么为方便TS在Vue组件中正确的进行类型推断，可以从`@vue/composition-api`中引入`defineComponent`
+详情见github文档，根据目前写法在vue2升级vue3中是应该是非常平滑的
+vue2+compsition-api限定的一些方法
 
+1. 在template中定义refs,之前写法是`this.$refs.xx`,可以使用context来获取`context.refs.xx`,该方案是vue2限定，
+vue3中不存在。
+
+
+## 三、vue2+TS
 ### 2.1. 库
 1. 装饰器概念
 函数体或者函数调用方式的情况下，给函数增加一些新功能
