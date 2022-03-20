@@ -83,10 +83,10 @@ export const App = props => {
 
 ````
 
-## hook
+## 二、hook
  
 React目前提供的Hook
-
+>import React,{ useState } from 'react'
 hook
 用途
 
