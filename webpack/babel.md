@@ -448,7 +448,7 @@ ECMA-262第5版于2009年12月发布，新增 "严格模式（strict mode）"，
 浏览器支持情况如下所示：
 
 * IE8
-不支持。但支持 Object.defineProperty、Object.getOwnPropertyDescriptor 和 JSON解析等功能。
+不支持。但支持 Object.defineProperty(支支持dom对象和部分非标准行为，ie9才完整支持)、Object.getOwnPropertyDescriptor 和 JSON解析等功能。
 * IE9
 部分支持。不支持严格模式（Strict mode）
 * IE10+

@@ -38,11 +38,11 @@ React组件正是由props和state两种类型的数据驱动渲染出组件UI。
 （3）render 
 （4）componentDidMount
 2、组件更新阶段，依次调 用的生命周期方法有：
-（1）componentWillReceiveProps （nextProps）
-（2）shouldComponentUpdatee（nextProps, nextState） 
-（3）componentWillUpdate e（nextProps, nextState）
+（1）componentWillReceiveProps(nextProps)
+（2）shouldComponentUpdatee(nextProps, nextState) 
+（3）componentWillUpdatee(nextProps, nextState)
 （4）render 
-（5）componentDidUpdate（prevProps, prevState）
+（5）componentDidUpdate(prevProps, prevState)
 
 3、卸载阶段 组件从DOM中被卸载的过程，这个过程中只有一个生命周期方 法： componentWillUnmount
 
