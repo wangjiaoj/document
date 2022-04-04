@@ -1,5 +1,5 @@
 # VUE+TS实践(以VUE3和TS为主)
-1. TS上的类型声明尽量type都使用小写
+1. 参考文档
 
 [走近Ts，用了爽，用后一直爽（二)](https://segmentfault.com/a/1190000038540091)
 
@@ -8,12 +8,9 @@
 [优雅的在Vue3中使用Vuex「TypeScript版」](https://www.imsle.com/archives/105.html)
 
 
+[-import type { DefineComponent } from ‘vue‘ 报错](https://blog.csdn.net/lanseguhui/article/details/117809376?utm_medium=distribute.pc_aggpage_search_result.none-task-blog-2~aggregatepage~first_rank_ecpm_v1~rank_v31_ecpm-1-117809376.pc_agg_new_rank&utm_term=Vue+defineComponent+%E4%B8%8D%E5%86%99+%E4%B9%9F%E6%8A%A5%E9%94%99&spm=1000.2123.3001.4430)
 
 
-
-https://blog.csdn.net/lanseguhui/article/details/117809376?utm_medium=distribute.pc_aggpage_search_result.none-task-blog-2~aggregatepage~first_rank_ecpm_v1~rank_v31_ecpm-1-117809376.pc_agg_new_rank&utm_term=Vue+defineComponent+%E4%B8%8D%E5%86%99+%E4%B9%9F%E6%8A%A5%E9%94%99&spm=1000.2123.3001.4430
-
-[TS报错对照表](https://blog.csdn.net/weixin_42659625/article/details/81002985)
  
 ## 一、vue3+TS实践
 ### 1.1. Vue3+TS

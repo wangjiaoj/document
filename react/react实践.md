@@ -140,11 +140,11 @@ useReducer可以说是useState的复杂版
 控制组件更新条件，可根据状态变化控制方法执行
 
 使用场景:
-* 父组件中与子组件无关的一些state更新也会导致子组件重新执行,可以使用该方法来进行控制，避免不必要render,再实际场景中应该使用额比较频繁
+* 
 
 6. useCallback
 useCallback(fn, deps) 相当于 useMemo(() => fn, deps)。
-
+需要结合React.memo/comonentShouldUpdate使用,usecallback记住函数，避免函数重复生成,这样函数在传递给子组件的时候，可以避免子组件重复渲染,提升性能
 7. useRef
 跟以前的ref，一样，只是更简洁了
 
@@ -181,7 +181,8 @@ Context 提供了一个无需为每层组件手动添加 props，就能在组件
 [react-api](https://zh-hans.reactjs.org/docs/react-api.html)
 部分API整理
 1. React.memo
-类useMemo()功能,可以用来避免子组件的更新,但是如果父组件在引用子组件上绑定事件，依然会导致子组件更新
+父组件中与子组件无关的一些state更新也会导致子组件重新渲染,该API可以用来封装子组件,避免子组件重复渲染。
+但是如果父组件在引用子组件时传入函数，函数前后反复定义，但实际地址不同,依然会导致子组件更新,可以结合useDemo/useCallbak来定义传入函数
 ````javascript
 const Child2 = React.memo(ShopChild);
 // const Child2 = React.memo(ShopChild,(prevProps,nextProps)=>{
@@ -196,10 +197,11 @@ const ShopList =(props)=> {
          setN(N+1);
       }
       //如果子组件定义了事件进行hook-setState更新,依然会受到N更新影响再渲染
-      
       // const clickChildHandle = ()=>{
       //   console.log('mmm') 
-      //  实际上即使只有console,N更新依然会触发子组件更新,原因可能是浅层props对比的onClick没有通过
+      //   实际上即使只有console,N更新依然会触发子组件更新,原因是该函数反复生成,
+      //   新旧函数功能一致但是地址不一致,需要使用useMemo解决
+      //   按照props上函数指向地址不同来理解也是一样的
       //   setM(M+1);
       // }
       return (
@@ -222,6 +224,12 @@ const ShopList =(props)=> {
 如果你的组件在相同 props 的情况下渲染相同的结果，那么你可以通过将其包装在 React.memo 中调用，以此通过记忆组件渲染结果的方式来提高组件的性能表现。
 React.memo 仅检查 props 变更。如果函数组件被 React.memo 包裹，且其实现中拥有 useState，useReducer 或 useContext 的 Hook，当 state 或 context 发生变化时，它仍会重新渲染。
 默认情况下其只会对复杂对象做浅层对比，如果你想要控制对比过程，那么请将自定义的比较函数通过第二个参数传入来实现。
+
+场景：
+父组件中与子组件无关的一些state更新也会导致子组件重新渲染,可以使用该方法来进行控制，避免不必要render。
+
+react.memo/shouldUpdateComponent
+关系对比
 
 2. react.createContext
 react.XX

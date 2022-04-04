@@ -9,7 +9,7 @@ VUE的API,常规的option配置写法随着业务增加,代码量也会随之膨
 #### 1.3  option-api
 vue3的option-api写法和vue2的一致
 
-###  二、component—api
+###  二、composition—api
 
 #### 2.1 setup基础使用
 1. setup(props,context)
@@ -144,31 +144,60 @@ toRefs: 针对组合函数返回响应式对对象时使用 toRefs, 本质上是
 
 #### 2.5 生命周期的hooks
 watchEffect
+watch
 
-
-#### 2.6其他注意点
+#### 2.6 其他注意点
+1. 语法上
 * 关于 watch:对于监听对象是分隔字符串时，需要在选项参数中指定 deep: true
-* 迁移 vue3 时，setup 中只保留了不再有on,on,once, $off 等方法，只保留了 emit，
-* vue3.X 中去掉了.sync,用v-model代替 并且同一个组件中不仅限于只有一个v-model
-* 在 Vue3 中组件没有filters选项，迁移过程中，可以用computed/methods替代
+2. 心智模型问题
+* 心智模型上需要注意关于hook引用解构带来的问题
+* 另外可能主要要注意composition-api不只是需要在功能复用的时候才做抽取,而且可能需要从功能设计层面一开始就按照逻辑关注点等进行抽取开发,
+逻辑关注点是指表达同一个业务的代码内聚到一起，这也是单一职责的指导思想，我们内聚的不应该技术类型，而是业务逻辑，因为触发代码变更的往往是业务需求，因此把相同变更理由的代码放在一起，这才不会导致散弹式修改。维护性体现在代码是否符合单一职责原则，单一职责就是把相同的业务代码内聚到一个地方。
+[不要再用vue2的思维写vue3了](https://juejin.cn/post/6946387745208172558#heading-1)
+个人认为这方面的思维转变可以考虑参考react-hook的编写,个人看法composition-api其实就是向react-hook靠近
 
 
-#### 2.6 
+### 三、vue3其他新特性
+### 3.1 废弃
+1. 迁移 vue3 时，setup 中只保留了不再有on,once, $off 等方法，只保留了 emit，部分eventBus功能可能需要自行实现
+2. ue3.X 中去掉了.sync,用v-model代替 并且同一个组件中不仅限于只有一个v-model
+3. 在 Vue3 中组件没有filters选项，迁移过程中，可以用computed/methods替代
+#### 3.2 新增特性
+1. Fragment 
+ Vue 3 现在正式支持了多根节点的组件，也就是片段Fragment,应该是参考了react的Fragment
+2. Suspense 实验性
+#### 3.2 内置新组件
+1. <Teleport></Teleport> 
+Teleport 提供了一种干净的方法，允许我们控制在 DOM 中哪个父节点下渲染了 HTML，而不必求助于全局状态或将其拆分为两个组件。
+参数:to
+ 
 生命周期的hooks
 
-#### 2.7 getCurrentInstance
+#### 3.2 API
+1. getCurrentInstance
 获取实例
 官方文档不推荐在应用中使用，需要在setup中使用
 
-## 三、 <script setup>
+
+
+#### 3.3
+patchFag静态标识
+优化跨端问题
+v-memo缓存html模板
+自定义渲染器
+css动态变量注入
+
+### 四、 <script setup>
 `<script setup>`是setup的语法糖
 需要一些方法来完成定义props等定义
-1. defineProps defineEmits
-2. defineExpose
+1. defineProps 和defineEmits API 来替代 props 和 emits
+2. defineExpose来主动暴露组件属性
 3. useSlots和useAttrs
-
-
-## 四、样式问题
+写法：
+1. `<script setup>`中无需return 声明的变量、函数以及import引入的内容，即可在`<template/>`使用
+2. `<script setup>`语法糖里面的代码会被编译成组件 `setup()` 函数的内容。这意味着与普通的 `<script>` 只在组件被首次引入的时候执行一次不同，`<script setup>`中的代码会在每次组件实例被创建的时候执行
+3.`<script setup>`引入组件将自动注册
+## 五、样式问题
 vue3中深度选择器>>>和/deep/和::v-deep被弃用
 需要使用.deep(<inner-selector>)方式改变原来的/deep/和::v-deep使用方式
 ````javascript
@@ -191,13 +220,13 @@ vue3中深度选择器>>>和/deep/和::v-deep被弃用
 
 
 
-## 四、jsx
+## 六、jsx
 babel-preset-jsx
 
 
 
 
-## 五、问题
+## 七、问题
 解构可能带来的问题
 
  

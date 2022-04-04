@@ -62,8 +62,8 @@ EventBus.$once(channel: string, callback(payload1,…)) 。
 React:
 1. 提升到父级
 2. 特殊的context
-    只能通过props一层一层往里传递这样的限制啊……不可能的，考虑到项目复杂度，组件层级过高，这个我们真不能接受啊。
-    react想了想，是啊不能太狠毒，限制过大万一没人用岂不是尴尬了？于是加上了context这个玩意，方便我们进行组件间的隔代通信。
+    考虑到项目复杂度，组件层级过高，这个我们真不能接受只能通过props一层一层往里传递这样的限制啊。
+    react加上了context这个玩意，方便我们进行组件间的隔代通信。
 
 例:UserListContainer 通过增加getChildContext和childContextTypes将
 onAddUser在组件树中自动向下传递，当任意层级的子组件需要使用

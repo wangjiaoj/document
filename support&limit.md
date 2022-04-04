@@ -11,7 +11,7 @@ win10才能支持node14
 
 ## 二、框架对浏览器支持状态统计
 vue2支持浏览器IE9(+)
-vue3不再支持IE
+vue3不再支持IE，IOS>=10,Android>=5
 react18不再支持IE
 react17官方说法是支持IE9(+)
 [react文档](https://reactjs.org/docs/react-dom.html)
