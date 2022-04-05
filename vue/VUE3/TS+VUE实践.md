@@ -100,25 +100,9 @@ const Component = defineComponent({
 
 ## 二、TS使用中问题
 
-### 2.1. TS的第三方全局变量定义
-```javascript
-declare global {
-    interface Window { MyNamespace: any; }
-}
-window.MyNamespace = window.MyNamespace || {};
-```
- 
+### 2.1. TS报错
 
-### 2.2. TS报错
-1. 直接引用js文件中的函数的时候,可能会报错文件没有类型 
->Could not find a declaration file for module '/xx/xx.js' implicitly has an 'any' type
-
-解决方案：
- On the other hand, if you don't care about the typings of external libraries and want all libraries without typings to be imported as any, you can add this to a file with a .d.ts extension:
- 如果你不关心一用文件的type,可以在`.d.ts` 文件中配置如下：
->declare module '*';
-[stackoverflow上的问答](https://stackoverflow.com/questions/41292559/could-not-find-a-declaration-file-for-module-module-name-path-to-module-nam)
-2. vue + typescript：Property 'xxx' does not exist on type 'Vue'
+1. vue + typescript：Property 'xxx' does not exist on type 'Vue'
 > this.$parent.paymentType();
 修改为
 >(this as any).$parent.paymentType();
