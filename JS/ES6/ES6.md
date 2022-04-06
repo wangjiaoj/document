@@ -7,6 +7,8 @@
 
 2. promise
 
+3. proxy
+
 
 ## ES2016(ES7)
 1. Array.prototype.includes
