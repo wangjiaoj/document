@@ -35,6 +35,7 @@ interface StringArray1 {
 ```
 当使用数值索引时，JavaScript 在执行索引操作时，会先把数值索引先转换为字符串索引。
 
+
 ### 1.4 其他
   1. 参考文章
   [非常全面的typescript](https://mp.weixin.qq.com/s/lkEKHBU4dqJ_9qbJJnBiPA)
