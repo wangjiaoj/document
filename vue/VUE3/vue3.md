@@ -93,19 +93,35 @@
   [Vue Composition API 陷阱](https://juejin.cn/post/6855473771013226503)
 
 
-## 二、composition—api
+## 二、composition-api
 
 ### 2.1 setup基础使用
-  1. setup(props,context)
+  1. setup的参数
+    `setup(props,context)`/ `setup(props, {attrs, slots, emit})`
     * props:用于获取组件中定义的props
     * context:setup中不能使用this,可以使用context获取插槽
-  2. 在模板或被引用情况情况使用的变量和方法都要在最后return
+    * attrs: 包含没有在props配置中声明的属性的对象, 相当于 this.$attrs
+    * slots: 包含所有传入的插槽内容的对象, 相当于 this.$slots
+    * emit: 用来分发自定义事件的函数, 相当于 this.$emit
+      $emit使用:`context.emit()`
+
+  2. setup的返回值
+
+  * 一般都返回一个对象: 为模板提供数据, 也就是模板中可以直接使用此对象中的所有属性/方法
+  * 返回对象中的属性会与data函数返回对象的属性合并成为组件对象的属性
+  * 返回对象中的方法会与methods中的方法合并成功组件对象的方法
+  * 如果有重名, setup优先
+
+  注意:
+
+  * 一般不要混合使用: methods中可以访问setup提供的属性和方法, 但在setup方法中不能访问data和methods
+
+  * setup不能是一个async函数: 因为返回值不再是return的对象, 而是promise, 模板看不到return对象中的属性数据
+
+
   3. $refs使用:在setup中通过`const xx = ref(null)`再次定义,会在onMounted中自动给变量赋值proxy对象
-  4. props变量监听(watch):使用函数作为监听名称传参
-    > ()=>props.xx
-  5. $emit使用:`context.emit()`
-  6. route监听(watch),需要使用useRoute()函数调用后返回的对象作为监听对象名称
-  7. 注意像inject只能在setup中调用一次,这个在componets-api中容易忽略
+
+  4. 注意像inject只能在setup中调用一次,这个在composition-api中容易忽略
   ````vue
   <template>
     <div class="eidtPage">
@@ -156,17 +172,36 @@
 
 
 ### 2.2 vue提供函数(部分)在setup中使用:
-  1. reactive
-  2. ref
-  3. toRefs
-  4. watchEffect
-  5. computed
-  6. watch
-  7. provide/inject
+  * reactive
+  * ref
+  * toRefs
+  * watchEffect
+  * computed
+  * watch
+  * provide/inject
   都是以函数形式进行调用
 
+  1. watch
 
+  * props变量监听:使用函数作为监听名称传参
+  * route监听,需要使用useRoute()函数调用后返回的对象作为监听对象名称
+  * 默认初始时不执行回调, 但可以通过配置immediate为true, 来指定初始时立即执行第一次
+    ```javascript
+      //props监听
+      watch(()=>props.xx,()=>{
 
+      })
+      //route监听
+      const route = useRoute();
+      watch(route,(from:any)=>{
+        //todo
+      })
+    ```
+  2. watchEffect函数
+
+    * 不用直接指定要监视的数据, 回调函数中使用的哪些响应式数据就监视哪些响应式数据
+    * 默认初始时就会执行第一次, 从而可以收集需要监视的数据
+    * 监视数据发生变化时回调
 
 
 ### 2.3 生命周期的hooks

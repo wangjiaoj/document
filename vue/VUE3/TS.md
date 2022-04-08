@@ -3,7 +3,7 @@
 ## 一、注意问题
 ### 1.1 TS上的类型都要使用小写
   1. JavaScript 中以下类型被视为原始类型：string、boolean、number、bigint、symbol、null 和 undefined。
-  2. 原始类型 number、string、boolean、symbol容易混淆的首字母大写的 Number、String、Boolean、Symbol 类型，后者是相应原始类型的包装对象，姑且把它们称之为对象类型
+  2. 原始类型 number、string、boolean、symbol,容易混淆首字母大写的 Number、String、Boolean、Symbol 类型，后者是相应原始类型的包装对象，姑且把它们称之为对象类型
   从类型兼容性上看，原始类型兼容对应的对象类型，反过来对象类型不兼容对应的原始类型
   3. 尽管官方文档说可以使用小 object 代替大 Object，但是我们仍要明白大 Object 并不完全等价于小 object。 object 和Object,{}存在差别
 
@@ -35,16 +35,7 @@ interface StringArray1 {
 ```
 当使用数值索引时，JavaScript 在执行索引操作时，会先把数值索引先转换为字符串索引。
 
-
-### 1.4 其他
-  1. 参考文章
-  [非常全面的typescript](https://mp.weixin.qq.com/s/lkEKHBU4dqJ_9qbJJnBiPA)
-  [走近Ts，用了爽，用后一直爽](https://segmentfault.com/a/1190000031793196)
-  [Vue3+TypeScript？看这一篇就够了](https://blog.csdn.net/qq_40280582/article/details/112444461)
-
-  [TS报错对照表](https://blog.csdn.net/weixin_42659625/article/details/81002985)
-
-  2. TS的第三方全局变量定义
+### 1.4. TS的第三方全局变量定义
   ```javascript
   declare global {
       interface Window { MyNamespace: any; }
@@ -52,12 +43,23 @@ interface StringArray1 {
   window.MyNamespace = window.MyNamespace || {};
   ```
 
-  3. Typescript 声明文件中的 `declare global` 和 普通 `declare` 区别 
+### 1.5. `declare global`
+ 1. Typescript 声明文件中的 `declare global` 和 普通 `declare` 区别 
 
   在 `d.ts` 声明文件中，任何的`declare` 默认就是 `global` 的了，所以你在 `d.ts` 文件中是不能出现 `declare global` 的。只有在模块文件中的定义，如果想要全局就使用 `declare global`
   [`declare global` 和 普通 `declare`](https://segmentfault.com/q/1010000016173914)
 
-  4. 直接引用js文件中的函数的时候,可能会报错文件没有类型 
+
+### 1.6 其他
+  1. 参考文章
+  [非常全面的typescript](https://mp.weixin.qq.com/s/lkEKHBU4dqJ_9qbJJnBiPA)
+  [走近Ts，用了爽，用后一直爽](https://segmentfault.com/a/1190000031793196)
+  [Vue3+TypeScript？看这一篇就够了](https://blog.csdn.net/qq_40280582/article/details/112444461)
+
+  [TS报错对照表](https://blog.csdn.net/weixin_42659625/article/details/81002985)
+
+  
+  2. 直接引用js文件中的函数的时候,可能会报错文件没有类型 
   >Could not find a declaration file for module '/xx/xx.js' implicitly has an 'any' type
 
   解决方案：
@@ -67,45 +69,42 @@ interface StringArray1 {
   [stackoverflow上的问答](https://stackoverflow.com/questions/41292559/could-not-find-a-declaration-file-for-module-module-name-path-to-module-nam)
 
 ## 二、基础类型
-
-## 2.1 基础类型
+ 
+### 2.1 基础类型
   1. boolean
   2. number
   3. string 
-  4. undefined 
-  5. null
-  6. 数组
+  4. undefined 和 null
+  5. 数组
       有两种方式可以定义数组：
       * 元素类型后面接上[]，表示由此类型元素组成的一个数组
       > const c: number[] = [1, 2, 3];
       * 数组泛型，Array<元素类型>
       > const d: Array<number> = [1, 3];
+
+  6. Tuple元组
+  注意元组定义和数组定义不要混淆
+    元组定义
+    >let a:[number,string] =[1,"2"];
+    数组定义
+    >let arr:string[] = ["1","2"];
+    >let arr2:Array<string> = ["1","2"]；
   7. enum 枚举 
-  8. any 
+     枚举类型提供的一个便利是你可以由枚举的值得到它的名字
+     跟你下意识想到的联合类型完全不是一回事呢亲亲
+  8. any 和 unknow
+     unknown与any的最大区别是：任何类型的值可以赋值给any，同时any类型的值也可以赋值给任何类型。unknown 任何类型的值都可以赋值给它，但它只能赋值给unknown和any
+      这种机制起到了很强的预防性，更安全，这就要求我们必须缩小类型，我们可以使用typeof、类型断言等方式来缩小未知范围：
   9. void
   10. object
   11. 联合类型（Union Types）
       表示取值可以为多种类型中的一种，使用 | 分隔每个类型。
 
-### 2.2 类型断言
-    类型断言(Type Assertion): 可以用来手动指定一个值的类型
-    通过类型断言这种方式可以告诉编译器，“相信我，我知道自己在干什么”。 类型断言好比其它语言里的类型转换，但是不进行特殊的数据检查和解构。 它没有运行时的影响，只是在编译阶段起作用。 
-    类型断言有两种形式。 其一是“尖括号”语法, 另一个为 as 语法
-    语法:
-        方式一: <类型>值
-        方式二: 值 as 类型  tsx中只能用这种方式
-
-    ```javascript
-    /* 需求: 定义一个函数得到一个字符串或者数值数据的长度 */
-    function getLength(x: number | string) {
-        if ((<string>x).length) {
-            return (x as string).length
-        } else {
-            return x.toString().length
-        }
-    }
-    console.log(getLength('abcd'), getLength(1234))
-    ```
+### 2.2 object
+  object 和Object,{}存在差别  
+  1. object 表示非原始类型，也就是除 number,string,boolean之外的类型。
+  尽管官方文档说可以使用小 object 代替大 Object,但是我们仍要明白大Object 并不完全等价于小 object。 
+  2. 结论：{}、大 Object 是比小 object 更宽泛的类型（least specific），{} 和大 Object 可以互相代替，用来表示原始类型（null、undefined 除外）和非原始类型；而小 object 则表示非原始类型。
 
 ### 2.3 类型推断
   1. 类型推断: TS会在没有明确的指定类型的时候推测出一个类型;
@@ -122,9 +121,32 @@ interface StringArray1 {
     b10 = 'abc'
     ```
  
-  2. 非空断言
 
-  3. 确定赋值断言
+### 2.4 类型断言
+   1. 类型断言(Type Assertion): 可以用来手动指定一个值的类型
+    通过类型断言这种方式可以告诉编译器，“相信我，我知道自己在干什么”。 类型断言好比其它语言里的类型转换，但是不进行特殊的数据检查和解构。 它没有运行时的影响，只是在编译阶段起作用。 
+  2. 类型断言有两种形式。 其一是“尖括号”语法, 另一个为 as 语法
+    语法:
+        方式一: <类型>值
+        方式二: 值 as 类型  tsx中只能用这种方式
+
+    ```javascript
+    /* 需求: 定义一个函数得到一个字符串或者数值数据的长度 */
+    function getLength(x: number | string) {
+        if ((<string>x).length) {
+            return (x as string).length
+        } else {
+            return x.toString().length
+        }
+    }
+    console.log(getLength('abcd'), getLength(1234))
+    ```
+  3. 非空断言 和 确定赋值断言
+    非空断言和确定赋值断言虽然都是!
+    但使用时机不一样，
+    非空断言是对变量进行操作时使用，变量本身可能为null,因此使用某些非空状态下的方法如.leng等可能报错，此处可用非空断言进行类型断言
+    确定赋值断言用于变量定义同时声明类型时
+
 
 ### 2.4 字面量类型
   1. TypeScript 支持 3 种字面量类型：字符串字面量类型、数字字面量类型、布尔字面量类型
@@ -268,9 +290,15 @@ interface StringArray1 {
   4. readonly 修饰符
 
 ## 五、函数
-  1. 定义
+### 5.1. 定义
   > function cc(): void {}
-  2. 函数重载
+### 5.2. 函数重载
+  1. 函数重载: 函数名相同, 而形参不同的多个函数
+  在JS中, 由于弱类型的特点和形参与实参可以不匹配, 是没有函数重载这一说的
+  但在TS中, 与其它面向对象的语言(如Java)就存在此语法
+
+
+
 
 ## 六、泛型
 ### 6.1 概念
