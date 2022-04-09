@@ -71,5 +71,16 @@ antd4.0
 ### 五、小程序原生开发和使用跨端框架之间的区别
 以微信小程序原生开发和uniApp为例子
 1. 内置方法问题
-   像是微信的localStorage和导航、接口请求都是微信内置方法,如wx.navigateTo,wx.request
-    uniApp也是一样的写法；
+   数据缓存和路由、接口请求等都是内置方法
+   如微信原生小程序：
+   >wx.navigateTo,wx.request
+   uniApp也是一样的写法:
+    >uni.setStorage(OBJECT)
+    >uni.request
+    >uni.navigateTo(OBJECT)
+
+2. 模板
+   也都是一样的view 或者 text
+
+3. 页面配置
+   都是app.json(微信原生)或者page.json(uniapp)形式进行路由配置
