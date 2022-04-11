@@ -119,7 +119,9 @@
   * setup不能是一个async函数: 因为返回值不再是return的对象, 而是promise, 模板看不到return对象中的属性数据
 
 
-  3. $refs使用:在setup中通过`const xx = ref(null)`再次定义,会在onMounted中自动给变量赋值proxy对象
+  3. this.$refs等价使用
+    在setup中通过`const xx = ref(null)`再次定义,会在onMounted中自动给变量赋值proxy对象,
+    需要注意一下挂载在上面的子组件方法调用形式,实际上需要取值`.value`获得proxy对象后,再调用挂载在子组件上的方法
 
   4. 注意像inject只能在setup中调用一次,这个在composition-api中容易忽略
   ````vue

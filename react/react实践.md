@@ -1,20 +1,11 @@
 ## react
-## 一、创建工具
-### 1.1 create-react-app 
-create-react-app 是一个通过 npm 发布的安装包，
-5.0以前版本需要全局安装，5.0版本不再需要全局安装，并且需要卸载掉之前的版本，
-卸载不干净的时候可以通过在命令行中执行下面的命令进行清理
->where create-react-app
-你也可以使用 create-react-app 提供的 `npm run eject` 命令将所有内建的配置暴露出来
-还有其他一些安装工具，比umi等
-
-### 1.2. 相关文档
+## 一、基础
+### 1.1. 相关文档
 [react官方文档](https://zh-hans.reactjs.org/docs/hooks-state.html)
 [react-valid-hookpcall-waring](https://zh-hans.reactjs.org/warnings/invalid-hook-call-warning.html)
 [react的hook 10种hook](https://juejin.cn/post/6844903989696282631)
 
-
-### 1.3. react的class写法和hook写法
+### 1.2. react的class写法和hook写法
 
 ````javascript
 import React from 'react';
@@ -77,7 +68,7 @@ export const App = props => {
 
 ````
 
-### 1.4. 关于waring和Error
+### 1.3. 关于waring和Error
 1. 注意,为避免困惑，在以下情况中调用 Hook 是不被支持的：
  * 不要在 class 组件中调用 Hook。
  * 不要在 event handlers 中调用。
@@ -242,31 +233,24 @@ react.XX
 > npm add antd
 貌似没有类似vue的全局组件安装方法,都是需要使用的组件在对应页面进行安装的
 
-1. 引入less
-react-create-app默认支持的是less
-[react学习-引入less](https://blog.csdn.net/weixin_42429288/article/details/98503339)
-注意使用css.module写法,可以实现局部生效样式
 
-````javascript
-.red{
-  color:red
-}
- import style from './index.less'
- export default ()=>{
-    return ( <div className={style.red}></div>)
- }
-````
 
 ## 六、React状态管理
 [2021年的React状态管理](https://juejin.cn/post/7026232873233416223)
-1. Local State
-2. Context
-问题：不
-3. 状态管理库
-* Redux
-Redux本身很纯净，心智模型也不复杂，但实际使用还得搭配redux-thunk、redux-saga、redux-observable这些中间件（middleware）和reselect、immer这样的辅助工具才能达到真正可用的状态，加大了学习成本的同时，中间件也会引入各种副作用和中间态，真正的状态流并没有理想中那么美好
-* Mobx
-和redux一样，mobx本身是一个UI无关的纯粹的状态管理库，通过mobx-react或更轻量的mobx-react-lite和react建立连接。
-* Recoil
+React的状态管理主要分三类：Local state、Context、第三方库。
+
+### 6.1. Local State
+### 6.2. Context
+  问题：在react里，context是个反模式的东西，不同于redux等的细粒度响应式更新，context的值一旦变化，所有依赖该context的组件全部都会force update，因为context API并不能细粒度地分析某个组件依赖了context里的哪个属性，并且它可以穿透React.memo和shouldComponentUpdate的对比，把所有涉事组件强制刷新。
+
+  Context 设计目的是为了共享那些对于一个组件树而言是“全局”的数据，例如当前认证的用户、主题或首选语言。
+
+### 6.3. 状态管理库
+  如今最火的React状态管理库莫过于Redux、Mobx、Recoil
+  1. Redux
+  Redux本身很纯净，心智模型也不复杂，但实际使用还得搭配redux-thunk、redux-saga、redux-observable这些中间件（middleware）和reselect、immer这样的辅助工具才能达到真正可用的状态，加大了学习成本的同时，中间件也会引入各种副作用和中间态，真正的状态流并没有理想中那么美好
+  2. Mobx
+  和redux一样，mobx本身是一个UI无关的纯粹的状态管理库，通过mobx-react或更轻量的mobx-react-lite和react建立连接。
+  3. Recoil
 
 

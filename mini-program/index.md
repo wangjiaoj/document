@@ -53,7 +53,8 @@ WePY是一个“类Vue”的框架，而mpvue是“基于Vue”的框架.因为W
 
 
 ## 三 Taro使用
-1. taro3.0需要node12
+1. taro3.0需要node12起步
+需要全局安装taro
 >npm i -g @tarojs/cli
 >taro init
 
@@ -65,11 +66,17 @@ antd4.0
 支持 Vant Weapp等第三方组件库,但是注意：使用原生第三方组件库进行开发的项目，不再具有多端转换的能力。
 
 但是，如果你想使用 Vant Weapp 又想拥有多端转换的能力，强烈推荐 Vant Weapp 社区衍生库 @antmjs/vantui， 它是基于 Vant Weapp 开发的多端组件库，同时支持 Taro 和 React。拥有 Taro 多端转换的能力，同时和 Vant Weapp 的 UI 和 API 高度保持一致。
+[vantui](https://github.com/AntmJS/vantui)
+
+vue3的组件
+[nutui](https://nutui.jd.com/#/)
 
 
+[taro-ui](https://taro-ui.jd.com/#/docs/introduction)
 
 ### 五、小程序原生开发和使用跨端框架之间的区别
 以微信小程序原生开发和uniApp为例子
+### 5.1 相似
 1. 内置方法问题
    数据缓存和路由、接口请求等都是内置方法
    如微信原生小程序：
@@ -78,9 +85,21 @@ antd4.0
     >uni.setStorage(OBJECT)
     >uni.request
     >uni.navigateTo(OBJECT)
+    uni甚至提供了关键字替换的形式来完成切换到uni
 
 2. 模板
-   也都是一样的view 或者 text
+   也都是一样的view 或者 text 写法
+
+3. 组件
+   微信小程序则是是用构建npm一键导入转化
+   uni-ui手动内置一键导入uni-module
+   效果其实类似
+
 
 3. 页面配置
-   都是app.json(微信原生)或者page.json(uniapp)形式进行路由配置
+   都是app.json(微信原生)或者page.json(uniapp)形式
+   进行路由配置和自定义tabBar配置
+
+### 5.2 差距
+1. 主要是能够基本以vue语法SFC规范进行开发,无需按照小程序进行繁杂的拆分
+2. uni-app丰富的组件非常好用
