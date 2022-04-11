@@ -88,7 +88,7 @@ react-create-app进行enject,less直接参照css和sass方案配置即可
 
 
 ## 三、typeScript支持问题
-
+1. 声明
 需要在`react-app-env.d`中配置一些声明来避免一些报错问题,例如
 ```javascript
 declare module '*.scss';
@@ -97,8 +97,23 @@ declare module '*.styl';
 declare module "*.png";
 declare module '*.less';
 ```
+2. npm包需要声明的,可以安装@type/xx来获取声明
+如
+>npm install --save typescript @types/node @types/react @types/react-dom @types/jest
+也有npm直接ts实现的,就可以考虑简单直接安装就可以
 
+3. ts范围声明
+注意通过tsconfig文件中的include来设置范围声明
 
+## 四、组件
+1. UI:antd
 
+> npm add antd
+貌似没有类似vue的全局组件安装方法,都是需要使用的组件在对应页面进行安装的
+
+antd在react严格模式下会报错
+解决react警告：findDOMNode is deprecated in StrictMode. findDOMNode was passed an...
+是因为Antd组件中有些使用了CSSTransition，但是CSSTransition中的部分代码的写法对于react而言，不是最新的写法，不是非常规范的写法，所以严格模式下的react就会抛出警告。但是这个实际并不影响使用，因为严格模式只会在开发模式下使用。在生产模式下就不会出现这样的警告了。
+[antd在react严格模式的下报错](https://zhuanlan.zhihu.com/p/434372463)
 
 ## 六. 其他脚手架umi等

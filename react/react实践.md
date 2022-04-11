@@ -227,12 +227,6 @@ react.XX
 
 
 
-## 六、样式
-1. UI:antd
-
-> npm add antd
-貌似没有类似vue的全局组件安装方法,都是需要使用的组件在对应页面进行安装的
-
 
 
 ## 六、React状态管理
@@ -254,3 +248,8 @@ React的状态管理主要分三类：Local state、Context、第三方库。
   3. Recoil
 
 
+## 七、React-typescript
+Tsx
+本质上，TSX为我们提供了创建React元素方法（React.createElement(component, props, ...children)）的语法糖（syntactic sugar）
+
+来自 <https://juejin.cn/post/6997593810465193992> 
