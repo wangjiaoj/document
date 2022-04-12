@@ -1,15 +1,15 @@
 ## 一、create-react-app搭建react
 ### 1.1 create-react-app简介
-create-react-app 是一个通过 npm 发布的安装包，
-5.0以前版本需要全局安装，5.0版本不再需要全局安装，并且需要卸载掉之前的版本，
-卸载不干净的时候可以通过在命令行中执行下面的命令进行清理
->where create-react-app
-你也可以使用 create-react-app 提供的 `npm run eject` 命令将所有内建的配置暴露出来进行自定义,
+    create-react-app 是一个通过 npm 发布的安装包，
+    5.0以前版本需要全局安装，5.0版本不再需要全局安装，并且需要卸载掉之前的版本，
+    卸载不干净的时候可以通过在命令行中执行下面的命令进行清理
+    >where create-react-app
+    你也可以使用 create-react-app 提供的 `npm run eject` 命令将所有内建的配置暴露出来进行自定义,
 
-
-create-react-app 5.0 需要node14
-create-reate-app 4.0.3 还是支持node12的,最低支持版本未知 可能是node10
-
+1. node兼容
+    cra 5.0 需要node14
+    cra 4.0.3(4的最高版本) 还是支持node12的,最低支持版本未知 可能是node10
+    但是这个版本有个process的问题,如果受限于node,不能升级到5，可以安装`npm i react-error-overlay@6.0.9 --save-dev`解决
 ### 1.2 问题
 create-react-app:
 1. cra创建的项目每一次重新启动会重置tsconfig.json
@@ -88,6 +88,25 @@ react-create-app进行enject,less直接参照css和sass方案配置即可
 
 
 ## 三、typeScript支持问题
+
+1. 第三方npm包引入,ts报错无法找到模块
+    * npm包自己有TypeScript 声明的,可以安装@type/xx来获取声明
+        如`npm install --save typescript  @types/react-dom`
+        也有npm直接ts实现的,就可以考虑简单直接安装就可以
+    * 不是所有库都有 TypeScript 的声明文件,可以自己写
+
+    自己添加特定库的ts类型声明
+        以`react-router-dom`为例
+        (1)新建文件夹typings
+        (2)新建文件：react-router-dom.d.ts
+        (3)增加库的声明`declare module 'react-router-dom'`
+        (4)然后在TS配置文件里增加typings文件引用`include:['src','typings']`
+        (5)然后路由就正常使用了
+
+3. ts范围声明
+注意通过tsconfig文件中的include来设置范围声明
+
+
 1. 声明
 需要在`react-app-env.d`中配置一些声明来避免一些报错问题,例如
 ```javascript
@@ -97,13 +116,7 @@ declare module '*.styl';
 declare module "*.png";
 declare module '*.less';
 ```
-2. npm包需要声明的,可以安装@type/xx来获取声明
-如
->npm install --save typescript @types/node @types/react @types/react-dom @types/jest
-也有npm直接ts实现的,就可以考虑简单直接安装就可以
 
-3. ts范围声明
-注意通过tsconfig文件中的include来设置范围声明
 
 ## 四、组件
 1. UI:antd
