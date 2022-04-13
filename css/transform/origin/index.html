@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            padding-left: 120px;
+            padding-right: 120px;
+            background: #ebebeb;
+        }
+        
+        ul li {
+            background: #666666;
+            margin-bottom: 10px;
+            cursor: pointer;
+            color: #ffffff;
+        }
+        
+        ul li.active {
+            background: blue;
+        }
+        
+        .container {
+            width: 100px;
+            height: 100px;
+            border: 1px solid #000;
+        }
+        
+        .inner {
+            background: red;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .origin-center {
+            transform-origin: center;
+        }
+        
+        .origin-TL {
+            transform-origin: top left;
+        }
+        
+        .origin-center {
+            transform-origin: center;
+        }
+        
+        .origin-55 {
+            transform-origin: 50px 50px;
+        }
+        
+        .origin-bt6 {
+            transform-origin: bottom right 60px;
+        }
+        
+        .rotate {
+            transform: rotate(30deg);
+        }
+        
+        .skew {
+            transform: skew(30deg);
+        }
+    </style>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script> -->
+    <!-- 生产环境版本，优化了尺寸和速度 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+
+</head>
+
+<body>
+    <div id="app">
+        <div> transform-origin:</div>
+        <ul>
+            <li v-for="(item,index) in list" :class="[orginClass==item.className?'active':'']" @click="changeTab(item)">{{item.name}}</li>
+        </ul>
+        <div> rotate/skew</div>
+        <ul>
+            <li v-for="(item,index) in typeList" :class="[typeClass==item.className?'active':'']" @click="changeType(item)">{{item.name}}</li>
+        </ul>
+
+        <div class="container">
+            <div class="inner " :class="activeClass"></div>
+        </div>
+    </div>
+
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                list: [{
+                    className: 'origin-center',
+                    name: 'transform-origin: center;',
+                }, {
+                    className: 'origin-TL',
+                    name: 'transform-origin: top left;',
+                }, {
+                    className: 'origin-55',
+                    name: 'transform-origin: 50px 50px;',
+                }, {
+                    className: 'origin-bt6',
+                    name: 'transform-origin: bottom right 60px;',
+                }],
+                type: 0,
+                orginIndex: 0,
+                typeClass: '',
+                orginClass: '',
+
+                typeList: [{
+                    className: 'rotate',
+                    name: 'rotate',
+                }, {
+                    className: 'skew',
+                    name: 'skew',
+                }]
+            },
+            computed: {
+                activeClass() {
+                    return this.orginClass + ' ' + this.typeClass
+                }
+            },
+            methods: {
+                changeType(item) {
+                    this.typeClass = item.className;
+                },
+                changeTab(item) {
+                    this.orginClass = item.className;
+                }
+            }
+        })
+    </script>
+
+</body>
