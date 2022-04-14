@@ -250,17 +250,7 @@ patchFag静态标识
 v-memo缓存html模板
 自定义渲染器
 css动态变量注入
-
-## 四、 <script setup>
-  `<script setup>`是setup的语法糖
-  需要一些方法来完成定义props等定义
-  1. defineProps 和defineEmits API 来替代 props 和 emits
-  2. defineExpose来主动暴露组件属性
-  3. useSlots和useAttrs
-  写法：
-  1. `<script setup>`中无需return 声明的变量、函数以及import引入的内容，即可在`<template/>`使用
-  2. `<script setup>`语法糖里面的代码会被编译成组件 `setup()` 函数的内容。这意味着与普通的 `<script>` 只在组件被首次引入的时候执行一次不同，`<script setup>`中的代码会在每次组件实例被创建的时候执行
-  3.`<script setup>`引入组件将自动注册
+ 
 
 ## 五、样式问题
   vue3中深度选择器>>>和/deep/和::v-deep被弃用
