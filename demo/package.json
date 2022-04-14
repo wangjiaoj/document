@@ -54,11 +54,5 @@
         "webpack-manifest-plugin": "^2.0.4",
         "run-sequence": "^2.2.1",
         "optimize-css-assets-webpack-plugin": "^5.0.3"
-    },
-    "componentFile": "/ComponentLibraryCon/component.file.json",
-    "importList": [{
-        "name": "checkboxL",
-        "version": "1.0.0"
-    }],
-    "host": "http://testpub.51ifind.com/static/v2"
+    }
 }
