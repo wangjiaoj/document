@@ -34,3 +34,8 @@ https://github.com/nabaonan/todos-action
    如果自行安装就需要对应安装以上三个
 
  
+ #### vite开发中遇到的问题
+ 统一编写typescript类型并且导出,再使用import在使用处引入`import { FilterList } from "lena-ts";`,在vite中报错FilterList的name未定义,实际上ts类型声明导入导出需要自己声明一下啊
+
+ `import type { FilterList } from "lena-ts";`
+在vite中不加这个会报错, 很奇怪, 在webpack中就不会
