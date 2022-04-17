@@ -79,21 +79,21 @@
 ## 二、hook
 ### 2.1 基础使用
  [react-hook-索引](https://zh-hans.reactjs.org/docs/hooks-reference.html#basic-hooks)
-   >import React,{ useState } from 'react'
+  >import React,{ useState } from 'react'
 
   React目前提供的Hook
   基础 Hook:
-    * useState
-    * useEffect
-    * useContext
+  * useState
+  * useEffect
+  * useContext
   额外的 Hook:
-    * useReducer
-    * useCallback
-    * useMemo
-    * useRef
-    * useImperativeHandle
-    * useLayoutEffect
-    * useDebugValue
+  * useReducer
+  * useCallback
+  * useMemo
+  * useRef
+  * useImperativeHandle
+  * useLayoutEffect
+  * useDebugValue
 
 
 1. useState
@@ -137,10 +137,9 @@ useLayoutEffect
 6. useCallback
   useCallback(fn, deps) 相当于 useMemo(() => fn, deps)。
   需要结合React.memo/comonentShouldUpdate使用,usecallback记住函数，避免函数重复生成,这样函数在传递给子组件的时候，可以避免子组件重复渲染,提升性能
+
 7. useRef
   跟以前的ref，一样，只是更简洁了
-
-
 
 8. useDebugValue
   在 React 开发者工具中显示自定义 hook 的标签，调试使用。
@@ -163,10 +162,14 @@ useLayoutEffect
   * Context.displayName
 
 
-## 2.3 使用误区
+
+## 三、关于hook的一些使用问题
+
+## 3.1 使用误区
    [React Hooks 使用误区，驳官方文档](https://juejin.cn/post/7046358484610187277)
 
-## 三、
+
+
 
 ## 五、react-API
 [react-api](https://zh-hans.reactjs.org/docs/react-api.html)
@@ -230,15 +233,3 @@ useLayoutEffect
 
 
 
-
-## 七、React-typescript
-
-  将所有.js文件全部更名为.ts后缀，所有.jsx文件更名为.tsx
-  必须引入react
-  组件名称必须大写,否则tsx报错
-  `Property XXX does not exist on type 'JSX.IntrinsicElements'`
-
-  Tsx
-  本质上，TSX为我们提供了创建React元素方法（React.createElement(component, props, ...children)）的语法糖（syntactic sugar）
-
-  来自 <https://juejin.cn/post/6997593810465193992> 

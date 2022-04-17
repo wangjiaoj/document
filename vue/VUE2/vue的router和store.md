@@ -2,12 +2,18 @@
  
 
 ## 二、vue-router
+
+原理：
+HTML5 中引入了 window.history.pushState 和 window.history.replaceState 方法， 它们可以分别 添加和修改浏览器的历史记录 而 不需要重新加载页面。
+
+[vue-router 深入学习](https://juejin.cn/post/6844903913947299847)
 ### 2.1. 路由拦截
  关于beforeEach,修改参数，后继续调用next可能造成死循环
 * 比如在beforeEach中给请求添加query参数,添加完成后，继续调用next()并传参当前页面路由path,会死循环,这类处理应该只能用来处理某些条件下强制跳转到到某个默认页面。
 
 ### 2.2. history/hash
-使用H5的新 History API
+
+
 
 ### 2.3. 关于同地址反复访问问题
 router-view是复用的，单纯的改变id号并不会刷新router-view

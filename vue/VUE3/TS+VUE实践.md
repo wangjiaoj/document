@@ -144,16 +144,11 @@
 
 ## 四、最佳实践
 ### 4.1. 官方推荐的最佳实践是TS+setup+Volar
-  存在问题：
-   一是目前 defineProps 还不支持使用从其他文件导入的 TS 类型，官网的原文是：
-
-    现在还不支持复杂的类型和从其它文件进行类型导入。理论上来说，将来是可能实现类型导入的。
-    这块需要补全
-``
+  详细见setUp最佳实践
 
 ### 4.2 实践
 1. setup 宏报错
-`defineEmits,defineProps`等是vue定义宏,无需引入,但要解决eslint报错
+  `defineEmits,defineProps`等是vue定义宏,无需引入,但要解决eslint报错
 
   ```javascript
    //.eslintrc:
@@ -163,7 +158,7 @@
     },
   ```
 
-配置后如果报错 `Environment key "vue/setup-compiler-macros" is unknown`,根据提示可知，是当前依赖包`eslint-plugin-vue` 中没有`vue/setup-compiler-macros` 规则，故需升级`eslint-plugin-vue`
+  配置后如果报错 `Environment key "vue/setup-compiler-macros" is unknown`,根据提示可知，是当前依赖包`eslint-plugin-vue` 中没有`vue/setup-compiler-macros` 规则，故需升级`eslint-plugin-vue`
 
 
 2. 组件命名报错
