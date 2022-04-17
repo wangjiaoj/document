@@ -12,8 +12,8 @@ https://github.com/nabaonan/todos-action
 ### 1.2 vite配置常用插件
   1.  按需引入vite-plugin-style-import
   >npm install vite-plugin-style-import@1.4.1  --save-dev
-  2.0版本node12报错?.语法
-> resolvedConfig?.build?.rollupOptions
+  2.0版本node12报错?.语法,报错位置:
+  > resolvedConfig?.build?.rollupOptions
  
   问题难道是低版本node不支持,或者是要考虑vite能否支持 node_module打包语法编译，但貌似现在没有类似webpack的`transpileDependencies`选项
  
