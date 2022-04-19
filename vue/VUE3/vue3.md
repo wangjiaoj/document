@@ -1,5 +1,6 @@
 # Vue3
 ## 一、`reactive` ,`ref`, `toRef` 和`toRefs` 
+  [深入源码理解reactive和ref](https://juejin.cn/post/6992976063479431175)
 ###  1.1 基础概念
   1. 这四个都是Vue3的CompositionAPI 创建响应式对象的方式：
   reactive 和 ref 都是用来定义响应式数据的。
@@ -16,22 +17,12 @@
 
   * 需要记住：是对象里头的数据变化，并不能将原始变量的重新赋值，那是大换血了
 
-  [深入源码理解reactive和ref](https://juejin.cn/post/6992976063479431175)
 
- 
-
-
-### 1.2 ref和reactive区别
-
-  1. reactive更推荐去定义复杂的数据类型（如对象）, ref 更推荐定义基本类型(String，Number，Boolean，Symbol)
-
-  2. ref 和 reactive 本质我们可以简单的理解为ref是对reactive的二次包装, ref定义的数据访问的时候要多一个.value;
-    vue3利用proxy实现响应式，而proxy不能代理基础类型，vue3就只能给他包装成一个对象再进行代理，基础类型变成响应式读取值的时候需要.value
-
-  3. 使用reactive定义的数组，直接重新赋值无响应
+  3. proxy的特性也导致使用reactive定义的变量,不能直接重新赋值
   直接赋值导致响应性丢失的原因是：重写赋值后,原来数据的代理函数和最新的代理函数不是同一个，无法触发
+
   ````javascript
-      //失败示例
+      //失败示例：比较常见的是 数组的直接重新赋值  
       setup(){
       let list = reactive([{title:"product001",detail:"my detail story"},
         {title:"product001",detail:"my detail story"},
@@ -46,13 +37,23 @@
         })      
       }
 
-    //解决方案
+    //关于数组这一问题的解决方案
     // 1. 直接使用ref
     // 2. 依然沿用reactive,使用{}包裹数组
-  
+   
   ````
   
-  4. 注意：
+
+### 1.2 ref和reactive区别
+
+  1. reactive更推荐去定义复杂的数据类型（如对象）, ref 更推荐定义基本类型(String，Number，Boolean，Symbol)
+
+  2. ref 和 reactive 本质我们可以简单的理解为ref是对reactive的二次包装, ref定义的数据访问的时候要多一个.value;
+    vue3利用proxy实现响应式，而proxy不能代理基础类型，vue3就只能给他包装成一个对象再进行代理，基础类型变成响应式读取值的时候需要.value
+
+
+  
+  3. 注意：
   用 reactive 时，要注意如果使用了对象解构（destructure），会失去其响应性。所以需要定义一个指向对象的引用，并通过其访问状态属性。
   像在正常的 JavaScript 中声明基本类型变量和对象变量那样去使用 ref 和 reactive 即可,只要用到 reactive 的时候，要记住从 composition 函数中返回反应式对象时得使用 toRefs()。这样做减少了过多使用 ref 时的开销
   ````javascript

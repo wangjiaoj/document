@@ -32,17 +32,17 @@ t2=function(){
 
 ### 1.4、arguments
 
-* 1、arguments是什么？
+ 1. arguments是什么？
  是一个对象，是一个类数组对象
-* 2、arguments内容是什么？
+ 2. arguments内容是什么？
 arguments是函数运行时的实参列表
-* 3、arguments收集所有的实参，即使没有与之相对应的形参，形参与对应的arguments单元，其实是相互映射的，相互影响。
+ 3. arguments收集所有的实参，即使没有与之相对应的形参，形参与对应的arguments单元，其实是相互映射的，相互影响。
 在词法分析中，首先按形参形成AO的属性，值为undefind。
 当实参传来时，在修改AO的相应属性。
-* 4、arguments的索引从0、1、2……递增，与实参逐个对应，
-  + arguments.length属性代表实参的个数
-  + arguments.callee代表”当前运行的函数”
-  + arguments每一个函数都有，arguments只会在内部找自身的arguments，无法引用到外层的arguments
+ 4.arguments的索引从0、1、2……递增，与实参逐个对应，
+  * arguments.length属性代表实参的个数
+  * arguments.callee代表”当前运行的函数”
+  * arguments每一个函数都有，arguments只会在内部找自身的arguments，无法引用到外层的arguments
 
 ### 1.5、自执行函数写法
 自执行匿名函数：
@@ -58,6 +58,7 @@ arguments是函数运行时的实参列表
 + ~function () { /* code */ } ();
 + -function () { /* code */ } ();
 + +function () { /* code */ } ();
+
 ## 二、执行环境、作用域、词法分析及垃圾收集、闭包
 
 ### 2.1 执行环境(excution context)，有时简称为环境：

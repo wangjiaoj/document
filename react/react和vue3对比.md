@@ -6,14 +6,20 @@ react-hook出现使得react世界上只剩下funtionnal component和hook的概�
 vue3的composition-api，在控制使用jsx而非tempalte的情况下，二者可以实现非常高相似度的代码
 
 [Vue 3 和 React 16.8 到底能多像](https://juejin.cn/post/6998038537950429220)
-
-
-## 二、hook
+[Vue Composition API 和 React Hooks 对比](https://juejin.cn/post/6847902223918170126)
 [浅谈：为啥vue和react都选择了Hooks](https://juejin.cn/post/7066951709678895141)
+
+
+## 二、设计上的相似点
+
+hook
+
 
 1. hook库
 ahook和vueuse
 
+
+2. 
 
 ## 三、在设计上相似的用法或想法
 1. 
@@ -55,6 +61,7 @@ react-useContext的爷孙传值
 
 
 ### 4.2 总结
+
 * react不光是用fiber架构来“弥补”， reducer, component等处处要求purity，如果你不能真正理解purity, 稍有不慎就会有性能问题 ｜ 而vue不需要purity（ 相当于默认启用了use-immer）
 
 * ref不像vue那般直接支持自定义组件，所以又引出forwardRef, 然后再来个useImperativeHandle加重复杂度。

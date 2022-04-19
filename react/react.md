@@ -14,14 +14,14 @@
   通过`this.Props`来获取props传递的参数
 
 3. 组件state
-  组件的state是组件内部的状态，state的变化最终将反映到组件UI的 变化上。我们在组件的构造方法constructor中通过this.state定义组件的初 始状态，并通过调用this.setState方法改变组件状态
+  组件的state是组件内部的状态，state的变化最终将反映到组件UI的变化上。我们在组件的构造方法constructor中通过this.state定义组件的初 始状态，并通过调用this.setState方法改变组件状态
 
   React组件正是由props和state两种类型的数据驱动渲染出组件UI。 props是组件对外的接口，组件通过props接收外部传入的数据（包括方 法）；state是组件对内的接口，组件内部状态的变化通过state来反映。 另外，props是只读的，你不能在组件内部修改props；state是可变的， 组件状态的变化通过修改state来实现。
 
 4. 无状态组件和有状态组件
   用不到state，这样的组件称之为无状态组件
   函数组件
-  定义无状态组件除了使用ES 6 class的方式外，还可以使用函数定 义，也就是我们在本节开始时所说的函数组件。一个函数组件接收 props作为参数，返回代表这个组件UI的React元素结构。例如，下面是 一个简单的函数组件：
+  定义无状态组件除了使用ES6 class的方式外，还可以使用函数定义，也就是函数组件。一个函数组件接收 props作为参数，返回代表这个组件UI的React元素结构。例如，下面是 一个简单的函数组件：
   ````javascript
   function Welcome(props) { 
     return Hello, {props.name};

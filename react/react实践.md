@@ -5,6 +5,14 @@
   [react-valid-hookpcall-waring](https://zh-hans.reactjs.org/warnings/invalid-hook-call-warning.html)
   [react的hook 10种hook](https://juejin.cn/post/6844903989696282631)
   [react-context](https://zh-hans.reactjs.org/docs/context.html)
+  [写了3个月React，我学到了什么？](https://mp.weixin.qq.com/s/8tEh0R95U47c1tKf2bzQJw)
+
+  [React Hooks 使用详解及实际项目中遇到的坑](https://juejin.cn/post/6844904157829136398)
+ 
+
+ 
+
+
 ### 1.2. react的class写法和hook写法
 
   ````javascript
@@ -139,7 +147,7 @@ useLayoutEffect
   需要结合React.memo/comonentShouldUpdate使用,usecallback记住函数，避免函数重复生成,这样函数在传递给子组件的时候，可以避免子组件重复渲染,提升性能
 
 7. useRef
-  跟以前的ref，一样，只是更简洁了
+  跟以前的ref一样，只是更简洁了
 
 8. useDebugValue
   在 React 开发者工具中显示自定义 hook 的标签，调试使用。
