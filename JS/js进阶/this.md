@@ -154,18 +154,7 @@ a.lastName;                             // 返回 "Cherry"
 * 使用 call 改变 this 的指向
 * 如果无返回值或者返回一个非对象值，则将 obj 返回作为新对象；如果返回值是一个新对象的话那么直接直接返回该对象。
 
-* Js中没有类的概念，创建对象是用构造函数来完成的，或者直接用json格式{}来写对象
-* New Dog发生了一下几个步骤：
-  + A:系统创建空对象
-  + B:把函数的this---》指向----》该空对象
-  + C:执行该函数
-  + D：返回该对象
-* 构造函数运行时，对于return语句是忽略的
-* 函数被call、apply调用,语法格式：函数.call(对象，参数1，参数2...参数N)
-
-
-
-伪代码表示：
+  伪代码表示：
 ```javascript
 var a = new myFunction("Li","Cherry");
 
@@ -173,14 +162,16 @@ new myFunction{
     var obj = {};
     obj.__proto__ = myFunction.prototype;
     var result = myFunction.call(obj,"Li","Cherry");
-    return typeof result === 'obj'? result : obj;
+    return typeof result === 'object'? result : obj;
 }
 ```
+ 
+ 
+  注意： 构造函数运行时，如果含有return语句，返回的不是对象，那就会自动忽略
 
-3. 构造函数运行时，对于return语句是忽略的
 
 
-关于this的几道题目：
+### 5.5 关于this的几道题目：
 
 ```javascript
 name="this is window";
@@ -205,16 +196,17 @@ dog.t();
 dog.t.call(obj);//php
 ```
 
-* tmp 和(dog.t=obj.t)()所指向的母体不同，前者是window，后者是null，被解释为window
+ tmp 和(dog.t=obj.t)()所指向的母体不同，前者是window，后者是null，被解释为window
 
 ## 六. 新思路
-
-* [利用call来分析this问题的思路参考文章](http://www.imooc.com/article/1758).
-* 把一个函数调用替换成funcName.call的形式，从而理解运行时上下文中this到底指向谁。总结来说就是下面两个等价变形：
+### 6.1 利用call来分析this问题
+ [利用call来分析this问题的思路参考文章](http://www.imooc.com/article/1758).
+1. 把一个函数调用替换成funcName.call的形式，从而理解运行时上下文中this到底指向谁。总结来说就是下面两个等价变形：
   + `foo() ---> foo.call(window)`
   + `obj.foo() --> obj.foo.call(obj)`
   + 只要理解以上两个变形，this就不再是问题啦！！
-* 例五：
+
+2. 例五：
 
 ```javascript
  var x = 10;
@@ -240,7 +232,7 @@ obj2.f(); // obj2.f.call(obj2)
 ```
 
 * 例五有些同学会可能出错的原因，是没有明确我上面说的：this是在执行时才会被确认的
-* 用于构造函数，先看一段代码：
+3. 用于构造函数，先看一段代码：
 
 ```javascript
 func person(name) {
@@ -250,7 +242,7 @@ var caibirdme = new person("deen");
 // caibirdme.name == deen
 ```
 
-* 我上面也说了，函数在用作构造函数时同样可以用call方法去代替，那这里怎么代替呢？这里你又需要明确一点：new constrcut()是一种创建对象的语法糖它等价于
+ 函数在用作构造函数时同样可以用call方法去代替，那这里怎么代替呢？这里你又需要明确一点：new constrcut()是一种创建对象的语法糖它等价于
 
 ```javascript
     function person(name) {
