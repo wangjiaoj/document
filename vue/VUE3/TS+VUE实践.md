@@ -13,11 +13,15 @@
  
 ## 一、vue3+TS实践
  1. VSCODE注意禁用vetur(给vue2用的),安装Volar插件 
- 2. 实践上推荐`defineComponent`,无论是option-api还是component-api的编程方式都可以支持,并且在代码上也相对于更加易于阅读
-
+ 2. 推荐`defineComponent`,无论是options-api还是component-api,均可结合defineComponent进行使用,并且在代码上也相对于更加易于阅读
+ 3. 也可以结合vue2跟TS的结合工具:`vue-class-component`或`vue-property-decorator`库,进行代码编写,但是鉴于之前vue2和这些库结合的装饰器写法,不推荐这些库的装饰器语法进行vue3+TS应用
+ 4. 最佳实践：推荐使用defaineComponent或者直接使用`script setup`语法糖
+  
+  
 ### 1.1. Vue3+TS示例
+  无论是options-api还是componsition-api,均可结合defineComponent进行使用。
 
-1. options-api代码示例:
+1. `options-api + defineComponent`代码示例:
 
   ```javascript
   import { defineComponent, PropType } from 'vue'
@@ -55,12 +59,13 @@
   })
 
   ```
+
   vue 对 props 进行复杂类型验证的时候，就直接用 PropType 进行强制转换， data 中返回的数据也能在不显式定义类型的时候推断出大多类型， computed 也只用返回类型的计算属性即可，代码清晰，逻辑简单，同时也保证了 vue 结构的完整性。
 
-2. component-api代码示例：
+2. `component-api + ts`代码示例：
   ```javascript
   <template>
-  <div>{{text}}</div>
+     <div>{{text}}</div>
   </template>
   import {ref, defineComponent, onMounted ,watch,provide} from 'vue'
   import {useRouter, useRoute } from 'vue-router'
