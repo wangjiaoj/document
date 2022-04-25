@@ -10,6 +10,7 @@
     cra 5.0 需要node14
     cra 4.0.3(4的最高版本) 还是支持node12的,最低支持版本未知 可能是node10
     但是这个版本有个process的问题,如果受限于node,不能升级到5，可以安装`npm i react-error-overlay@6.0.9 --save-dev`解决
+
 ### 1.2 问题
 create-react-app:
 1. cra创建的项目每一次重新启动会重置tsconfig.json
@@ -18,7 +19,8 @@ create-react-app:
 
 
 ### 1.3 非入侵的修改:
-1. @craco/craco可以进行非入侵式修改
+1. @craco/craco可以进行非入侵式修改,来避免通过enject才能自定义的麻烦,限制最低create-react-app 4.0
+> npm add @craco/craco 
 * 目前最新版本的可以通过自带的alias和tsconfig.js扩展解决问题,无需再引入其他
 * less也直接使用craco-less简单配置即可支持css.module
 * 
@@ -49,6 +51,7 @@ create-react-app:
 ````
 
 2. creat-react-app默认支持css和sass的局部样式css.module写法
+
 具体配置如下
 ```javascript
    // enject之后可以看到关键的默认配置如下：
