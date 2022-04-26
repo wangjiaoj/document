@@ -1,4 +1,4 @@
-# VUE+TS实践(以VUE3和TS为主)
+# VUE3+TS实践
 1. 参考文档
   [走近Ts，用了爽，用后一直爽（二)](https://segmentfault.com/a/1190000038540091)
 
@@ -13,12 +13,12 @@
  
 ## 一、vue3+TS实践
  1. VSCODE注意禁用vetur(给vue2用的),安装Volar插件 
- 2. 推荐`defineComponent`,无论是options-api还是component-api,均可结合defineComponent进行使用,并且在代码上也相对于更加易于阅读
- 3. 也可以结合vue2跟TS的结合工具:`vue-class-component`或`vue-property-decorator`库,进行代码编写,但是鉴于之前vue2和这些库结合的装饰器写法,不推荐这些库的装饰器语法进行vue3+TS应用
- 4. 最佳实践：推荐使用defaineComponent或者直接使用`script setup`语法糖
+ 2. 推荐`defineComponent`,无论是options-api还是composition-api,均可结合defineComponent进行使用,并且在代码上也相对于更加易于阅读
+ 3. 也可以沿用vue2跟TS的结合方案:`vue-class-component`或`vue-property-decorator`库,进行代码编写,但是鉴于之前vue2和这些库结合的装饰器写法,不推荐这些库的装饰器语法进行vue3+TS应用
+ 4. 最佳实践：推荐使用`defineComponent`或者直接使用`script setup`语法糖
   
   
-### 1.1. Vue3+TS示例
+### 1.1. Vue3+TS 结合defineComponent示例
   无论是options-api还是componsition-api,均可结合defineComponent进行使用。
 
 1. `options-api + defineComponent`代码示例:
@@ -62,7 +62,7 @@
 
   vue 对 props 进行复杂类型验证的时候，就直接用 PropType 进行强制转换， data 中返回的数据也能在不显式定义类型的时候推断出大多类型， computed 也只用返回类型的计算属性即可，代码清晰，逻辑简单，同时也保证了 vue 结构的完整性。
 
-2. `component-api + ts`代码示例：
+2. `composition-api + ts`代码示例：
   ```javascript
   <template>
      <div>{{text}}</div>
@@ -122,20 +122,13 @@
 
 ## 二、TS使用中问题
 
-### 2.1. TS报错
-
-1. vue + typescript：Property 'xxx' does not exist on type 'Vue'
-> this.$parent.paymentType();
-修改为
->(this as any).$parent.paymentType();
-类似像是inject之类的注入函数也可能报错类似问题,也可以用该方案解决
-
-## 三、 配置
+ 
 1. 别名问题
    处vue-cli配置外,还需要在tsconfig.json中重新设置
    >path:{"'@/*'":"src/*"}
 
 2. 声明
+  关于历史项目升级vue3+TS，可能存在部分js文件无法及时全部更新成ts,另外就是依赖的一些模块
   一些模块需要在`shims-vue.d.ts`中声明
   `shims-vue.d.ts`示例：
   ```javascript
@@ -147,9 +140,11 @@
   declare module '*';//解决引入js文件报错问题
   ```
 
-## 四、最佳实践
+## 四、TS+setup+Volar最佳实践
+
 ### 4.1. 官方推荐的最佳实践是TS+setup+Volar
   详细见setUp最佳实践
+目前也比较推荐在业务代码中使用该方案，主要是在代码组织上，可以更清晰的体现vue3  componsition-api开发模式下的关注逻辑的开发思路， 相较于vue2 option-api中把一块功能逻辑拆散到computed,methods,watch中不同位置，vue3 componsition-api可以让开发把同一块功能逻辑组织到一起，易于后续维护等
 
 ### 4.2 实践
 1. setup 宏报错
@@ -185,9 +180,19 @@
 
 
 3. 自动引入配置
- * `unplugin-vue-components`
- * `unplugin-auto-import`  better than  ` vue-global-api `
- 安装 `unplugin-auto-import` 报错
+ * 你是否厌烦了每次使用 vue 时，需要额外的 import vue 的 api
+你是否厌烦了每次使用 组件库 时，需要额外的 按需引入 组件
+你是否厌烦了有时使用 第三方组件库 时，需要额外的 引入 css 样式
+你是否厌烦了每次使用 图标 时，需要额外的 import
+
+ * `unplugin-auto-import`：自动按需引入 vue\vue-router\pinia 等的 api
+ * `unplugin-vue-components`：自动按需引入 第三方的组件库组件 和 我们自定义的组件
+ * `unplugin-icons`：可以自动按需引入 所使用的图标，而不用手动 import
+ * `vite-plugin-style-import`：自动按需引入 我们手动引入的组件的css样式
+
+ `unplugin-auto-import`  better than  ` vue-global-api `
+
+ 
 [几个插件，让你的Vue代码 “学会” 自动按需引入](https://juejin.cn/post/7062648728405934087)
 
 
