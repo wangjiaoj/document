@@ -11,7 +11,7 @@
 
 ### 2.0 脏值检查-angular.js
      angular.js通过脏值检查的方式来对比数据是否有变更，来决定是否更新视图，angular在指定的时间触发时进入脏值检测
-### 3.0 数据劫持-veu.js
+### 3.0 数据劫持-vue.js
      vue.js是采用数据劫持结合发布者订阅者模式
      通过Object.defineProperty()来劫持各个属性的setter,getter，在数据变动时发布给订阅者，触发响应的监听回调。
 
