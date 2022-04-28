@@ -15,7 +15,7 @@
  1. VSCODE注意禁用vetur(给vue2用的),安装Volar插件 
  2. 推荐`defineComponent`,无论是options-api还是composition-api,均可结合defineComponent进行使用,并且在代码上也相对于更加易于阅读
  3. 也可以沿用vue2跟TS的结合方案:`vue-class-component`或`vue-property-decorator`库,进行代码编写,但是鉴于之前vue2和这些库结合的装饰器写法,不推荐这些库的装饰器语法进行vue3+TS应用
- 4. 最佳实践：推荐使用`defineComponent`或者直接使用`script setup`语法糖
+ 3. 最佳实践：推荐使用`defineComponent`或者直接使用`script setup`语法糖
   
   
 ### 1.1. Vue3+TS 结合defineComponent示例
@@ -108,7 +108,7 @@
   ```
 
 ### 1.2. defineComponent, PropType
-  > import { defineComponent, PropType } from 'vue';
+  > import { defineComponent, PropType ,Ref} from 'vue';
   defineComponent用于类型推断
  
 
@@ -139,14 +139,30 @@
   }
   declare module '*';//解决引入js文件报错问题
   ```
+3. $route
+  ```javascript
+  import { RouteLocationNormalized } from 'vue' 
+  const $route: RouteLocationNormalized = useRoute();
+  ```
 
-## 四、TS+setup+Volar最佳实践
+3. $refs
+ ```javascript
+<ComponentA ref="ComponentA"/>
+import ComponentA from './ComponentA'
+const componetA = ref<null | InstanceType<typeof ComponentA>>(null);
+```
+`InstanceType<T>` - 获取构造函数的实例类型
+5. 
 
-### 4.1. 官方推荐的最佳实践是TS+setup+Volar
+
+
+## 三、TS+setup+Volar最佳实践
+
+### 3.1. 官方推荐的最佳实践是TS+setup+Volar
   详细见setUp最佳实践
 目前也比较推荐在业务代码中使用该方案，主要是在代码组织上，可以更清晰的体现vue3  componsition-api开发模式下的关注逻辑的开发思路， 相较于vue2 option-api中把一块功能逻辑拆散到computed,methods,watch中不同位置，vue3 componsition-api可以让开发把同一块功能逻辑组织到一起，易于后续维护等
 
-### 4.2 实践
+### 3.2 实践
 1. setup 宏报错
   `defineEmits,defineProps`等是vue定义宏,无需引入,但要解决eslint报错
 
