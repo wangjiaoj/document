@@ -3,71 +3,130 @@
 
 ### 5.1 概念：
 
-* 对象中包含一系列的属性，这些属性是无序的，每个属性都有一个字符串key和对应的value。
+ 对象中包含一系列的属性，这些属性是无序的，每个属性都有一个字符串key和对应的value。
 
-```javascript
-var obj={x:1,y:2};
-obj.x;
-obj.y;
-```
+    ```javascript
+        var obj={x:1,y:2};
+        obj.x;
+        obj.y;
+    ```
 
-1. 关于key，无论是把数字还是别的设置为key，实际上都会先先转化为字符串，然后才作为实际上的key；如示例中的key为1时，实际上是转化为字符串`”1”`作为key的；其中有方括号表示法和点表示法两种方法；方括号表示法的好处是可以通过变量来访问属性.
+1. 关于key，无论是把数字还是别的设置为key，实际上都会先先转化为字符串，然后才作为实际上的key;
+  如示例中的key为1时，实际上是转化为字符串`1`作为key的；其中有方括号表示法和点表示法两种方法；方括号表示法的好处是可以通过变量来访问属性.
+    ```javascript
+        var obj={};
+        obj[1]=1;
 
-```javascript
-var obj={};
-obj[1]=1;
+        obj["1"];
 
-obj["1"];
+        obj[{}]=3;
+        obj;
 
-obj[{}]=3;
-obj;
-
-var obj1={"x":1,y:2};
-obj1;
-```
+        var obj1={"x":1,y:2};
+        obj1;
+    ```
 
 2. js对象中的属性是可以动态添加和删除的
-js对象中每一个属性都有writable、enumerable、configurable 、value的标签，还提供了Get/set方法，这些东西可以为每一个属性提供一些访问权限的控制；（对应于属性所以可以说是属性标签）
-除了每一个属性会有一些标签和get、set方法以外，每个对象都有一个原型，比如创建一个函数，每个函数都会有一个prototype属性；
-除此之外，对象还有一个`[{class}]`标签来表示它是属于哪一个种类的，还有一个`[{extensible}]`标签来表示这个对象是否允许继续添加新的属性；(对应于对象，可以说是对象标签).
+3. js对象中每一个属性都有writable、enumerable、configurable 、value的标签，还提供了Get/set方法，这些东西可以为每一个属性提供一些访问权限的控制;（对应于属性所以可以说是属性标签）
 
-### 5.2 创建对象、原型链：
+4. 对象的三个属性：
+   * 每个对象都有一个原型(prototype)
+   * 都有一个`[{class}]`标签来表示它是属于哪一个种类的
+   * 还有一个`[{extensible}]`标签来表示这个对象是否允许继续添加新的属性；(对应于对象，可以说是对象标签).
 
- 创建对象的方法：
-1. 创建对象-字面量：
+### 5.2 原型背景基础了解
+ 1. 原型prototype,每一个对象自己都会有一个属性prototype，它是一个对象属性
+ 2. 隐式原型__proto__:隐式原型指向构造该对象的构造函数的原型（prototype）
+ 3. 万物皆对象,包括Function,Date等,prtotype都继承自Object.prototype
+ 4. Object.prototype是null
+
+### 5.2 创建对象：
+
+创建对象的方法：包括一下三种
+
+#### 5.2.1. 创建对象-字面量：
 `var obj2 = {    x : 1,    y : 2,    o : {        z : 3,        n : 4    }};`
 
-2. 创建对象-new(涉及原型链介绍)：
+#### 5.2.2. 创建对象-new：
 
-* 对象自己都会有一个属性prototype，它是一个对象属性，
-* 用new方法构造一个对象，它的特点是它的原型会指向它的构造器的prototype属性
+ 
+1.  用new方法构造一个对象，它的特点是它的原型会指向它的构造器的prototype属性
+
  构造函数的原型
+ ```javascript
+   function foo(){}
+   foo.prototype.z = 3;
+   
+   var obj = new foo();
+   obj.y = 2;
+   obj.x = 1;
+   obj.x ;//1
+   obj.y;//2
+   obj.z;//3
+   typeof obj.toString;//function
+   'z' in obj;//true
+   obj.hasOwnProperty('z')//false
+ ```
  
 ![](pic/object.prototype.png)
 
-* 关于 toString的解释：在对象原型链的末端都会有一个objecct.prototype，而toString是在prototype上，所以可以通过toString拿到function
+ 关于 toString的解释：在对象原型链的末端都会有一个Object.prototype,而toString是在prototype上，所以可以通过toString拿到function
 
-* 再上一个图的基础上继续做如下图操作:
+2. 再上一个图的基础上继续做如下图操作:
+```javascript
+obj.z = 5;
+obj.hasOwnProperty('z');//true
+foo.prototype.z;//3
+obj.z;//5
 
+obj.z= undefined;
+obj.z;//undefined
+
+delete obj.z;
+obj.z;//3
+ 
+delete obj.z
+obj.z;//3 
+
+```
 
 ![](pic/object.new.png)
 
 说明obj.z在使用时，如果obj本身没有，就会沿着原型链向上查找；如果给obj添加上一个z的属性，也不会影响foo.prototype.z
 
-3. 创建对象-object.create
-* 他是一个系统内置的一个函数，它会接收一个参数，一般是一个对象，它会返回一个新创建的对象，并让这个对象的原型指向这个参数；
+#### 5.2.3. 创建对象-object.create
+1. 他是一个系统内置的静态函数，创建一个新的对象。接收一个参数，一般是一个对象，它会返回一个新创建的对象，并让这个对象的原型指向这个参数，也就是说传入的参数是所创建对象的原型。
+```javascript
+var obj = Object.create({x:1});
+obj.x;//1
+typeof obj.toString();//'function'
 
+//传入null创建一个没有原型的对象
+var obj = Object.create(null);
+obj.toString()//undefined
+```
 ![](pic/object.create.png)
 
-### 5.3、读写对象属性:
 
-1. 属性异常  删除属性  检测属性 枚举属性
+### 5.3. 属性的特性
+1. 可以认为一个属性包含一个名称和4个特性,4个特性分别是它的值（value）,可写性(writable),可枚举性（enumerable）和可配置性(configurable)。
+ 但是存取器属性(get/set)除外。
+
 * `[[configurable]]`:表示能否使用delete操作符删除从而重新定义，或能否修改为访问器属性。默认为true;
-* `[[Enumberable]]`:表示是否可通过for-in循环返回属性。默认true;
-* `[[Writable]]`:表示是否可修改属性的值。默认true;
-* `[[Value]]`:包含该属性的数据值。读取/写入都是该值。
+* `[[enumerable]]`:表示是否可通过for-in循环返回属性。默认true;
+* `[[writable]]`:表示是否可修改属性的值。默认true;
+* `[[value]]`:包含该属性的数据值。读取/写入都是该值。
+2. 通过`Object.getOwnPropertyDescriptor`可以获得某个对象的特定属性的属性描述符
+3. 要想获得继承属性的特性，需要便利原型链`Object.getPrototypeOf()`
+4.  设置属性特性：`Object.defineProperty()`
 
-2. 属性读写
+
+ <!-- 删除属性  枚举属性  检测属性  属性异常  -->
+
+### 5.4、读写对象属性:
+
+
+#### 5.4.1 属性读写
 
 ```javascript
  //属性读写
@@ -90,10 +149,12 @@ js对象中每一个属性都有writable、enumerable、configurable 、value的
  }
 ```
 
-3. 属性删除,有些属性是不可删除的 比如下面例子中的prototype
-
-* 用var定义的全局变量不可删除;
-* 在函数中用var定义的局部变量也不可删除，当然函数更不会被删除
+#### 5.4.2 属性删除
+ `configurable`是false的属性是不可删除的, 比如 
+ 1. prototype,
+ 2. 通过变量声明和函数声明创建的全局对象的属性
+ *  用var定义的全局变量不可删除;
+ *  在函数中用var定义的局部变量也不可删除，当然函数更不会被删除
 
 ```javascript
 //属性删除
@@ -109,27 +170,32 @@ var descriptor=Object.getOwnPropertyDescriptor(Object,"prototype");
 descriptor.configurable;//false
 ```
 
-特例 ：通常情况下，使用var去声明的变量，不能被delete，例如：
-
+特例:通常情况下，使用var去声明的变量，不能被delete，例如：
 ```javascript
 var abc = 100;
-delete abc; // 返回true
+delete abc; // 返回false
  abc; // 还是100
 ```
 
 但是在eval代码里，就会不同，例如：
 
 ```javascript
-eval("var abc = 100;console.log(delete abc); console.log(abc);"); // 返回true, undefined...
+eval("var abc = 100;console.log(delete abc); console.log(abc);"); // 返回true,  abc is not defined...
 ```
 
-4. 属性检测
+#### 5.4.3 属性检测
+ 判断某个属性是否存在于某个对象上：
+ 1. `in` 对象的自有属性或继承属性是否存在
+ 2. `hasOwnProperty` 是否是自有属性
+ 3. `propertyIsEnumerable` 是自有属性且属性的可枚举性是true的时候，返回true
+
+ 或者直接属性查询也可以
 
 ```javascript
 //属性检测
-var cat=new Object;
-cat.legs=4;
-cat.name="kitty";
+var cat = new Object;
+cat.legs = 4;
+cat.name = "kitty";
 
 'legs' in cat;//true
 'abc' in cat;//false
@@ -141,32 +207,19 @@ cat.propertyIsEnumerable('legs');//true
 cat.propertyIsEnumerable('toString');//false
 ```
 
-* Enumerable表示是否可以被枚举
-* 定义属性 `defineProperty()`,`Object.defineProperty(obj, prop, descriptor)`方法接收三个参数：需要添加或修改属性的对象，属性名称，属性描述options。
-由于undefined==null,所以想让属性值不等于undefined，就要使用！==
 
-```javascript
-//属性检测
-Object.defineProperty(cat,'price',{enumberable:false,value:1000});
-cat.propertyIsEnumerable('price');//false
-cat.hasOwnProperty('price');//true
 
-cat.propertyIsEnumerable('toString');//false
-if(cat&&cat.legs){
-    cat.legs *=2;
-}
-if(cat.legs!=undefined){
-    //!==undefined,or,!==null
-}
-```
+#### 5.4.5 属性枚举
 
-* 属性枚举
-
+ 1. `for in` 便利对象的自有属性或继承属性
+ 2. `Object.keys()` 返回可枚举的自有属性的名称
+ 3. `Object.getOwnpropertyNames()`返回自有属性的名称
 ```javascript
 //属性枚举
 var o={x:1,y:2,z:3};
 'toString' in o;//false
 o.propertyIsEnumerabe('toString');//false
+
 var key;
 for(key in o){
     console.log(key);//x,y,z
@@ -184,16 +237,36 @@ obj.a=4;
 var key;
 for(key in obj){
     if(key in obj){
-        if( cat.hasOwnProperty(key)){
+        if(cat.hasOwnProperty(key)){
             console.log(key);
         }
     }
 }
 ```
 
-5. Get/set方法
+#### 5.4.6  定义属性特性 `Object.defineProperty()`,
+`Object.defineProperty(obj, prop, descriptor)`方法接收三个参数：需要添加或修改属性的对象，属性名称，属性描述options。
+由于undefined==null,所以想让属性值不等于undefined，就要使用！==
 
-* 属性getter/setter方法
+```javascript
+//属性检测
+Object.defineProperty(cat,'price',{enumberable:false,value:1000});
+cat.propertyIsEnumerable('price');//false
+cat.hasOwnProperty('price');//true
+
+cat.propertyIsEnumerable('toString');//false
+if(cat&&cat.legs){
+    cat.legs *=2;
+}
+if(cat.legs!=undefined){
+    //!==undefined,or,!==null
+}
+```
+
+
+#### 5.4.7 getter/setter方法
+
+1. 属性getter/setter方法
 
 ```javascript
 //属性getter/setter方法
@@ -212,20 +285,32 @@ man.age=100;//
 console.log(man.age);//27
 ```
 
-* get/set与原型链
+2. get/set与原型链
 
 ![](pic/prototype.setget.png)
 
-### 5.4、属性级的权限设置
+### 5.5、属性级的权限设置
 
 Object.getOwnPropertyDescriptor()方法可以取得给定属性的特性：
  ![](pic/configurabel&writable.png)
 
-### 5.5、对象标签
+### 5.6、对象标签
 
-1. [{proto}] 原型标签、[{class}]、[{extensible}]
+对象有三个标签：
+ [{proto}] 原型标签、
+[{class}]类、
+[{extensible}]可扩展性
 
-2. 序列化
+#### 5.6.1. 原型标签
+
+#### 5.6.2 类
+
+#### 5.6.3. 可扩展性
+1. `Object.esExtensible()`
+2. `Object.preventExtensions()`
+3. `Obejct.seal()`和 `Obejct.osSealed()`
+4.  `Obejct.freeze()`和`Obejct.isFrozen()`
+### 5.7、 序列化
 
 * 如果属性值为undefined，将不会出现在序列化之后的结果中，
 * 如果属性值NaN,infnity,将会转化为null，如果是时间，将会转化成UTC的时间格式

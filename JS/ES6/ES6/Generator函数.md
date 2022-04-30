@@ -155,7 +155,8 @@ g.prototype.hello = function () {
 let obj = g();
 
 obj instanceof g // trueobj.hello() // 'hi!'
-上面代码表明，Generator函数g返回的遍历器obj，是g的实例，而且继承了g.prototype。但是，如果把g当作普通的构造函数，并不会生效，因为g返回的总是遍历器对象，而不是this对象。
+
 ```
+上面代码表明，Generator函数g返回的遍历器obj，是g的实例，而且继承了g.prototype。但是，如果把g当作普通的构造函数，并不会生效，因为g返回的总是遍历器对象，而不是this对象。
 9. 含义
 10. 应用

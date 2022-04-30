@@ -1,4 +1,28 @@
+
+
+# 原型
+## 1.1. 原型prototype
+1. 每一个javscript对象(除了null)都和原型相关联，每一个对象都从原型继承属性
+* 字面量创建的对象都具有同一个原型对象
+* 通过new和构造函数调用创建的对象的原型就是构造函数的prototype属性的值
+均继承自Object.prototype
+2. 原型链:prototype chain
+比如Date.prototype继承自Object.prototype,因此new Date()创建的对象的属性同时继承自Date.prototype和Object.prototype，这一系列的原型对象就是所谓的原型链
+
+6.2.2 属性继承的工作机制
+6.8.1. 如何获取对象的原型
+9 原型和构造函数
+
+
+
+
+
 ## 七、原型：prototype和__proto__
+1. `__proto__`概念
+隐式原型：对象具有的属性`__proto__`可以被成为隐式原型，
+2. `prototype`和`__proto__`关系
+一个对象的隐式原型指向构造该对象的构造函数的原型（prototype），这也保证了实例能够访问在构造函数原型中定义的属性和方法。
+
 
 ### 7.1 对prototype和__proto__的理解:
 
