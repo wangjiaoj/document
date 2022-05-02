@@ -1,36 +1,47 @@
 
-## 七. Set和Map数据结构
+# 七. Set和Map数据结构
 ## 7.1. Set
 ### 7.1.1. 概念
 ES6 提供了新的数据结构 Set。它类似于数组，但是成员的值都是唯一的，没有重复的值。
-
 Set本身是一个构造函数，用来生成 Set 数据结构。
-向set加入值的时候，不会发生类型转换，内部判定值是否相等的算法类似于object.is()
 
-* add()
+1. 向set加入值的时候，不会发生类型转换，内部判定值是否相等的算法类似于`Object.is()`
 
-* Set函数可以接受一个数组（或者具有 iterable 接口的其他数据结构）作为参数，用来初始化。
+2. Set函数可以接受一个数组（或者具有 iterable 接口的其他数据结构）作为参数，用来初始化。
 
-String具有 iterable 接口吗？好像 new Set("abcdf")
+3. Map 结构转为数组结构，比较快速的方法是使用扩展运算符（...）
 
-2. Set结构的实例属性。
+```javascript
+//ES6 为字符串添加了遍历器(iterable)接口 
+
+ let set = new Set("abcdf");
+ [...set];//["a","b","c","d","f"]
+ set instanceof Array;//false
+  [...set] instanceof Array//true
+```
+
+### 7.1.2. Set结构的实例属性。
   * Set.prototype.constructor：构造函数，默认就是Set函数。
   * Set.prototype.size：返回Set实例的成员总数。
 
 Set实例的方法分为两大类：操作方法（用于操作数据）和遍历方法（用于遍历成员）。
 
-3. Set实例的四个操作方法。
+### 7.1.3. Set实例的四个操作方法。
   * add(value)：添加某个值，返回Set结构本身。
   * delete(value)：删除某个值，返回一个布尔值，表示删除是否成功。
   * has(value)：返回一个布尔值，表示该值是否为Set的成员。
   * clear()：清除所有成员，没有返回值。
-4. Set结构的实例有四个遍历方法，可以用于遍历成员。
+
+### 7.1.4. Set的实例有四个遍历方法，可以用于遍历成员。
   * keys()：返回键名的遍历器
   * values()：返回键值的遍历器
   * entries()：返回键值对的遍历器
   * forEach()：使用回调函数遍历每个成员
 由于Set结构没有键名，只有键值，或者说键名和键值是同一个值，所以key方法和value方法的行为完全一致。
+
+
 ```javascript
+
 let set = new Set(['red', 'green', 'blue']);
 for (let item of set.keys()) {
   console.log(item);}
@@ -42,6 +53,9 @@ for (let item of set.entries()) {
   console.log(item);}
 // ["red", "red"]// ["green", "green"]// ["blue", "blue"]
 ```
+
+### 7.1.5 
+
 
 ## 7.2. WeakSet
 WeakSet结构与Set类似，也是不重复的值的集合。但是，它与Set有两个区别。

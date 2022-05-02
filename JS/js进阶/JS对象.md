@@ -306,31 +306,36 @@ Object.getOwnPropertyDescriptor()方法可以取得给定属性的特性：
 #### 5.6.2 类
 
 #### 5.6.3. 可扩展性
-1. `Object.esExtensible()`
-2. `Object.preventExtensions()`
-3. `Obejct.seal()`和 `Obejct.osSealed()`
-4.  `Obejct.freeze()`和`Obejct.isFrozen()`
-### 5.7、 序列化
+对象的扩展性用以表示是否可以给对象添加新属性
 
-* 如果属性值为undefined，将不会出现在序列化之后的结果中，
-* 如果属性值NaN,infnity,将会转化为null，如果是时间，将会转化成UTC的时间格式
+1. `Object.esExtensible()` 判断对象是否可扩展
+2. `Object.preventExtensions()`将对象转换为不可扩展
+3. `Obejct.seal()`和 `Obejct.osSealed()`将对象设置为不可扩展，且对象自有属性都设置为不可配置
+4.  `Obejct.freeze()`和`Obejct.isFrozen()`将对象设置为不可扩展，且对象自有属性都设置为不可配置，且将所有自有数据属性设置为只读
+
+### 5.7、 序列化
+对象序列化指的是将对象的状态转换为字符串，也可将字符串还原为对象，
+ES5提供了`JSON.stringfy()`和`JSON.parse()`来序列化和还原对象。
+JSON是javascript的子集,并不能表示js中所有的值，规则如下：
+1. 函数，regExp和undefined，不能序列化和还原
+2. 如果属性值NaN,infnity,将会转化为null，如果是时间，将会转化成UTC的时间格式
 
 ```javascript
 //序列化
 var obj={ x:1, y:true,z:[1,2,3],nullVal:null};
-JSON.stringify(obj);//"{"x":1,"y":true,"z":[1,2,3],"nullVal":null}"
+JSON.stringify(obj);
+//"{"x":1,"y":true,"z":[1,2,3],"nullVal":null}"
 
 var obj={ val:undefined,a:NaN,b:Infinity,c:new Date()};
-JSON.stringify(obj);//"{"a":null,"b":null,"c":"2016-12-22T14:31:58.240Z"}"
+JSON.stringify(obj);
+//"{"a":null,"b":null,"c":"2016-12-22T14:31:58.240Z"}"
 
 var obj=JSON.parse('{"x":1}');
 JSON.stringify(obj);//"{"x":1}"
 ```
+ 
 
-* 使用json的Stringfy()方法序列化，返回一个字符串
-* 使用parse()方法，把json对象转化为js对象，此外主义json中的键要用双引号引起来
-
-* 序列化自定义
+3. 序列化自定义
 
 ```javascript
 var obj={
@@ -344,7 +349,8 @@ var obj={
         }
     }
 };
-JSON.stringify(obj);//"{"x":1,"y":2,"o":3}"
+JSON.stringify(obj);
+//"{"x":1,"y":2,"o":3}"
 ```
 
 
@@ -371,10 +377,10 @@ alert(g.name+'xihuan'+g.showlove())
 
 ### 6.2 js对象和json的一些对比比较:
 
-　　关于JSON（JavaScript Object Natation），简单的说就是轻量级的用于交换数据的格式，基于javascript 语法的子集，即数组和对象表示。
-　　每一个数据都是一对键和值，用 , 分隔开。每一个键和值用 :分割开。
-　　json 里的键和 Javascript 的对象标识符是不同的概念，必须用双引号包裹包裹。在 Javascript 对象里，对象标识符可以不用引号，用单引号或双引号。string 可以用单引号或双引号来表现。而在 json 的 概念里的 string，其表现形式为必须用双引号包裹。
-　通过eval() 函数可以将JSON字符串转化为对象。 
+　关于JSON（JavaScript Object Natation），简单的说就是轻量级的用于交换数据的格式，基于javascript 语法的子集，即数组和对象表示。
+　每一个数据都是一对键和值，用 , 分隔开。每一个键和值用 :分割开。
+　json 里的键和 Javascript 的对象标识符是不同的概念，必须用双引号包裹包裹。在 Javascript 对象里，对象标识符可以不用引号，用单引号或双引号。string 可以用单引号或双引号来表现。而在 json 的 概念里的 string，其表现形式为必须用双引号包裹。
+ 通过`eval()`函数可以将JSON字符串转化为对象。 
 
 
 
