@@ -14,13 +14,13 @@ https://openwrite.cn/?from=article_bottom
 
 
 
-## 技术/框架/用处
+## 二、技术/框架/用处
 
 1.  next/nuxt
-2. 
+2.  tailwind
 
 
-## 关于类型检查
+## 三、关于类型检查
    ts以外的进行类型检查的类似插件或方案
 1. TypeScript
 

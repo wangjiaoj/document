@@ -34,3 +34,11 @@ config.optimization.minimizer('terser').tap((args)=>{
     args[0].terseroptions.compress.drop_debugger = false;
 })
 ````
+3. 环境变量
+你可以在你的项目根目录中放置下列文件来指定环境变量：
+````sh
+.env                # 在所有的环境中被载入
+.env.local          # 在所有的环境中被载入，但会被 git 忽略
+.env.[mode]         # 只在指定的模式中被载入
+.env.[mode].local   # 只在指定的模式中被载入，但会被 git 忽略
+````

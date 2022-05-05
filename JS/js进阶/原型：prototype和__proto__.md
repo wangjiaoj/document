@@ -2,10 +2,12 @@
 
 # 原型
 ## 1.1. 原型prototype
-1. 每一个javscript对象(除了null)都和原型相关联，每一个对象都从原型继承属性
-* 字面量创建的对象都具有同一个原型对象
-* 通过new和构造函数调用创建的对象的原型就是构造函数的prototype属性的值
-均继承自Object.prototype
+1. 几乎每个JavaScript 对象(除了null)都有一个与之关联的第二个 JavaScript 对象。第二个对象称为原型，第一个对象继承原型的属性。
+原型特性是在创建对象时设置的。
+用对象字面量创建的对象使用Object.prototype作为他们的原型。
+使用new创建的对象使用其构造函数的prototype属性的值作为其原型。
+用Object.create()创建的对象使用该函数的第一个参数（可能为null）作为其原型。
+
 2. 原型链:prototype chain
 比如Date.prototype继承自Object.prototype,因此new Date()创建的对象的属性同时继承自Date.prototype和Object.prototype，这一系列的原型对象就是所谓的原型链
 
@@ -20,6 +22,10 @@
 ## 七、原型：prototype和__proto__
 1. `__proto__`概念
 隐式原型：对象具有的属性`__proto__`可以被成为隐式原型，
+JavaScript的一些早期浏览器实现通过__proto__属性（在开始和结束时用两个下划线编写）公开了对象的原型特性。这个过时很久了，但是web上已有的代码足够多依赖于__proto__，ECMAScript标准强制web浏览器中支持JavaScript实现的必须支持这个属性。（Node也支持它，虽然标准不要求它用于Node。）在现代JavaScript中，__proto__是可读的和可写的，您可以（尽管不应该）将它用作Object.getPrototypeOf()和Object.setPrototypeOf()的替代。 然而，__proto__的一个有趣的用法是定义对象字面量的原型：
+ [元编程](https://blog.csdn.net/zhangyingli/article/details/110090717)
+ ：
+
 2. `prototype`和`__proto__`关系
 一个对象的隐式原型指向构造该对象的构造函数的原型（prototype），这也保证了实例能够访问在构造函数原型中定义的属性和方法。
 

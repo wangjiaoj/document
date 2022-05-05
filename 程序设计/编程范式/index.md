@@ -1,6 +1,7 @@
 # 编程范式 
 ## 一. 编程范式 
-1. 编程范式（Programming paradigm）是指计算机编程的基本风格或者典型模式，可以简单理解为编程学科中实践出来的具有哲学和理论依据的一些经典原型。常见的编程范式有：
+## 1.1. 概念
+编程范式（Programming paradigm）是指计算机编程的基本风格或者典型模式，可以简单理解为编程学科中实践出来的具有哲学和理论依据的一些经典原型。常见的编程范式有：
 
 1. 面向过程（Process Oriented Programming，POP）
 2. 面向对象（Object Oriented Programming，OOP）

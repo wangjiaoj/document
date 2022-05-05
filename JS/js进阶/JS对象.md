@@ -1,5 +1,6 @@
 
 ## 五、JS对象概述
+[权威指南-对象](https://blog.csdn.net/zhangyingli/article/details/109051599)
 
 ### 5.1 概念：
 
@@ -34,18 +35,17 @@
    * 都有一个`[{class}]`标签来表示它是属于哪一个种类的
    * 还有一个`[{extensible}]`标签来表示这个对象是否允许继续添加新的属性；(对应于对象，可以说是对象标签).
 
-### 5.2 原型背景基础了解
- 1. 原型prototype,每一个对象自己都会有一个属性prototype，它是一个对象属性
- 2. 隐式原型__proto__:隐式原型指向构造该对象的构造函数的原型（prototype）
- 3. 万物皆对象,包括Function,Date等,prtotype都继承自Object.prototype
- 4. Object.prototype是null
+
 
 ### 5.2 创建对象：
 
-创建对象的方法：包括一下三种
+创建对象的方法：包括一下三种：
 
-#### 5.2.1. 创建对象-字面量：
-`var obj2 = {    x : 1,    y : 2,    o : {        z : 3,        n : 4    }};`
+#### 5.2.1. 创建对象-对象字面量：
+对象字面量是一个逗号分隔的名/值对列表，这些名/值对使用冒号分隔，封闭在大括号内。
+```javascript
+var obj2 = {    x : 1,    y : 2,    o : {        z : 3,        n : 4    }};
+```
 
 #### 5.2.2. 创建对象-new：
 
@@ -94,7 +94,13 @@ obj.z;//3
 
 说明obj.z在使用时，如果obj本身没有，就会沿着原型链向上查找；如果给obj添加上一个z的属性，也不会影响foo.prototype.z
 
-#### 5.2.3. 创建对象-object.create
+#### 5.2.3 原型背景基础了解
+ 1. 原型prototype,每一个对象自己都会有一个属性prototype，它是一个对象属性
+ 2. 隐式原型__proto__:隐式原型指向构造该对象的构造函数的原型（prototype）
+ 3. 万物皆对象,包括Function,Date等,prtotype都继承自Object.prototype
+ 4. Object.prototype是null
+
+#### 5.2.4. 创建对象-object.create
 1. 他是一个系统内置的静态函数，创建一个新的对象。接收一个参数，一般是一个对象，它会返回一个新创建的对象，并让这个对象的原型指向这个参数，也就是说传入的参数是所创建对象的原型。
 ```javascript
 var obj = Object.create({x:1});
@@ -150,7 +156,9 @@ obj.toString()//undefined
 ```
 
 #### 5.4.2 属性删除
- `configurable`是false的属性是不可删除的, 比如 
+delete 运算符（§4.13.4）从对象中删除属性。
+ `configurable`是false的属性是不可删除的.
+ 如: 
  1. prototype,
  2. 通过变量声明和函数声明创建的全局对象的属性
  *  用var定义的全局变量不可删除;
@@ -168,6 +176,18 @@ delete Object.prototype;//false
 
 var descriptor=Object.getOwnPropertyDescriptor(Object,"prototype");
 descriptor.configurable;//false
+
+// 在严格模式下，所有这些删除都抛出TypeError而不是返回false
+delete Object.prototype // => false: 属性不可配置
+var x = 1; // 声明全局变量
+delete globalThis.x // => false: 无法删除此属性
+function f() {} //声明全局函数
+delete globalThis.f // => false: 也无法删除此属性
+
+
+globalThis.y = 1;
+delete y;// true  --非严格模式下可以这么写,但是严格模式下要使用globalThis.y
+delete globalThis.y;// true
 ```
 
 特例:通常情况下，使用var去声明的变量，不能被delete，例如：
@@ -187,7 +207,7 @@ eval("var abc = 100;console.log(delete abc); console.log(abc);"); // 返回true,
  判断某个属性是否存在于某个对象上：
  1. `in` 对象的自有属性或继承属性是否存在
  2. `hasOwnProperty` 是否是自有属性
- 3. `propertyIsEnumerable` 是自有属性且属性的可枚举性是true的时候，返回true
+ 3. `propertyIsEnumerable` 是自有属性且属性的可枚举特性是true的时候，返回true
 
  或者直接属性查询也可以
 
@@ -211,37 +231,59 @@ cat.propertyIsEnumerable('toString');//false
 
 #### 5.4.5 属性枚举
 
- 1. `for in` 便利对象的自有属性或继承属性
- 2. `Object.keys()` 返回可枚举的自有属性的名称
- 3. `Object.getOwnpropertyNames()`返回自有属性的名称
+ 1. `for in` 遍历对象的自有属性或继承属性
+ 2. `Object.keys()` 返回对象的可枚举自有属性的名称数组。不包括不可枚举属性、继承属性或名称为符号的属性.
+ 3. `Object.getOwnPropertyNames()`返回自有属性的名称
+ 4. `Object.getOwnPropertySymbols()` 返回其名称为符号类型的自身属性，无论它们是否可枚举。
+ 5. `Reflect.ownKeys()` 返回所有的自有属性名，包括可枚举的和不可枚举的，以及字符串类型和符号类型的
 ```javascript
 //属性枚举
 var o={x:1,y:2,z:3};
 'toString' in o;//false
 o.propertyIsEnumerabe('toString');//false
 
-var key;
-for(key in o){
+for(let key in o){
     console.log(key);//x,y,z
 }
 
 var obj=Object.create(o);
 obj.a=4;
-var key;
-for(key in obj){
+for(let key in obj){
     cnsole.log(key);//a,x,y,z
 }
 
 var obj=Object.create(o);
 obj.a=4;
-var key;
-for(key in obj){
+for(let key in obj){
     if(key in obj){
-        if(cat.hasOwnProperty(key)){
+        if(obj.hasOwnProperty(key)){
             console.log(key);
         }
     }
 }
+```
+属性枚举顺序:
+```javascript
+const symbolA = Symbol('Symbol A'), symbolB = Symbol('symbol B');
+const object1 = {
+   [symbolA]: 'Symbol A value', // 符号类型
+   '2': 2, // 可转换为数字的字符串类型
+   '1': 1, // 可转换为数字的字符串类型
+   'name': 'henry', // 字符串类型
+   [symbolB]: 'Symbol B value', // 符号类型
+   'age': 18, // 字符串类型
+   '-2': -2, // 虽然可以转换成数字，但是不是非负整数
+   0: 0, // 可转换为数字的字符串类型
+};
+
+console.log(Object.keys(object1)); 
+// 输出 [ '0', '1', '2', 'name', 'age', '-2' ]
+Object.getOwnPropertyNames(object1)
+//['0', '1', '2', 'name', 'age', '-2']
+Object.getOwnPropertySymbols(object1)
+// [Symbol(Symbol A), Symbol(symbol B)]
+Reflect.ownKeys(object1); 
+// 输出 [ '0', '1', '2', 'name', 'age', '-2', Symbol(Symbol A), Symbol(symbol B) ]
 ```
 
 #### 5.4.6  定义属性特性 `Object.defineProperty()`,
@@ -249,6 +291,10 @@ for(key in obj){
 由于undefined==null,所以想让属性值不等于undefined，就要使用！==
 
 ```javascript
+var cat = {
+     legs : 4,
+   name : "kitty"
+}
 //属性检测
 Object.defineProperty(cat,'price',{enumberable:false,value:1000});
 cat.propertyIsEnumerable('price');//false
@@ -308,7 +354,7 @@ Object.getOwnPropertyDescriptor()方法可以取得给定属性的特性：
 #### 5.6.3. 可扩展性
 对象的扩展性用以表示是否可以给对象添加新属性
 
-1. `Object.esExtensible()` 判断对象是否可扩展
+1. `Object.isExtensible()` 判断对象是否可扩展
 2. `Object.preventExtensions()`将对象转换为不可扩展
 3. `Obejct.seal()`和 `Obejct.osSealed()`将对象设置为不可扩展，且对象自有属性都设置为不可配置
 4.  `Obejct.freeze()`和`Obejct.isFrozen()`将对象设置为不可扩展，且对象自有属性都设置为不可配置，且将所有自有数据属性设置为只读
