@@ -1,5 +1,3 @@
-
-
 # 原型
 ## 1.1. 原型prototype
 1. 几乎每个JavaScript 对象(除了null)都有一个与之关联的第二个 JavaScript 对象。第二个对象称为原型，第一个对象继承原型的属性。

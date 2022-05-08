@@ -6,6 +6,8 @@
 3. “use strict”
 “use strict” 是ES5中引入的一个指令。“use strict” 指令的目的是指示后面的代码（在脚本或函数中）是严格代码。
 [严格模式与非严格模式的区别](https://blog.csdn.net/zhangyingli/article/details/108828556)
+
+4. 类和模块的内部，默认就是严格模式，所以不需要使用use strict指定运行模式。只要你的代码写在类或模块之中，就只有严格模式可用。考虑到未来所有的代码，其实都是运行在模块之中，所以 ES6 实际上把整个语言升级到了严格模式
 4.  声明
 关键字 const、let、var、function、class、import 和 export 
 
