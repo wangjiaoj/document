@@ -4,22 +4,17 @@
     "private": true,
     "scripts": {
         "build": "node ./node_modules/webpack/bin/webpack.js --config config/webpack.config.prod.js",
-        "dev": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --config config/webpack.config.dev.js"
+        "dev": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --config config/webpack.config.dev.js",
+        "compiler": "babel src --out-dir lib --watch"
     },
     "dependencies": {
-        "console-polyfill": "^0.2.3",
-        "es3ify-loader": "^0.2.0",
-        "es5-shim": "^4.5.9"
+        "@babel/runtime-corejs3": "^7.17.9",
+        "glob": "^8.0.1"
     },
     "devDependencies": {
         "@babel/cli": "^7.6.0",
         "@babel/core": "^7.6.0",
-        "@babel/plugin-proposal-class-properties": "^7.0.0",
-        "@babel/plugin-proposal-decorators": "^7.0.0",
         "@babel/plugin-syntax-dynamic-import": "^7.0.0",
-        "@babel/plugin-syntax-import-meta": "^7.0.0",
-        "@babel/plugin-transform-member-expression-literals": "^7.0.0",
-        "@babel/plugin-transform-modules-umd": "^7.0.0",
         "@babel/plugin-transform-property-literals": "^7.0.0",
         "@babel/plugin-transform-react-jsx": "^7.0.0",
         "@babel/plugin-transform-runtime": "^7.0.0",

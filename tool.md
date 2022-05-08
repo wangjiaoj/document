@@ -14,11 +14,14 @@ https://openwrite.cn/?from=article_bottom
 
 
 
+[给开源项目贡献PR流程](https://juejin.cn/post/7092414491836710925)
+
 ## 二、技术/框架/用处
 
 1.  next/nuxt
-2.  tailwind
 
+2.  tailwind
+    感觉类似样式库的样子,通过class名来进行样式设计和复用
 
 ## 三、关于类型检查
    ts以外的进行类型检查的类似插件或方案

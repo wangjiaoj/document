@@ -1,10 +1,19 @@
 # AST
- [超实用的AST的基本操作](https://juejin.cn/post/6984972209240408078)
- [ast-for-javascript-developers](https://juejin.cn/post/6844903725228621832)
+
  抽象语法(Abstract Syntax Tree) 简称AST,是以树状形式表现编程语言的语法结构，树上的每个节点都表示源代码中的一种结构。JavaScript引擎工作工作的第一步就是将代码解析为AST，Babel、eslint、prettier等工具都基于AST。
   
  一般来说我们常规只是ast语法进行转换,这方面应用还是比较简单的
 
+参考文章：
+ [超实用的AST的基本操作](https://juejin.cn/post/6984972209240408078)
+ [ast-for-javascript-developers](https://juejin.cn/post/6844903725228621832)
+
+### 1.1. ast的现实应用：
+1. babel 插件是做代码转换的，基于 AST 做分析和增删改。
+2. eslint 插件是做代码的静态分析和格式检查的，也是基于 AST，只不过因为 AST 中保留了 token 信息，能够做格式的检查，比如行列号、空格这种。然后生成代码也不是基于 AST 打印，而是直接做的字符串替换。和 babel 插件的不同只在于能够检查格式以及生成代码的方式不同，其余的地方是类似的、同质的。
+3.`typescript compiler api`是做 ts 到 ts 的转换的，也是基于 AST，相对于 babel 插件来说，能够生成 ts 代码，这点 babel 插件做不到，而且还能做类型检查。其余的方面也是同质的。
+
+ 
 ## 一、工具
  ### 1.1. astexplorer
   [astexplorer](https://astexplorer.net/)这是一个AST的在线调试工具，有了它，我们可以很直观的看到AST生成前后以及代码公户，它分为5个部分，我们接下来都依赖这个工具进行代码操作
