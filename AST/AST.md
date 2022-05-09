@@ -7,6 +7,7 @@
 参考文章：
  [超实用的AST的基本操作](https://juejin.cn/post/6984972209240408078)
  [ast-for-javascript-developers](https://juejin.cn/post/6844903725228621832)
+ [代码自动化重构利器——jscodeshift ](https://juejin.cn/post/6934911685220106253)
 
 ### 1.1. ast的现实应用：
 1. babel 插件是做代码转换的，基于 AST 做分析和增删改。
