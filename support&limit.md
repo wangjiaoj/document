@@ -1,15 +1,15 @@
 
 ## 一、node依赖版本统计
-vite 要 Node.js 12.0.0 以上版本，但推荐在 14.0.0 以上以获得最佳支持；
-vue-cli 4.5 需要 Node.js 10.12.0 以上版本；
-vue-cli 5.0（目前还是 beta 版）也需要 Node.js 12.0.0 以上版本。
-Webpack 4 需要 Node.js 6.11.5 以上版本，但推荐在 8.9.4 以上以获得最佳支持；
-Webpack 5 需要 Node.js 10.13.0 以上版本。
-create-react-app 5.0 需要node14
-create-reate-app 4.0.3 还是支持node12的,最低支持版本未知 可能是node10
-taro3 要求node12
-uni-app  node12就可以了,最低未知
-win10才能支持node14 
+1. vite 要 Node.js 12.0.0 以上版本，但推荐在 14.0.0 以上以获得最佳支持；
+2. vue-cli 4.5 需要 Node.js 10.12.0 以上版本；
+3. vue-cli 5.0 也需要 Node.js 12.0.0 以上版本。
+4. Webpack 4 需要 Node.js 6.11.5 以上版本，但推荐在 8.9.4 以上以获得最佳支持；
+5. Webpack 5 需要 Node.js 10.13.0 以上版本。
+6. create-react-app 5.0 需要node14
+7. create-reate-app 4.0.3 还是支持node12的,最低支持版本未知 可能是node10
+8. taro3 要求node12
+9. uni-app  node12就可以了,最低未知
+10. win10才能支持node14 
 
 ## 二、框架对浏览器支持状态统计
 vue2支持浏览器IE9(+)

@@ -8,7 +8,7 @@
 后者则可以弥补这一问题,但是es6的实例方法，`babel-runtime`是无法支持的,原因是`babel-runtime`中包含的core-js,应该是类似于core-js@2,只支持static方法,不支持实例方法。(babel6时的`babel-runtime`是包含core-js的,但是`@babel/runtime`在babel7.0.0后也去除了polyfill能力的core-js)
 
 2. `@babel/preset-env`在babel7应用中诞生了,它依赖的`core-js@3`完善了runtime对原型方法支持不足的缺点。`@babel/preset-env`的`useBuiltIns`方式 是目前应用的主要配置方式。 
- `@babel/preset-env`本身并不涉及是否污染全局变量的问题,但目前它所依赖的`core-js@3`依然并不是pre-core-js,所以会存在污染全局的问题。后续babel会给出可选的依赖的polyfill源,彻底解决`@babel/runtime`无法设置target,而现有preset-env的污染全局问题 [](https://github.com/babel/babel-polyfills/blob/main/docs/migration.md)
+ `@babel/preset-env`本身并不涉及是否污染全局变量的问题,但目前它所依赖的`core-js@3`依然并不是pre-core-js,所以会存在污染全局的问题。后续babel会给出可选的依赖的polyfill源,彻底解决`@babel/runtime`无法设置target,而现有preset-env的污染全局问题 [Babel Polyfills](https://github.com/babel/babel-polyfills/blob/main/docs/migration.md)
 
 备注：
 babel6:`babel-polyfill`和`babel-runtime`
@@ -106,36 +106,17 @@ babel7:`@babel/polyfill`和`@babel/runtime`
  ````
 
 
- [API转换](https://www.cnblogs.com/zhishaofei/p/10058132.html)
-
- 
- 
-
-小结：
-1. babel6的核心有 babel-core babel-cli babel-node babel-register babel-polyfill，这些在babel7会有所修改。
-2. polyfill 是依赖core-js的
-3. babel7.4放弃了@babel/polyfill直接依赖core-js@2或者3。
-
-
-
 ## 二、发展
 1. babel-runtime（babel6）和 @babel/runtime（babel7）
 在babel 6时代的runtime 包含 工具方法（helper）和polyfill功能core-js，可以通过配置babel-plugin-transform-runtime的属性来决定polyfill能力。
 
 2. babel进入7.0.0后，@babel/runtime的core-js被移除，不在支持polyfill的作用，因此只能提供编译的一些工具方法。垫片能力被放到 `@babel/preset-env`的 useBuiltIns完成。
 
- `@babel/preset-env`的`useBuiltIns`方式 在babel7应用中便诞生了。 `@babel/preset-env`并灭有`babel-runtime`不污染全局的特征，并且完善了runtime对原型方法支持不足的缺点。因此是目前应用的主要配置方式。 
+ `@babel/preset-env`本身并不涉及是否污染全局变量的问题,但目前它所依赖的`core-js@3`依然并不是pre-core-js,所以会存在污染全局的问题。后续babel会给出可选的依赖的polyfill源,彻底解决`@babel/runtime`无法设置target,而现有preset-env的污染全局问题 [Babel Polyfills](https://github.com/babel/babel-polyfills/blob/main/docs/migration.md) 
 
 
-
-#### 1.1 babel-runtime和@babel/runtime
-1. 
  
- 2. 
+ 
 
-
-
-
-babel6到babel7的升级是具有破坏性的，主要总结下polyfill的用法和在babel6和babel7中的不同。
-
+ 
 
