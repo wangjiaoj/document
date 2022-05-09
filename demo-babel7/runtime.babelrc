@@ -1,0 +1,20 @@
+{
+ "plugins": [
+      [
+        "@babel/plugin-transform-runtime",
+        {
+          "absoluteRuntime": false,
+          // 	配置corejs为3，需要预先安装@babel/runtime-corejs3
+          // 配置corejs为2，需要预先安装@babel/runtime-corejs2
+          // 配置corejs为false，需要预先安装@babel/runtime
+          "corejs": 3,
+          "helpers": true,
+          "regenerator": true,
+          "useESModules": false
+        }
+      ]
+    ]
+  }
+  
+
+ 

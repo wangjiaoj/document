@@ -5,7 +5,8 @@
     "scripts": {
         "build": "node ./node_modules/webpack/bin/webpack.js --config config/webpack.config.prod.js",
         "dev": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --config config/webpack.config.dev.js",
-        "compiler": "babel src --out-dir lib --watch"
+        "compiler": "babel src --out-dir lib --watch",
+        "trans": "node trans/index"
     },
     "dependencies": {
         "@babel/runtime-corejs3": "^7.17.9",
