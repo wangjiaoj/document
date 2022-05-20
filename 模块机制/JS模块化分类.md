@@ -42,6 +42,9 @@
 ## 2.4 ES6-import-browser
   chrome 测试确认支持 export ,export default,import可以使用
 ## 2.5 ES6-import-webpack -- 在webpack中的es6 import
+
+通过Webpack，支持 ES6 modules，虽然仍然可以使用 `require/module.exports` ，但强烈建议使用 `import/export`。 在babel7打包的项目中，两种方式混用来引入、暴漏模块，那么就会报错`Cannot assign to read only property 'exports' of object ' #＜Object＞' `。
+ 
 ## 2.6  
 ## 二、CommonJs与ESModule的区别
 1. 两者的模块导入导出语法不同，

@@ -1,8 +1,8 @@
 
 ## 一、node依赖版本统计
 1. vite 要 Node.js 12.0.0 以上版本，但推荐在 14.0.0 以上以获得最佳支持；
-2. vue-cli 4.5 需要 Node.js 10.12.0 以上版本；
-3. vue-cli 5.0 也需要 Node.js 12.0.0 以上版本。
+2. vue/cli 4.5 需要 Node.js 10.12.0 以上版本；
+3. vue/cli 5.0 也需要 Node.js 12.0.0 以上版本。
 4. Webpack 4 需要 Node.js 6.11.5 以上版本，但推荐在 8.9.4 以上以获得最佳支持；
 5. Webpack 5 需要 Node.js 10.13.0 以上版本。
 6. create-react-app 5.0 需要node14
@@ -10,7 +10,7 @@
 8. taro3 要求node12
 9. uni-app  node12就可以了,最低未知
 10. win10才能支持node14 
-
+11. less-loader8.0 最低支持webpack5,V9.0 minimum supported Node.js version is 12.13.0
 ## 二、框架对浏览器支持状态统计
 vue2支持浏览器IE9(+)
 vue3不再支持IE，IOS>=10,Android>=5
