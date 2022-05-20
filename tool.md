@@ -17,7 +17,7 @@ https://openwrite.cn/?from=article_bottom
 [给开源项目贡献PR流程](https://juejin.cn/post/7092414491836710925)
 
 ## 二、技术/框架/用处
-
+### 2.1 
 1. nuxtjs(vue-ssr) 考虑进行ssr
  nextjs 考虑进行ssr
 
@@ -48,9 +48,9 @@ Nest 框架底层 HTTP 平台默认是基于 Express 实现的，所以无需担
 链接：https://juejin.cn/post/7054421306845954056
  
 
+### 2.3 BabylonJs和Three.js核心功能比较
 
-
-
+[ BabylonJs和Three.js核心功能比较](https://juejin.cn/post/7057447100518236168)
 
 
 ## 三、关于类型检查
@@ -78,8 +78,6 @@ husky：Git hooks 工具
 对git执行的一些命令，通过对应的hooks钩子触发，执行自定义的脚本程序
 
 
-Flutter 是 Google 于 2018 年创建并正式推出的一项年轻的开源技术。与 React Native 类似，Flutter 支持使用一个代码库来构建跨平台的类原生应用程序。它是用 Dart 开发的
-
-dart-sass也是dart开发的
+ 
 
 

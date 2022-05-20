@@ -1,5 +1,14 @@
-# BFC
-## 一、基础概念
+# BFC/IFC/FFC/GFC
+
+[深入理解文档流（Document Flow）和视觉格式化模型（CSS Visual Formatting Model）](https://juejin.cn/post/6844904131342106638#heading-7)
+[css - 视觉格式化模型 (visual formatting model )](https://juejin.cn/post/6945089335452827684#heading-11)
+
+https://www.w3.org/TR/CSS22/visuren.html#visual-model-intro
+[mdn - Visual_formatting_model](https://developer.mozilla.org/en-US/docs/Web/CSS/Visual_formatting_model)
+
+## 一、视觉格式化盒模型
+
+## 二、基础概念
 BFC（Block Formatting Contexts），块级格式化上下文
 盒模型
 CSS 盒模型描述了通过 文档树中的元素 以及相应的 视觉格式化模型 所生成的矩形盒子。
