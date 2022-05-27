@@ -21,7 +21,7 @@ ssh -T git@github.com  //检查SSH key是否成功设置
 > git rm test.txt//删除文件
  
 > git add <filename> 将文件提交到缓存区，应该是“计划改动”，然后实际提交改动：
->　git commit -m "message" 这时候改动已经提交到head，但是还没有到达远程仓库 
+> git commit -m "message" 这时候改动已经提交到head，但是还没有到达远程仓库 
 　　　 
 > git push
 
@@ -41,3 +41,6 @@ Git鼓励大量使用分支：
 >git merge <name> //合并某分支到当前分支
 
 >git branch -d <name> //删除分支
+
+>git push origin --delete <name> //删除远程分支
+ 
