@@ -114,7 +114,7 @@
 
   在 TypeScript 中支持两种索引签名，数字索引和字符串索引：
   为了同时支持两种索引类型，就得要求数字索引的返回值必须是字符串索引返回值的子类。
-  其中的原因就是当使用数值索引时，JavaScript 在执行索引操作时，会先把数值索引先转换为字符串索引。所以 keyof { [x: string]: Person } 的结果会返回 string | number。
+  其中的原因就是当使用数值索引时，JavaScript 在执行索引操作时，会先把数值索引先转换为字符串索引。所以 `keyof { [x: string]: Person } `的结果会返回 string | number。
 
 
   3. in
@@ -133,6 +133,9 @@
   7. 映射类型
   根据旧的类型创建出新的类型, 我们称之为映射类型
 
+
+
+
   8. 内置的工具类型
 
   Partial
@@ -145,7 +148,7 @@
   `Readonly<T>` 的作用是将某个类型所有属性变为只读属性，也就意味着这些属性不能被重新赋值。
 
   Pick
-  Pick 从某个类型中挑出一些属性出来
+  `Pick<T, K extends keyof T>`从某个类型中挑出一些属性出来
 
   Record
   `Record<K extends keyof any, T>` 的作用是将 K 中所有的属性的值转化为 T 类型。
@@ -162,3 +165,7 @@
   Omit
   `Omit<T, K extends keyof any>` 的作用是使用 T 类型中除了 K 类型的所有属性，来构造一个新的类型。
 
+
+NonNullable<T> - 用于从类型T中去除undefined和null类型
+ 
+InstanceType<T> - 获取构造函数的实例类型
