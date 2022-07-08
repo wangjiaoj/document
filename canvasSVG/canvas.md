@@ -8,12 +8,12 @@
 fillStyle(属性)、描边:strokeStyle(属性);这两个属性的值可以是字符串,渐变对象或模式对象;
 
 2. 矩形是唯一一种可以直接在2D上下文中绘制的形状;
-
+ 
 * 绘制矩形(方法):
-  + fillReact():绘制矩形会填充指定颜色,配合fillStyle使用,
+  + fillReact(x,y,width,height):绘制矩形会填充指定颜色,配合fillStyle使用,
   + strokeRect():绘制矩形使用指定颜色描边,配合strokeStle使用,
   + clearRect():清除画布上的矩形区域
-* 三个方法均接受4个参数:x坐标,y坐标,高度,宽度;
+* 三个方法均接受4个参数:x坐标,y坐标,宽度,高度,;
 
 3. 阴影:根据以下几个属性,会自动为形状或路径绘制出阴影
 
@@ -77,8 +77,8 @@ fillStyle(属性)、描边:strokeStyle(属性);这两个属性的值可以是字
 　　绘制图像方法:drawImage(),有三种不同的参数组合
 
 * drawImage(img,x,y):HTML`<img>`元素,绘制图像起点坐标:x,y
-* drawImage(img,x,y,height,width):绘制图片目标高度和目标宽度:height,width(可以有缩放或放大的效果)
-* drawImage(img,x1,y1,height1,width1,x2,y2,height2,width2):源图像坐标:x1,y1;源图像宽度高度:height1,width1;目标图像坐标:x2,y2;目标图像宽度高度:height2,width2;(可只显示部分图像)
+* drawImage(img,x,y,width,height):绘制图片目标高度和目标宽度:width,height(可以有缩放或放大的效果)
+* drawImage(img,sx,sy,swidth,sheight,x,y,width,height):剪切图像，并在画布上定位被剪切的部分：剪切图像起始坐标:sx,sy;被剪切图像高度:swidth,sheight;绘制图像坐标:x,y;height2,width2;
 
 除了可以传递img元素外,也可以传递`<canvas>`元素作为参数,结合使用drawImage和其他方法,可以对图像进行各种基本操作,操作结果可以通过toDataUrl()方法(该方法不是上下文对象的方法,是canvas对象的方法)获得,不过图像不能来自其他域.
 
