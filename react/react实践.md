@@ -45,20 +45,6 @@
   }
   export  {App}
 
-  //函数式写法,改变状态
-  function App() {
-  //创建了一个叫hook的变量，sethook方法可以改变这个变量,初始值为‘react hook 是真的好用啊’
-  const [hook, sethook] = useState("react hook 是真的好用啊");
-    return ( 
-      <header className="App-header">
-        {hook}{/**这里的变量和方法也是可以直接使用的 */}
-        <button onClick={() => sethook("我改变了react hook 的值")}>
-          改变hook
-        </button>
-      </header>
-    );
-  }
-  export  {App}
 
   //箭头函数的函数写法,改变状态
   export const App = props => {
