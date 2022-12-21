@@ -19,11 +19,7 @@ create-react-app:
 
 
 ### 1.3 非入侵的修改:
-1. @craco/craco可以进行非入侵式修改,来避免通过enject才能自定义的麻烦,限制最低create-react-app 4.0
-> npm add @craco/craco 
-* 目前最新版本的可以通过自带的alias和tsconfig.js扩展解决问题,无需再引入其他
-* less也直接使用craco-less简单配置即可支持css.module
-* 
+ @craco/craco等见六
 
 
 
@@ -132,4 +128,15 @@ antd在react严格模式下会报错
 是因为Antd组件中有些使用了CSSTransition，但是CSSTransition中的部分代码的写法对于react而言，不是最新的写法，不是非常规范的写法，所以严格模式下的react就会抛出警告。但是这个实际并不影响使用，因为严格模式只会在开发模式下使用。在生产模式下就不会出现这样的警告了。
 [antd在react严格模式的下报错](https://zhuanlan.zhihu.com/p/434372463)
 
-## 六. 其他脚手架umi等
+## 六. cra非入侵的修改
+
+### 6.1 `@craco/craco`:
+1. `@craco/craco`可以进行非入侵式修改,来避免通过enject才能自定义的麻烦,限制最低create-react-app 4.0
+> npm add @craco/craco 
+* 目前最新版本的可以通过自带的alias和tsconfig.js扩展解决问题,无需再引入其他
+* less也直接使用craco-less简单配置即可支持css.module
+* 
+### 6.2 @rescripts/cli
+### 6.3 react-app-rewired
+
+## 七、其他脚手架umi等

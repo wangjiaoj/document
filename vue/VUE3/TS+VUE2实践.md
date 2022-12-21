@@ -1,19 +1,13 @@
-## 一、Vue2+TS实践
- 一般考虑使用`vue-class-component`或`vue-property-decorator`的库, 但代码风格上相对有点凌乱
+# Vue2+TS实践
 
+## 一、可能的方案思路
+1.  一般方案是使用`vue-class-component`或`vue-property-decorator`的库, 来完成vue2和Typescrpt的结合使用, 但因为代码编写和风格上跟原有vue开发差距较大，所以暂不鼓励vue2+TypeScritpt进行开发，鼓励VUE3和Typescript结合使用
 
-## 二、vue2+composition-api
-直接安装`@vue/composition-api`
-在vue3中从vue中引入的ref,reactive等直接从`@vue/composition-api`中引入即可
-等到升级到vue3的时候，直接用vue替换掉`@vue/composition-api`即可
-如果配合使用TS，那么为方便TS在Vue组件中正确的进行类型推断，可以从`@vue/composition-api`中引入`defineComponent`
-详情见github文档，根据目前写法在vue2升级vue3中是应该是非常平滑的
-vue2+compsition-api限定的一些方法
+2. vue2结合`@vue/composition-api`(或vue2.7),来使用TS
 
-1. 在template中定义refs,之前写法是`this.$refs.xx`,可以使用context来获取`context.refs.xx`,该方案是vue2中`@vue/composition-api`限定,vue3中不存在。
+为方便TS在Vue组件中正确的进行类型推断，可以从`@vue/composition-api`中引入`defineComponent`(或vue2.7),可以一定程度上减轻typescript引入对原有代码的影响
 
-
-## 三、vue2+TS
+## 三、装饰器库方案
 ### 2.1. 库
 1. 装饰器概念
 函数体或者函数调用方式的情况下，给函数增加一些新功能
