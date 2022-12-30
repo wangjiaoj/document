@@ -37,12 +37,12 @@
     * 不是所有库都有 TypeScript 的声明文件,可以自己写
 
     自己添加特定库的ts类型声明
-        以`react-router-dom`为例
-        (1)新建文件夹typings
-        (2)新建文件：react-router-dom.d.ts
-        (3)增加库的声明`declare module 'react-router-dom'`
-        (4)然后在TS配置文件里增加typings文件引用`include:['src','typings']`
-        (5)然后路由就正常使用了
+    以`react-router-dom`为例
+    (1)新建文件夹typings
+    (2)新建文件：react-router-dom.d.ts
+    (3)增加库的声明`declare module 'react-router-dom'`
+    (4)然后在TS配置文件里增加typings文件引用`include:['src','typings']`
+    (5)然后路由就正常使用了
 
 3. ts范围声明
 注意通过tsconfig文件中的include来设置范围声明
