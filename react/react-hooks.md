@@ -156,25 +156,27 @@
 
 ### 2.3. 状态获取与传递
 
-#### 2.3.1. useRef
- ````javascript
- const cur = React.useRef(initState)
- console.log(cur.current)
- ````
-  返回一个引用，每次渲染都返回同一个对象，
-  跟以前的ref一样， 
 
-#### 2.3.2. useContext
+#### 2.3.1. useContext
   上下文爷孙及更深组件传值
-  使用方案:
   ````javascript
-
    const C = react.CreateContext()
    <C.provider value={reducer}>
 
    // 子孙组件调用
    const {reducer} = useContext(context)
   ````
+   useContext 接受一个参数，一般都是 context 对象，返回值为 context 对象内部保存的 value 值。
+
+
+   
+#### 2.3.2. useRef
+ ````javascript
+ const cur = React.useRef(initState)
+ console.log(cur.current)
+ ````
+  返回一个引用，每次渲染都返回同一个对象，
+  跟以前的ref一样， 
 
 #### 2.3.3. useImperativeHandle
   可以让你在使用 ref 时自定义暴露给父组件的实例值。
