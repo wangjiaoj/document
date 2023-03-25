@@ -35,9 +35,6 @@ nextjs未来可能的对手 Remix
 ## dva 
 dva首先是一个基于 redux 和 redux-saga 的数据流方案，然后为了简化开发体验，dva 还额外内置了 react-router 和 fetch，所以也可以理解为一个轻量级的应用框架。
 
-### 2.3 BabylonJs和Three.js核心功能比较
-
-[ BabylonJs和Three.js核心功能比较](https://juejin.cn/post/7057447100518236168)
 
 
 ## 三、关于类型检查
