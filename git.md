@@ -8,9 +8,9 @@
 
 ```javascript
 ls -al ~/.ssh  //查看ssh
-ssh-keygen -t rsa -C "2386467485@qqcom"  //生成新的ssh
+ssh-keygen -t ed25519 -C  "your_email@example.com"    //生成新的ssh
 eval "$(ssh-agent -s)"
-ssh-add ~/.ssh/id_rsa    //添加ssh
+ssh-add ~/.ssh/id_rsa   yes //添加ssh
 ssh -T git@github.com  //检查SSH key是否成功设置
 ````
 
