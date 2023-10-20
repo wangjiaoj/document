@@ -1,8 +1,12 @@
 # AST
-
+## 一、 ast
  抽象语法(Abstract Syntax Tree) 简称AST,是以树状形式表现编程语言的语法结构，树上的每个节点都表示源代码中的一种结构。JavaScript引擎工作工作的第一步就是将代码解析为AST，Babel、eslint、prettier等工具都基于AST。
-  
- 一般来说我们常规只是ast语法进行转换,这方面应用还是比较简单的
+
+ AST 的每一层都拥有近乎相同的结构，都有一个type属性以及一系列描述属性，type属性用来表示节点的类型（CallExpression,Identifier,MemberExpression等等）。这样的每一层结构称为一个 节点（Node）。 一个 AST 可以由单一的节点或是成百上千个节点构成。 抽象语法树有一套约定的规范：GitHub - estree/estree: The ESTree Spec，社区称为 estree。
+
+
+ 一般来说我们常规只是ast语法进行转换,这方面应用还是比较简单的。
+
 
 参考文章：
  [超实用的AST的基本操作](https://juejin.cn/post/6984972209240408078)
@@ -29,7 +33,38 @@
   ast语法字典，方便我们快速查阅结构树的类型，它是我们想要通过ast生成某行代码的重要工具之一
 
 
-## 二、AST到底是如何生成的？
+## 二 AST和操作AST
+ 
+### 2.1 节点名称：
+Literal 字面量
+* StringLiteral 字符串字面量 "foo"
+* NumericLiteral 数值字面量 123
+* BooleanLiteral 布尔字面量  true
+* TemplateLiteral 模板字面量 ${obj}
+ 
+dentifier 标识符
+Statement 语句
+
+Program & Directive
+program 是代表整个程序的节点，它包裹了所有具体执行语句的节点，而Directive则是代码中的指令部分。
+// 遍历调用表达式
+    CallExpression(path) 
+
+
+
+### 2.2 path
+path（路径）提供了访问/操作AST 节点的方法。path 本身表示两个节点之间连接的对象。例如path.node可以访问当前节点，path.parent可以访问父节点等。path.remove()可以移除当前节点。具体 API 见下图。
+![node-path](./node-path.png)
+
+### 2.3 path
+为了得到一个AST节点的属性值，我们一般先访问到该节点，然后利用 path.node.property 方法即可。
+   ![Alternative text](link "optional title")
+
+ path.node.property
+
+
+
+## 三、AST到底是如何生成的？
 
 
 

@@ -44,3 +44,8 @@ Git鼓励大量使用分支：
 
 >git push origin --delete <name> //删除远程分支
  
+
+ git 还原到某一次提交 
+ > git reflog
+ > git reset --hard f449906
+ > git push -f
