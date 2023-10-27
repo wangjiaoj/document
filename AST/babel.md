@@ -2,7 +2,8 @@
 ## 一、Babel基础
  [浅谈前端AST的概念与实际应用]( https://www.jianshu.com/p/b3f1ff0b3cdf)
  [babel 插件手册](https://github.com/jamiebuilds/babel-handbook/blob/master/translations/zh-Hans/plugin-handbook.md)
-
+https://github.com/estree/estree
+https://juejin.cn/post/7045496002614132766
   Babel 插件本质上就是编写各种 visitor 去访问 AST 上的节点，并进行 traverse。当遇到对应类型的节点，visitor 就会做出相应的处理，从而将原本的代码 transform 成最终的代码。
   transform 阶段使用 @babel/traverse，可以遍历 AST，并调用 visitor 函数修改 AST，修改 AST 涉及到 AST 的判断、创建、修改等，这时候就需要 @babel/types 了，当需要批量创建 AST 的时候可以使用 @babel/template 来简化 AST 创建逻辑。
  
@@ -10,8 +11,8 @@
 Babel 是一个 JavaScript 的转译器，其执行过程就是一个编译转换的过程。作为一个js转译器，babel暴露了很多 api，利用这些 api 可以完成源代码到 AST 的 parse，AST 的遍历与处理以及目标代码的生成。babel将这些功能的实现放到了不同的包里面，下面逐一介绍。
 1. @babel/parser 解析源码得到AST。
 2. @babel/traverse 遍历 AST。
-3. @babel/types 用于构建AST节点和校验AST节点类型；
-4. @babel/generate 打印 AST，生成目标代码和 sorucemap。
+3. @babel/types 用于构建AST节点和校验AST节点类型,它是一个用于 AST 节点的 Lodash 式工具库，它包含了构造、验证以及变换 AST 节点的方法；
+4. @babel/generate AST生成目标代码和 sorucemap。
 5. @babel/template:用以字符串形式的代码来构建AST树节点，快速优雅开发插件
 
 Babel Types 模块是一个用于 AST 节点的 Lodash 式工具库，它包含了构造、验证以及变换 AST 节点的方法。
