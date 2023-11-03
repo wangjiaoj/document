@@ -1,9 +1,9 @@
 # Babel基础
 ## 一、Babel基础
- [浅谈前端AST的概念与实际应用]( https://www.jianshu.com/p/b3f1ff0b3cdf)
- [babel 插件手册](https://github.com/jamiebuilds/babel-handbook/blob/master/translations/zh-Hans/plugin-handbook.md)
-https://github.com/estree/estree
-https://juejin.cn/post/7045496002614132766
+ * [浅谈前端AST的概念与实际应用]( https://www.jianshu.com/p/b3f1ff0b3cdf)
+ * [babel 插件手册](https://github.com/jamiebuilds/babel-handbook/blob/master/translations/zh-Hans/plugin-handbook.md)
+ * https://juejin.cn/post/7045496002614132766
+ * https://github.com/estree/estree
   Babel 插件本质上就是编写各种 visitor 去访问 AST 上的节点，并进行 traverse。当遇到对应类型的节点，visitor 就会做出相应的处理，从而将原本的代码 transform 成最终的代码。
   transform 阶段使用 @babel/traverse，可以遍历 AST，并调用 visitor 函数修改 AST，修改 AST 涉及到 AST 的判断、创建、修改等，这时候就需要 @babel/types 了，当需要批量创建 AST 的时候可以使用 @babel/template 来简化 AST 创建逻辑。
  
@@ -29,7 +29,13 @@ Babel Types 模块是一个用于 AST 节点的 Lodash 式工具库，它包含�
 3. generate
  AST 转换为目标代码并生成 sourcemap，用到`@babel/generate`模块。
 
-## 二、 transform遍历
+## 二、parse
+parse可以不传参数
+babelParser.parse(code, [options])
+ 后面的options参数可以默认缺省。
+ 
+
+### 三、transform遍历
 当我们谈及“进入”一个节点，实际上是说我们在访问它们， 之所以使用这样的术语是因为有一个访问者模式（visitor）的概念。
 ### 2.1  Visitors
 
@@ -87,3 +93,41 @@ const MyVisitor = {
 
 
 3. 
+
+## 四、Babel Types
+### 4.1 类型判断
+Babel Types 提供了节点类型判断的方法，每一种类型的节点都有相应的判断方法.
+例如
+> types.isIdentifier(node))  是否为标识符类型节点
+ 
+
+### 4.2 创建节点
+Babel Types 同样提供了各种类型节点的创建方法
+1. 创建数据类型，例如：
+* types.stringLiteral("Hello World"); // string
+* types.numericLiteral(100); // number
+* types.booleanLiteral(true); // boolean
+* types.nullLiteral(); // null
+* types.identifier(); // undefined
+* types.regExpLiteral("\\.js?$", "g"); // 正则
+ 
+
+2. 创建jsx节点，详见下属示例。
+
+![babelTypesJSX](./img/jsx.jpg)
+
+## 五、babel/template
+template当作为带有字符串参数的函数调用时，您可以提供占位符，这些占位符将在使用模板时被替换。
+您可以使用两种不同类型的占位符：句法占位符（例如%name%）或标识符占位符（例如NAME）。@babel/template默认情况下支持这两种方法，但不能混合使用。如果您需要明确说明所使用的语法，可以使用该syntacticPlaceholders (opens new window)选项。
+请注意语法占位符是在 Babel 7.4.0 中引入的。如果您不控制@babel/template版本（例如，从@babel/core@^7.0.0对等依赖项导入时），则必须使用标识符占位符。
+ ```javascript
+const buildRequire = template.default(`
+  var IMPORT_NAME = require(SOURCE);
+`);
+const ast = buildRequire({
+  IMPORT_NAME: types.identifier("myModule"),
+  SOURCE: types.stringLiteral("my-module"),
+});
+ const newCode = generator.default(ast).code;
+  console.log(newCode);
+```

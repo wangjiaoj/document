@@ -21,7 +21,7 @@
  
 ## 一、工具
  ### 1.1. astexplorer
-  [astexplorer](https://astexplorer.net/)这是一个AST的在线调试工具，有了它，我们可以很直观的看到AST生成前后以及代码公户，它分为5个部分，我们接下来都依赖这个工具进行代码操作
+  [astexplorer](https://astexplorer.net/)这是一个AST的在线调试工具，有了它，我们可以很直观的看到AST，它分为5个部分，我们接下来都依赖这个工具进行代码操作
 
  ### 1.2. jscodeshift
  `jscodeshift`是一个AST的转换器，我们通过它来将原始代码转成ast语法树，并借助其开放的api操作ast，最终转换成我们想要的代码
@@ -33,7 +33,31 @@
   ast语法字典，方便我们快速查阅结构树的类型，它是我们想要通过ast生成某行代码的重要工具之一
 
 
-## 二 AST和操作AST
+## 二 AST
+
+
+节点类型
+
+
+
+
+
+
+类型 说明
+File 文件 (顶层节点包含 Program)
+Program 整个程序节点 (包含 body 属性代表程序体)
+Directive 指令 (例如 "use strict")
+Comment 代码注释
+Statement 语句 (可独立执行的语句
+Literal 字面量 (基本数据类型、复杂数据类型等值类型)
+Identifier 标识符 (变量名、属性名、函数名、参数名等)
+Declaration 声明 (变量声明、函数声明、Import、Export 声明等)
+Specifier 关键字 (ImportSpecifier、ImportDefaultSpecifier、ImportNamespaceSpecifier、ExportSpecifier)Expression表达式
+
+ 
+
+
+## 三、和操作AST
  
 ### 2.1 节点名称：
 Literal 字面量
@@ -54,7 +78,7 @@ program 是代表整个程序的节点，它包裹了所有具体执行语句的
 
 ### 2.2 path
 path（路径）提供了访问/操作AST 节点的方法。path 本身表示两个节点之间连接的对象。例如path.node可以访问当前节点，path.parent可以访问父节点等。path.remove()可以移除当前节点。具体 API 见下图。
-![node-path](./node-path.png)
+![node-path](./img/node-path.png)
 
 ### 2.3 path
 为了得到一个AST节点的属性值，我们一般先访问到该节点，然后利用 path.node.property 方法即可。
