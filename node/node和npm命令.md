@@ -1,5 +1,12 @@
 # node和npm命令
  
+ registry.npm.taobao.org 切换到了 registry.npmmirror.com
+ 查看当前的npm镜像设置：npm config list
+ 2、清空缓存：npm cache clean --force
+
+3、然后修改镜像即可：npm config set registry https://registry.npmjs.org/ （或npm config delete registry）
+
+npm config set registry https://registry.npmmirror.com
 
 ## 一、设置安装镜像文件
 >npm get config registry
@@ -7,22 +14,22 @@
 
 1. 修改 下载仓库为淘宝镜像
 
-　 npm config set registry http://registry.npm.taobao.org/
+　 npm config set registry https://registry.npmmirror.com
 
 2. 如果要发布自己的镜像需要修改回来
 
-　 npm config set registry https://registry.npmjs.org/
+　 npm config set registry https://registry.npmmirror.com
 
 3. 安装cnpm
 
-　npm install -g cnpm --registry=https://registry.npm.taobao.org
+　npm install -g cnpm --registry=https://registry.npmmirror.com
 
 2022 年更新  
 
 淘宝出了新域名地址
 
-https://registry.npmmirror.com/
-https://registry.npmmirror.com/
+https://registry.npmmirror.com
+https://registry.npmmirror.com
  
 
 ##  二、npm 命令
